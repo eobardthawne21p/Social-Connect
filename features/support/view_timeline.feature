@@ -8,5 +8,3 @@ Scenario: As a signed-in user, I want to see the timeline
     And I visit the homepage
     Then I should see posts on the timeline
     And I should see them in reverse-order
-
-    
