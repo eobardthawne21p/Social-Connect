@@ -4,7 +4,7 @@ source "https://rubygems.org"
 #rvm install {version}
 #rvm use {version} --default
 # to change ruby version
-ruby '3.2.4'
+ruby '3.2.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.1"
