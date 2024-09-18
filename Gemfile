@@ -7,7 +7,11 @@ source "https://rubygems.org"
 ruby file: ".ruby-version"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.2.1"
+gem "rails", "~> 7.1"
+# Mongoid Gem to use MongoDb with Rails
+gem 'mongoid', '~> 8.0'
+# Mongo Driver gem
+gem 'mongo', '~> 2'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 # Use the Puma web server [https://github.com/puma/puma]
