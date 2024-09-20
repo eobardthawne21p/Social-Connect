@@ -1,4 +1,4 @@
-Feature: Delet Moderator
+Feature: Delete Posts Moderator
   As a moderator
   I want to be able to delete posts
   So that I can manage inappropriate content
