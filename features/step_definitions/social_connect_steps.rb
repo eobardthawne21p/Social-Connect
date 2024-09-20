@@ -439,10 +439,6 @@ Then('I should see the settings page') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given('There is a user Jack') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 When('I view the timeline') do
   pending # Write code here that turns the phrase above into concrete actions
 end
