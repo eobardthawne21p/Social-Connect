@@ -106,7 +106,7 @@ Then('I should see a confirmation that the post was successfully approved') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When('I navigate to the main feed') do
+Given('I can view posts on the timeline') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -246,11 +246,7 @@ Then('my profile should be updated') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given('there are posts on the timeline') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When('I click the {string} button') do |string|
+When('I click the {string} button on an individual post') do |string|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -315,6 +311,10 @@ Given('I view a post') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
+When('I click the {string} button') do |string|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
 Then('the post will be added to my saved posts') do
   pending # Write code here that turns the phrase above into concrete actions
 end
@@ -332,10 +332,6 @@ When('I enter a search query') do
 end
 
 Then('I should see a list of posts matching my query') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When('I visit the timeline') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -363,7 +359,7 @@ When('I sign in as Jack') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then('I am able to see the timeline') do
+Then('I can view posts on the timeline') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -380,10 +376,6 @@ When('I tag Jill in a commnet') do
 end
 
 Then('I should see that Jack is tagged in the comment') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given('I can view posts on the timeline') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -419,27 +411,15 @@ Then('I should see the posts I have created') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given('I am viewing the timeline') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Then('I should see my saved posts in a new window') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When('I visit the homepage') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When('I click {string} link') do |string|
+Given('I click {string} link') do |string|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
 Then('I should see the settings page') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When('I view the timeline') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -455,19 +435,7 @@ Then('I should see the full details of the post') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given('I log in as Jill') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given('There are multiple posts from different users') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see all the posts listed in reverse chronological order') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given('I visit the homepage') do
+Given('I view the timeline') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 

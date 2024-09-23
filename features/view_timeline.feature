@@ -4,17 +4,17 @@ As a user, I should be able to see all posts on the timeline
 
 
 Scenario: As an Original Poster, I want to see the timeline
-    Given There is a user, Jill
-    And I log in as Jill
-    And There are multiple posts from different users
-    When I visit the homepage
-    Then I should see all the posts listed in reverse chronological order
+    Given There is a user, Jack
+    And I log in as Jack
+    And I view the timeline
+    Then I should see posts on the timeline
+    And I should see them in reverse chronological order
 
 
 Scenario: As a signed-in user, I want to see the timeline
     Given There is a user, Jack
     And I sign in as Jack
-    And I visit the homepage
+    And I view the timeline
     Then I should see posts on the timeline
     And I should see them in reverse chronological order
 

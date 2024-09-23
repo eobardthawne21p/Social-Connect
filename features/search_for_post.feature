@@ -13,7 +13,7 @@ Scenario: As an Original Poster, I want to search for posts
 Scenario: As a logged-in user, I want to see a search bar
     Given There is a user, Jack
     And I sign in as Jack
-    When I visit the timeline
+    And I can view posts on the timeline
     Then I should see the search bar
 
 Scenario: As an Original Poster, I want to filter posts
