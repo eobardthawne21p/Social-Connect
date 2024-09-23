@@ -38,7 +38,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-#editing
+# editing
 group :test do
   gem "cucumber-rails", require: false
   # database_cleaner is not mandatory, but highly recommended
