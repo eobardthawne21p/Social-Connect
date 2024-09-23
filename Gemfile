@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
 # use:
-#rvm install {version}
-#rvm use {version} --default
+# rvm install {version}
+# rvm use {version} --default
 # to change ruby version
 ruby file: ".ruby-version"
 
@@ -22,6 +22,9 @@ gem "stimulus-rails"
 gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
+#
+# bundler-audit for CI
+gem 'bundler-audit'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
