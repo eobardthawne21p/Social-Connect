@@ -24,7 +24,7 @@ gem "jbuilder"
 # gem "redis", ">= 4.0.1"
 
 # rubocop gem for lint CI
-gem 'rubocop', require: false
+gem "rubocop", require: false
 
 # Bundler-audit for CI
 gem "bundler-audit"
