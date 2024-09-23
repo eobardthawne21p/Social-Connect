@@ -11,7 +11,7 @@ gem "rails", "~> 7.2.1"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", '>= 6.4.3'
+gem "puma", ">= 6.4.3"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
@@ -24,7 +24,7 @@ gem "jbuilder"
 # gem "redis", ">= 4.0.1"
 
 # Bundler-audit for CI
-gem 'bundler-audit'
+gem "bundler-audit"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -40,11 +40,11 @@ gem "bootsnap", require: false
 
 #editing
 group :test do
-  gem 'cucumber-rails', require: false
+  gem "cucumber-rails", require: false
   # database_cleaner is not mandatory, but highly recommended
-  gem 'database_cleaner'
-  gem 'rspec-rails'
-  gem 'factory_bot_rails'
+  gem "database_cleaner"
+  gem "rspec-rails"
+  gem "factory_bot_rails"
 end
 
 group :development, :test do
