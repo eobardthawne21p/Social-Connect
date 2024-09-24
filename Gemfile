@@ -22,9 +22,12 @@ gem "stimulus-rails"
 gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
-#
+
+# rubocop gem for lint CI
+gem "rubocop", require: false
+
 # bundler-audit for CI
-#gem 'bundler-audit'
+gem "bundler-audit"
 
 # rubocop gem for lint CI
 gem "rubocop", require: false
