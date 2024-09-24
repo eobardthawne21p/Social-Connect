@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  resources :users
+  resources :users, except: [:new] # This removes the new action
+
+  get 'sign_up', to: 'users#new', as: 'sign_up'
+  post 'sign_up', to: 'users#create'
+
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
