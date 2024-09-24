@@ -29,11 +29,6 @@ gem "rubocop", require: false
 # bundler-audit for CI
 gem "bundler-audit"
 
-# rubocop gem for lint CI
-gem "rubocop", require: false
-
-# Bundler-audit for CI
-gem "bundler-audit"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
