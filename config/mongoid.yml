@@ -1,0 +1,6 @@
+development:
+  clients:
+    default:
+      uri: mongodb+srv://<%= ENV['MONGO_USERNAME'] %>:<%= ENV['MONGO_PASSWORD'] %>@socialconnect.rr4av.mongodb.net/social_connect_development?retryWrites=true&w=majority&appName=SocialConnect
+      options:
+        server_selection_timeout: 5
