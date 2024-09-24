@@ -6,4 +6,4 @@ Scenario: As a user, I want to be able to login
     Given There is a user, Jack
     And I see the login button
     When I sign in as Jack
-    Then I am able to see the timeline
+    Then I can view posts on the timeline

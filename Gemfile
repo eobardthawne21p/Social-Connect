@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
 # use:
-#rvm install {version}
-#rvm use {version} --default
+# rvm install {version}
+# rvm use {version} --default
 # to change ruby version
 ruby file: ".ruby-version"
 
@@ -15,7 +15,7 @@ gem 'mongo', '~> 2'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", ">= 5.0"
+gem "puma", ">= 6.4.3"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
@@ -26,6 +26,13 @@ gem "stimulus-rails"
 gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
+
+# rubocop gem for lint CI
+gem "rubocop", require: false
+
+# bundler-audit for CI
+gem "bundler-audit"
+
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -42,13 +49,13 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-#editing
+# editing
 group :test do
-  gem 'cucumber-rails', require: false
+  gem "cucumber-rails", require: false
   # database_cleaner is not mandatory, but highly recommended
-  gem 'database_cleaner'
-  gem 'rspec-rails'
-  gem 'factory_bot_rails'
+  gem "database_cleaner"
+  gem "rspec-rails"
+  gem "factory_bot_rails"
 end
 
 group :development, :test do
