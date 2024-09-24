@@ -1,4 +1,4 @@
-require 'bcrypt'
+require "bcrypt"
 
 class User
   include Mongoid::Document
@@ -21,5 +21,4 @@ class User
   def authenticate(password)
     BCrypt::Password.new(self.password_digest) == password
   end
-
 end
