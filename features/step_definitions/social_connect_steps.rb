@@ -226,10 +226,6 @@ Then('I should see a confirmation that the post was successfully edited') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given('I login in as Jack') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Given('I visit my profile page') do
   pending # Write code here that turns the phrase above into concrete actions
 end
@@ -251,6 +247,7 @@ When('I click the {string} button on an individual post') do |string|
 end
 
 Then('the counter for likes should increase by {int}') do |int|
+# Then('the counter for likes should increase by {float}') do |float|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -298,14 +295,6 @@ Then('the user should be flagged for review by admins') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given('There is a user, Jill') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given('I sign in as Jill') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Given('I view a post') do
   pending # Write code here that turns the phrase above into concrete actions
 end
@@ -350,10 +339,6 @@ Then('I should only see posts that match the selected filter') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given('I see the login button') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 When('I sign in as Jack') do
   pending # Write code here that turns the phrase above into concrete actions
 end
@@ -362,7 +347,11 @@ Then('I can view posts on the timeline') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given('there is a user, Jill') do
+Given('I sign in in as Jack') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given('There is a user, Jill') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -398,10 +387,6 @@ Then('I will see a pop-up with options for both maps and the chatboard for the p
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given('I log in as Jack') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 When('I visit my profile page') do
   pending # Write code here that turns the phrase above into concrete actions
 end
@@ -431,6 +416,10 @@ When('I click on a post') do
 end
 
 Then('I should see the full details of the post') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given('I log in as Jack') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
