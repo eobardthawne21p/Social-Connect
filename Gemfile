@@ -53,7 +53,7 @@ gem "bootsnap", require: false
 group :test do
   gem "cucumber-rails", require: false
   # database_cleaner is not mandatory, but highly recommended
-  gem "database_cleaner"
+  gem "database_cleaner-mongoid"
   gem "rspec-rails"
   gem "factory_bot_rails"
 end
