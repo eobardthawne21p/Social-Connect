@@ -1,10 +1,21 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @user %>
+<h1><%= @user.name %>'s Profile</h1>
+
+<p>
+  <strong>Username:</strong> <%= @user.username %>
+</p>
+
+<p>
+  <strong>Birthday:</strong> <%= @user.birthday %>
+</p>
 
 <div>
-  <%= link_to "Edit this user", edit_user_path(@user) %> |
-  <%= link_to "Back to users", users_path %>
+  <!-- Link to Edit Profile if this is the current user's profile -->
+  <% if @user == current_user %>
+    <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-secondary" %> |
+  <% end %>
 
-  <%= button_to "Destroy this user", @user, method: :delete %>
+  <!-- Back to Settings Button -->
+  <%= link_to "Back to Settings", settings_path, class: "btn btn-secondary" %>
 </div>

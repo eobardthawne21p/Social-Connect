@@ -1,13 +1,27 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_user, only: [ :show, :edit, :update, :destroy, :settings ]
 
   # GET /users or /users.json
   def index
     @users = User.all
   end
 
+    # GET /profile
+  def profile
+    @user = current_user # using authentication system
+    render :show
+  end
+  
+  # GET /settings
+  def settings
+    @user = current_user
+    # Render the settings page that will offer options to view or edit the profile
+    render :settings
+  end
+
   # GET /users/1 or /users/1.json
   def show
+    @user = User.find(params[:id]) # This allows viewing any user's profile
   end
 
   # GET /users/new
@@ -15,8 +29,14 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  # GET /users/1/edit
+  # GET /users/:id/edit
   def edit
+    @user = User.find(params[:id])
+    
+    # Only allow the logged-in user to edit their own profile
+    unless @user == current_user
+      redirect_to user_path(@user), alert: "You can only edit your own profile."
+    end
   end
 
   # POST /users or /users.json

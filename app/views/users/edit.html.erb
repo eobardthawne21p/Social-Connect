@@ -1,10 +1,13 @@
-<h1>Editing user</h1>
+<h1>Edit Profile</h1>
 
 <%= render "form", user: @user %>
 
 <br>
 
 <div>
-  <%= link_to "Show this user", @user %> |
-  <%= link_to "Back to users", users_path %>
+  <!-- Link to view profile as any user would see it -->
+  <%= link_to "View Profile", profile_path, class: "btn btn-secondary" %> |
+
+  <!-- Link back to settings page -->
+  <%= link_to "Back to Settings", settings_path, class: "btn btn-secondary" %>
 </div>

@@ -21,4 +21,7 @@ class User
   def authenticate(password)
     BCrypt::Password.new(self.password_digest) == password
   end
+  
+    # Embed the Profile document inside User
+    embeds_one :profile
 end
