@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :saved_posts
+  resources :likes
+  resources :chat_boards
   resources :posts
   resources :users, except: [ :new ] # This removes the new action
 
