@@ -8,14 +8,14 @@ module ActiveSupport
     # Run tests in parallel with specified workers
     parallelize(workers: :number_of_processors)
 
-    # Add more helper methods to be used by all tests here...
+     # Add more helper methods to be used by all tests here...
      # Setup DatabaseCleaner
      DatabaseCleaner.strategy = :deletion # Use deletion for Mongoid
 
      setup do
        DatabaseCleaner.start
      end
- 
+
      teardown do
        DatabaseCleaner.clean
      end
