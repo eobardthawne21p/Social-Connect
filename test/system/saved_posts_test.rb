@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class SavedPostsTest < ApplicationSystemTestCase
   setup do
-    @saved_post = saved_posts(:one)
+    @saved_post = FactoryBot.create(:saved_post)
   end
 
   test "visiting the index" do

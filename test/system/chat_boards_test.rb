@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class ChatBoardsTest < ApplicationSystemTestCase
   setup do
-    @chat_board = chat_boards(:one)
+    @chat_board = FactoryBot.create(:chat_board)
   end
 
   test "visiting the index" do

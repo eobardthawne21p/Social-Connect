@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class LikesTest < ApplicationSystemTestCase
   setup do
-    @like = likes(:one)
+    @like = FactoryBot.create(:like)
   end
 
   test "visiting the index" do
