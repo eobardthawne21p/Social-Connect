@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :saved_posts
+  resources :likes
+  resources :chat_boards
+  resources :posts
   resources :users, except: [ :new ] # This removes the new action
 
   get "sign_up", to: "users#new", as: "sign_up"
@@ -17,5 +21,5 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root to: "users#new"
 end

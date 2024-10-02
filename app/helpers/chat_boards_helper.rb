@@ -1,0 +1,2 @@
+module ChatBoardsHelper
+end
