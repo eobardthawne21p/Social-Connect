@@ -2,7 +2,7 @@ require "test_helper"
 
 class LikesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @like = likes(:one)
+    @like = FactoryBot.create(:like)
   end
 
   test "should get index" do
