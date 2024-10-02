@@ -2,7 +2,7 @@ require "test_helper"
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:one)
+    @user = FactoryBot.create(:user)
   end
 
   test "should get index" do
@@ -11,13 +11,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    get new_user_url
+    get sign_up_url
     assert_response :success
   end
 
   test "should create user" do
     assert_difference("User.count") do
-      post users_url, params: { user: { birthday: @user.birthday, name: @user.name, password_digest: @user.password_digest, username: @user.username } }
+      post users_url, params: { user: { birthday: @user.birthday, name: @user.name, password_digest: "your_password", username: @user.username } }
     end
 
     assert_redirected_to user_url(User.last)
@@ -34,7 +34,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update user" do
-    patch user_url(@user), params: { user: { birthday: @user.birthday, name: @user.name, password_digest_digest: @user.password_digest, username: @user.username } }
+    patch user_url(@user), params: { user: { birthday: @user.birthday, name: @user.name, password_digest: "new_password", username: @user.username } }
     assert_redirected_to user_url(@user)
   end
 

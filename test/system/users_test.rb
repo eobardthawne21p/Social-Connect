@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class UsersTest < ApplicationSystemTestCase
   setup do
-    @user = users(:one)
+    @user = FactoryBot.create(:user)
   end
 
   test "visiting the index" do
@@ -16,9 +16,9 @@ class UsersTest < ApplicationSystemTestCase
 
     fill_in "Birthday", with: @user.birthday
     fill_in "Name", with: @user.name
-    fill_in "Password digest", with: @user.password_digest
+    fill_in "Password", with: "your_password"
     fill_in "Username", with: @user.username
-    click_on "Create User"
+    click_on "Sign Up"
 
     assert_text "User was successfully created"
     click_on "Back"
@@ -30,9 +30,9 @@ class UsersTest < ApplicationSystemTestCase
 
     fill_in "Birthday", with: @user.birthday
     fill_in "Name", with: @user.name
-    fill_in "Password digest", with: @user.password_digest
+    fill_in "Password", with: "new_password"
     fill_in "Username", with: @user.username
-    click_on "Update User"
+    click_on "Sign Up"
 
     assert_text "User was successfully updated"
     click_on "Back"
