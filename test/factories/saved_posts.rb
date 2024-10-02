@@ -4,4 +4,3 @@ FactoryBot.define do
       post_id { "MyString" }
     end
   end
-  
