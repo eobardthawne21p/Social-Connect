@@ -39,7 +39,7 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy like" do
-    assert_difference("Like.count", -1) do
+    assert_difference("Like.count", 1) do
       delete like_url(@like)
     end
 
