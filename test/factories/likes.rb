@@ -4,3 +4,4 @@ FactoryBot.define do
       user_id { "MyString" }
     end
   end
+  
