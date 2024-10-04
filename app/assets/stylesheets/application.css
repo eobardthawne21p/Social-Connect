@@ -13,3 +13,24 @@
  *= require_tree .
  *= require_self
  */
+/* Custom CSS for Post Cards */
+.post-card {
+    min-height: 400px; /* Increase the height of each card */
+    max-height: 450px; /* Set a maximum height */
+  }
+  
+  .card-img-top {
+    height: 200px; /* Control the height of the image */
+    object-fit: cover; /* Ensure the image covers the area */
+  }
+  
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .container {
+    max-width: 1200px; /* Ensure the container doesn't stretch too wide */
+  }
+  

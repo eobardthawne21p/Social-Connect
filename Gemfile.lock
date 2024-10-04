@@ -152,16 +152,7 @@ GEM
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
-    ffi (1.17.0-aarch64-linux-gnu)
-    ffi (1.17.0-aarch64-linux-musl)
-    ffi (1.17.0-arm-linux-gnu)
-    ffi (1.17.0-arm-linux-musl)
-    ffi (1.17.0-arm64-darwin)
-    ffi (1.17.0-x86-linux-gnu)
-    ffi (1.17.0-x86-linux-musl)
-    ffi (1.17.0-x86_64-darwin)
-    ffi (1.17.0-x86_64-linux-gnu)
-    ffi (1.17.0-x86_64-linux-musl)
+    ffi (1.17.0-x64-mingw-ucrt)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.6)
@@ -212,17 +203,7 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.3)
-    nokogiri (1.16.7-aarch64-linux)
-      racc (~> 1.4)
-    nokogiri (1.16.7-arm-linux)
-      racc (~> 1.4)
-    nokogiri (1.16.7-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.7-x86-linux)
-      racc (~> 1.4)
-    nokogiri (1.16.7-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.7-x86_64-linux)
+    nokogiri (1.16.7-x64-mingw-ucrt)
       racc (~> 1.4)
     parallel (1.26.3)
     parser (3.3.5.0)
@@ -352,6 +333,8 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    tzinfo-data (1.2024.2)
+      tzinfo (>= 1.0.0)
     unicode-display_width (2.6.0)
     web-console (4.2.1)
       actionview (>= 6.0.0)
@@ -368,21 +351,7 @@ GEM
     zeitwerk (2.6.18)
 
 PLATFORMS
-  aarch64-linux
-  aarch64-linux-gnu
-  aarch64-linux-musl
-  arm-linux
-  arm-linux-gnu
-  arm-linux-musl
-  arm64-darwin
-  arm64-darwin-24
-  x86-linux
-  x86-linux-gnu
-  x86-linux-musl
-  x86_64-darwin
-  x86_64-linux
-  x86_64-linux-gnu
-  x86_64-linux-musl
+  x64-mingw-ucrt
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
@@ -412,7 +381,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.2.2p53
+   ruby 3.3.5p100
 
 BUNDLED WITH
    2.5.11
