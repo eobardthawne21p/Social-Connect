@@ -43,7 +43,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
       delete post_url(@post)
     end
 
-  ## add test for likes count
+    ## add test for likes count
 
     assert_redirected_to posts_url
   end
