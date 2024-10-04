@@ -19,6 +19,7 @@ class PostsTest < ApplicationSystemTestCase
     fill_in "Location", with: @post.location
     fill_in "Time", with: @post.time
     fill_in "Title", with: @post.title
+    fill_in "Likes", with: @post.likes
     click_on "Create Post"
 
     assert_text "Post was successfully created"
@@ -34,6 +35,7 @@ class PostsTest < ApplicationSystemTestCase
     fill_in "Location", with: @post.location
     fill_in "Time", with: @post.time
     fill_in "Title", with: @post.title
+    fill_in "Likes", with: @post.likes
     click_on "Update Post"
 
     assert_text "Post was successfully updated"
