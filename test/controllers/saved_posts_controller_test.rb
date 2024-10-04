@@ -2,7 +2,7 @@ require "test_helper"
 
 class SavedPostsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @saved_post = saved_posts(:one)
+    @saved_post = FactoryBot.create(:saved_post)
   end
 
   test "should get index" do

@@ -2,7 +2,7 @@ require "test_helper"
 
 class ChatBoardsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @chat_board = chat_boards(:one)
+    @chat_board = FactoryBot.create(:chat_board)
   end
 
   test "should get index" do
