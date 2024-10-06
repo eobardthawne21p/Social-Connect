@@ -5,6 +5,6 @@ class Post
   field :description, type: String
   field :image, type: String
   field :location, type: String
-  field :time, type: Time
+  field :timeDate, type: Time
   field :likes, type: Integer
 end
