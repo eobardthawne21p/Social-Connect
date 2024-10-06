@@ -28,7 +28,6 @@ class ChatBoardsTest < ApplicationSystemTestCase
     click_on "Edit this chat board", match: :first
 
     fill_in "Content", with: @chat_board.content
-    fill_in "User", with: @chat_board.user_id
     click_on "Update Chat board"
 
     assert_text "Chat board was successfully updated"
