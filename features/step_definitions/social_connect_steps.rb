@@ -1,8 +1,27 @@
 Given('There is a user, Jack') do
-  pending # Write code here that turns the phrase above into concrete actions
+  @jack = create(:user)
 end
 
 Given('I sign in as Jack') do
+  visit login_path
+    fill_in "Username", with: @jack.username
+    fill_in "Password", with: @jack.password_digest
+    click_on "Log In"
+end
+
+Given('I view the timeline') do
+  visit posts_path
+end
+
+
+Then('I should see posts on the timeline') do
+  @posts = Post.all
+    @posts.each do |p|
+        expect(post.body).to include(p.image)
+    end
+end
+
+Then('I should see them in reverse chronological order') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -47,10 +66,6 @@ Then('I should be able to add a new user as a moderator') do
 end
 
 Then('I should see a confirmation that the moderator was successfully added') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given('There is a admin, Juan') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -247,6 +262,7 @@ When('I click the {string} button on an individual post') do |string|
 end
 
 Then('the counter for likes should increase by {int}') do |int|
+# Then('the counter for likes should increase by {float}') do |float|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -338,10 +354,6 @@ Then('I should only see posts that match the selected filter') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When('I sign in as Jack') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Then('I can view posts on the timeline') do
   pending # Write code here that turns the phrase above into concrete actions
 end
@@ -422,14 +434,3 @@ Given('I log in as Jack') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given('I view the timeline') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see posts on the timeline') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see them in reverse chronological order') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
