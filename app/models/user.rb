@@ -4,13 +4,14 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
   include BCrypt
+
   field :name, type: String
   field :username, type: String
   field :password_digest, type: String
   field :birthday, type: Date
 
-  # Virtual attribute for password confirmation
-  attr_accessor :password_confirmation
+  # Virtual attributes for password and confirmation
+  attr_accessor :password, :password_confirmation
 
   # Method to set the password_digest (hash it before storing)
   def password=(new_password)
