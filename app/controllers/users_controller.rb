@@ -25,7 +25,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to posts_path, notice: "User was successfully created." }
+        session[:user_id] = @user.id  # Log the user in by setting session
+        format.html { redirect_to root_path, notice: "User was successfully created and logged in!" }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_entity }
