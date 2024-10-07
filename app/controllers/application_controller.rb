@@ -8,21 +8,16 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end
 
+  # Check if a user is logged in
   def logged_in?
     !!current_user
   end
 
-  # Add a helper method for redirecting unauthenticated users if needed
-  def require_user
+  # Require login before accessing certain actions
+  def require_login
     unless logged_in?
-      session[:return_to] = request.fullpath if request.get?
-      flash[:alert] = "You must be logged in to access this section"
+      flash[:alert] = "You must be logged in to access this page."
       redirect_to login_path
     end
   end
-    # Redirect back to original path or default
-  def redirect_back_or_default(default = root_path)
-    redirect_to(session.delete(:return_to) || default)
-  end
 end
-
