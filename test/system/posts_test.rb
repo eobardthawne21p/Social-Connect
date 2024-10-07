@@ -17,7 +17,7 @@ class PostsTest < ApplicationSystemTestCase
     fill_in "Description", with: @post.description
     fill_in "Image", with: @post.image
     fill_in "Location", with: @post.location
-    fill_in "Time", with: @post.time
+    fill_in "Time", with: @post.timeDate
     fill_in "Title", with: @post.title
     fill_in "Likes", with: @post.likes
     click_on "Create Post"
@@ -33,7 +33,7 @@ class PostsTest < ApplicationSystemTestCase
     fill_in "Description", with: @post.description
     fill_in "Image", with: @post.image
     fill_in "Location", with: @post.location
-    fill_in "Time", with: @post.time
+    fill_in "Time", with: @post.timeDate
     fill_in "Title", with: @post.title
     fill_in "Likes", with: @post.likes
     click_on "Update Post"
