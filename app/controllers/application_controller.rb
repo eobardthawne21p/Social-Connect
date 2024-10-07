@@ -2,8 +2,9 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   # allow_browser versions: :modern
   helper_method :current_user, :logged_in?
+
+  # Fetch the currently logged-in user based on session[:user_id]
   def current_user
-    # Assuming you're using sessions to store the user ID after login
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end
 
@@ -19,4 +20,9 @@ class ApplicationController < ActionController::Base
       redirect_to login_path
     end
   end
+    # Redirect back to original path or default
+  def redirect_back_or_default(default = root_path)
+    redirect_to(session.delete(:return_to) || default)
+  end
 end
+
