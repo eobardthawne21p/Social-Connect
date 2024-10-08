@@ -36,3 +36,4 @@ class User
     role == "admin"
   end
 end
+end
