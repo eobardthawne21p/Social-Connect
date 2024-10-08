@@ -26,12 +26,10 @@ class User
   def authenticate(password)
     BCrypt::Password.new(self.password_digest) == password
   end
-  
   # Method for roles
   def moderator?
     role == "moderator"
   end
-  
   def admin?
     role == "admin"
   end
