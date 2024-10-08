@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
-  get 'home/index'
+  resources :saved_posts
+  resources :likes
+  resources :chat_boards
+  resources :posts
   resources :users, except: [ :new ] # This removes the new action
+
+    root "pages#home"
 
   get "sign_up", to: "users#new", as: "sign_up"
   post "sign_up", to: "users#create"
@@ -16,7 +21,4 @@ Rails.application.routes.draw do
   # Render dynamic PWA files from app/views/pwa/*
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-
-  # Defines the root path route ("/")
-   root "users#new"
 end
