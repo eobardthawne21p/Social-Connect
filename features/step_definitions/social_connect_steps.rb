@@ -262,7 +262,7 @@ When('I click the {string} button on an individual post') do |string|
 end
 
 Then('the counter for likes should increase by {int}') do |int|
-# Then('the counter for likes should increase by {float}') do |float|
+  # Then('the counter for likes should increase by {float}') do |float|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -433,4 +433,3 @@ end
 Given('I log in as Jack') do
   pending # Write code here that turns the phrase above into concrete actions
 end
-
