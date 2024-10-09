@@ -8,7 +8,7 @@ development:
 test:
   clients:
     default:
-      uri: mongodb+srv://<%= ENV['MONGO_USERNAME'] %>:<%= ENV['MONGO_PASSWORD'] %>@socialconnect.rr4av.mongodb.net/social_connect_development?retryWrites=true&w=majority&appName=SocialConnect
+      uri: mongodb+srv://socialconnectTest:<%= ENV['MONGO_PASSWORD_TEST'] %>@socialconnecttest.p9ssd.mongodb.net/?retryWrites=true&w=majority&appName=SocialConnectTest
       options:
         server_selection_timeout: 5 
 
