@@ -79,7 +79,7 @@ jobs:
         env:
           RAILS_ENV: test
           MONGO_USERNAME: socialconnectTest
-          MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD_TEST }}
+          MONGO_PASSWORD_TEST: ${{ secrets.MONGO_PASSWORD_TEST }}
           # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare test test:system
 

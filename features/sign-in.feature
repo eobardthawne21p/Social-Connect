@@ -4,5 +4,6 @@ As a logged-in user, I want to see the login/sign-up page when I open the app an
 
 Scenario: As a user, I want to be able to login
     Given There is a user, Jack
-    When I sign in as Jack
-    Then I can view posts on the timeline
+    And I sign in as Jack
+    When I view the timeline
+    Then I should see posts on the timeline
