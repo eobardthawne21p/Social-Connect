@@ -12,7 +12,7 @@ Scenario: Admin sees controls for adding a new moderator
   And I should see a confirmation that the moderator was successfully added
 
 Scenario: Admin sees controls for removing an existing moderator
-  Given There is a admin, Juan
+  Given There is an admin, Juan
   And I sign in as Juan
   And there is an existing moderator, Bob
   When I navigate to the moderators management page
