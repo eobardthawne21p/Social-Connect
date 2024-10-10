@@ -1,12 +1,12 @@
 Given('There is a user, Jack') do
-  @jack = create(:user)
+  @jack = create(:user, name: 'Jack', username: 'jack', password: 'password123', birthday: '1990-01-01')
 end
 
 Given('I sign in as Jack') do
   visit login_path
-    fill_in "Username", with: @jack.username
-    fill_in "Password", with: @jack.password_digest
-    click_on "Log In"
+  fill_in "Username", with: @jack.username
+  fill_in "Password", with: 'password123'
+  click_on "Log In"
 end
 
 Given('I view the timeline') do
@@ -130,18 +130,6 @@ Then('I should see a list of posts on the platform') do
 end
 
 Then('I should be able to scroll through and browse the posts') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given('that I am a logged-out user') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When('I attempt to visit any pages except for the sign up page') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should be redirected to the sign up page') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -432,4 +420,24 @@ end
 
 Given('I log in as Jack') do
   pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given('I am not logged in') do
+  visit sign_up_path
+end
+
+When('I attempt to visit a restricted page like \/posts') do
+  visit posts_path
+end
+
+Then('I should be redirected to the sign-up page') do
+  expect(current_path). to eq(sign_up_path)
+end
+
+Then('I should be redirected to the login page') do
+  expect(current_path). to eq(login_path)
+end
+
+Then('I should be able to access the page without redirection') do
+  expect(current_path). to eq(posts_path)
 end
