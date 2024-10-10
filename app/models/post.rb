@@ -7,4 +7,11 @@ class Post
   field :location, type: String
   field :timeDate, type: Time
   field :likes, type: Integer
+
+  # Validations
+  validates :title, presence: true
+  validates :description, presence: true
+  validates :image, presence: true
+  validates :location, presence: true
+  validates :timeDate, presence: true
 end

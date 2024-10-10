@@ -14,12 +14,20 @@ class User
   ROLES = %w[user moderator admin]
   validates :role, inclusion: { in: ROLES }
 
-  # Virtual attribute for password and confirmation
-  attr_accessor :password_confirmation
+  # Virtual attributes for password and confirmation
+  attr_accessor :password, :password_confirmation
+
+  # Validations
+  validates :name, presence: true
+  validates :username, presence: true
+  validates :password, presence: true, confirmation: true
+  validates :password_confirmation, presence: true
+  validates :birthday, presence: true
 
   # Method to set the password_digest (hash it before storing)
   def password=(new_password)
-    self.password_digest = BCrypt::Password.create(new_password)
+    @password = new_password # Store the raw password for confirmation
+    self.password_digest = BCrypt::Password.create(new_password) unless new_password.blank?
   end
 
   # Method to authenticate the user (check if password_digest is correct)
