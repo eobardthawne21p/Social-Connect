@@ -1,0 +1,11 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Chat board</h1>
+
+<div id="chat_boards">
+  <% @chat_boards.each do |chat_board| %>
+    <%= render chat_board %>
+  <% end %>
+</div>
+
+<%= link_to "Enter a message", new_chat_board_path %>
