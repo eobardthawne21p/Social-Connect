@@ -1,5 +1,5 @@
 Given('There is a user, Jack') do
-  @jack = create(:user, name: 'Jack', username: 'jack', password: 'password123', birthday: '1990-01-01')
+  @jack = create(:user, name: 'Jack', username: 'jack', password: 'password123', password_confirmation: 'password123', birthday: '1990-01-01')
 end
 
 Given('I sign in as Jack') do
