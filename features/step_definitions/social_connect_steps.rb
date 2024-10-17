@@ -1,5 +1,6 @@
 Given('There is a user, Jack') do
   @jack = create(:user, name: 'Jack', username: 'jack', password: 'password123', password_confirmation: 'password123', birthday: '1990-01-01')
+  @post = create(:post, title: "UEFA Champions League Final", description: "Manchester United face off against Real Madrid", image: "https://editorial.uefa.com/resources/028d-1ad79495f1c0-f00d4da4f16e-1000/badges.jpeg", location: "Dallas, TX", timeDate: "Wed Dec 19 2012 01:03:25 GMT-0500 (EST)", likes: "10")
 end
 
 Given('I sign in as Jack') do
@@ -10,14 +11,16 @@ Given('I sign in as Jack') do
 end
 
 Given('I view the timeline') do
-  visit posts_path
+  visit root_path
 end
 
 
 Then('I should see posts on the timeline') do
   @posts = Post.all
     @posts.each do |p|
-        expect(post.body).to include(p.image)
+      expect(page).to have_selector("img[src='#{p.image}']")
+      expect(page).to have_content(p.title)
+      expect(page).to have_content(p.description)
     end
 end
 
@@ -161,28 +164,8 @@ Then('I should see a confirmation that the chat message was successfully deleted
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given('I have a post') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When('I click on the {string} button for the post') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see a confirmation prompt') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('if I confirm, the post should be removed from the timeline') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('the post should no longer be visible to other users') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see a confirmation that the post was successfully deleted') do
-  pending # Write code here that turns the phrase above into concrete actions
+Then('I should not see the post anymore') do
+  expect(page).to_not have_content(@post)
 end
 
 Given('there is a post visible on the platform') do
@@ -218,15 +201,11 @@ Then('I should see a confirmation that Jack was successfully deleted') do
 end
 
 When('I edit the details of the post') do
-  pending # Write code here that turns the phrase above into concrete actions
+  fill_in "Title", with: "UEFA Europa League Final"
 end
 
-Then('if I confirm, the post should be updated') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see a confirmation that the post was successfully edited') do
-  pending # Write code here that turns the phrase above into concrete actions
+Then('I should see the updated post') do
+  expect(page).to have_content("UEFA Europa League Final")
 end
 
 Given('I visit my profile page') do
@@ -254,20 +233,19 @@ Then('the counter for likes should increase by {int}') do |int|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When('I click on the {string} button') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 When('I enter content into the post form') do
-  pending # Write code here that turns the phrase above into concrete actions
+  fill_in "Title", with: @post.title
+  fill_in "Description", with: @post.description
+  fill_in "Image", with: @post.image
+  fill_in "Location", with: @post.location
+  fill_in "Likes", with: @post.likes
+  fill_in "Timedate", with: @post.timeDate
 end
 
 Then('I should see the post appear on the timeline') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('the post should be visible to other users') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_content(@post.title)
+  expect(page).to have_content(@post.description)
+  expect(page).to have_selector("img[src='#{@post.image}']")
 end
 
 Given('there is a post that I find inappropriate') do
@@ -342,10 +320,6 @@ Then('I should only see posts that match the selected filter') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then('I can view posts on the timeline') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Given('I sign in in as Jack') do
   pending # Write code here that turns the phrase above into concrete actions
 end
@@ -386,10 +360,6 @@ Then('I will see a pop-up with options for both maps and the chatboard for the p
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When('I visit my profile page') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Then('I should see the posts I have created') do
   pending # Write code here that turns the phrase above into concrete actions
 end
@@ -410,12 +380,12 @@ Then('I should see buttons for {string}, {string} and {string}') do |string, str
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When('I click on a post') do
-  pending # Write code here that turns the phrase above into concrete actions
+When('I click on {string}') do |string|
+  click_on string
 end
 
 Then('I should see the full details of the post') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(current_path).to eq(post_path(@post))
 end
 
 Given('I log in as Jack') do
