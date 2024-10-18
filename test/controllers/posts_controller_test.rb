@@ -2,7 +2,9 @@ require "test_helper"
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @user = FactoryBot.create(:user)
     @post = FactoryBot.create(:post)
+    log_in(@user)
   end
 
   test "should get index" do
@@ -20,7 +22,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
       post posts_url, params: { post: { description: @post.description, image: @post.image, location: @post.location, timeDate: @post.timeDate, title: @post.title, likes: @post.likes } }
     end
 
-    assert_redirected_to post_url(Post.last)
+    assert_redirected_to root_path(Post.last)
   end
 
   test "should show post" do
@@ -35,16 +37,14 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update post" do
     patch post_url(@post), params: { post: { description: @post.description, image: @post.image, location: @post.location, timeDate: @post.timeDate, title: @post.title, likes: @post.likes } }
-    assert_redirected_to post_url(@post)
+    assert_redirected_to root_path(@post)
   end
 
   test "should destroy post" do
     assert_difference("Post.count", -1) do
       delete post_url(@post)
+
+      assert_redirected_to root_path
     end
-
-    ## add test for likes count
-
-    assert_redirected_to posts_url
   end
 end
