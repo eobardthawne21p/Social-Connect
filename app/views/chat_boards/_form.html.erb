@@ -1,0 +1,21 @@
+<%= form_with(model: chat_board, class: "mb-3") do |form| %>
+  <% if chat_board.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(chat_board.errors.count, "error") %> prohibited this comment from being saved:</h4>
+      <ul>
+        <% chat_board.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :content, class: "form-label" %>
+    <%= form.text_area :content, rows: 3, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.submit "Add Comment", class: "btn btn-primary" %>
+  </div>
+<% end %>
