@@ -43,7 +43,7 @@ class UsersController < ApplicationController
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity, notice: "Error creating account." }
       end
     end
   end
