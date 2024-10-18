@@ -1,10 +1,63 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @post %>
+<div>
+  <h1><%= @post.title %></h1>
+  <p><%= @post.description %></p>
+  <p>Likes: <span id="like-count"><%= @post.likes.count %></span></p> <!-- Display the number of likes -->
+
+  <% if current_user.likes.where(post_id: @post.id).first.nil? %>
+    <!-- Like Button with AJAX -->
+    <button id="like-button" class="like-button">Like</button>
+    <button id="unlike-button" class="unlike-button" style="display: none;">Unlike</button>
+  <% else %>
+    <!-- Unlike Button with AJAX -->
+    <button id="like-button" class="like-button" style="display: none;">Like</button>
+    <button id="unlike-button" class="unlike-button">Unlike</button>
+  <% end %>
+</div>
 
 <div>
   <%= link_to "Edit this post", edit_post_path(@post) %> |
-  <%= link_to "Back to posts", posts_path %>
-
+  <%= link_to "Back to posts", posts_path %> |
   <%= button_to "Destroy this post", @post, method: :delete %>
 </div>
+
+<script>
+  // Function to handle Like button click
+  document.getElementById('like-button')?.addEventListener('click', function() {
+    fetch('<%= like_post_path(@post) %>', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': '<%= form_authenticity_token %>'
+      },
+      body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Update like count and toggle buttons
+      document.getElementById('like-count').innerText = data.likes;
+      document.getElementById('like-button').style.display = 'none';
+      document.getElementById('unlike-button').style.display = 'inline';
+    });
+  });
+
+  // Function to handle Unlike button click
+  document.getElementById('unlike-button')?.addEventListener('click', function() {
+    fetch('<%= unlike_post_path(@post) %>', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': '<%= form_authenticity_token %>'
+      },
+      body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Update like count and toggle buttons
+      document.getElementById('like-count').innerText = data.likes;
+      document.getElementById('unlike-button').style.display = 'none';
+      document.getElementById('like-button').style.display = 'inline';
+    });
+  });
+</script>
