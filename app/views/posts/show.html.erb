@@ -1,11 +1,11 @@
 <p style="color: green"><%= notice %></p>
 
 <div>
-  <h1><%= @post.title %></h1>
-  <p><%= @post.description %></p>\
-  <p><%= @post.image %></p>
-  <p><%= @post.location %></p>
-  <p><%= @post.timeDate %></p>
+<h1><%= @post.title %></h1>
+<p><%= "Description: #{@post.description}" %></p>
+<p><%= image_tag(@post.image) if @post.image.present? %></p>
+<p><%= "Location: #{@post.location}" %></p>
+<p><%= "Date and Time: #{@post.timeDate}" %></p>
   <p>Likes: <span id="like-count"><%= @post.likes.count %></span></p> <!-- Display the number of likes -->
 
   <% if current_user.likes.where(post_id: @post.id).first.nil? %>
