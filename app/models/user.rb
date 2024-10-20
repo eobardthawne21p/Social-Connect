@@ -24,6 +24,39 @@ class User
   validates :password_confirmation, presence: true
   validates :birthday, presence: true
 
+  # Validations for secure passwords
+  validate :password_lower_case
+  validate :password_uppercase
+  validate :password_special_char
+  validate :password_contains_number
+  validate :password_length
+
+  def password_uppercase
+    return if password =~ /[A-Z]/
+    errors.add :password, " must contain at least 1 uppercase character"
+  end
+
+  def password_lower_case
+    return if password =~ /[a-z]/
+    errors.add :password, " must contain at least 1 lowercase character"
+  end
+
+  def password_special_char
+    special_characters = /[!@#$%^&*()_+{}\[\]:;"'`~<>,.?\/\\|-]/
+    return if password =~ special_characters
+    errors.add(:password, "must contain at least one special character")
+  end
+
+  def password_contains_number
+    return if password =~ /[0-9]/
+    errors.add :password, " must contain at least one number"
+  end
+
+  def password_length
+    return if password.length >= 9
+    errors.add :password, " must be at least 9 characters long"
+  end
+
   # Method to set the password_digest (hash it before storing)
   def password=(new_password)
     @password = new_password # Store the raw password for confirmation
