@@ -23,6 +23,10 @@ class User
   validates :password, presence: true, confirmation: true
   validates :password_confirmation, presence: true
   validates :birthday, presence: true
+  validates :role, presence: true
+
+   # Association that a user may have many posts
+   has_many :posts
 
   # Method to set the password_digest (hash it before storing)
   def password=(new_password)
@@ -40,6 +44,5 @@ class User
   end
   def admin?
     role == "admin"
-  end
-end
+  end
 end
