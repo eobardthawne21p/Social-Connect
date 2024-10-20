@@ -58,12 +58,13 @@ class PostsController < ApplicationController
   def like
     if current_user.likes.where(post: @post).first.nil?  # Use Mongoid syntax
       current_user.likes.create(post: @post)
-      @post.increment!(:likes)  # Increment likes count
+      @post.inc(likes: 1)  # Increment likes count by 1 using Mongoid
     end
 
     respond_to do |format|
       format.html { redirect_to @post, notice: "You liked this post." }
       format.json { render json: { likes: @post.likes.count }, status: :ok }  # Return like count
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("like-frame", partial: "posts/like_section", locals: { post: @post }) }  # Turbo Stream response
     end
   end
 
@@ -72,12 +73,13 @@ class PostsController < ApplicationController
     like = current_user.likes.where(post: @post).first  # Use Mongoid syntax
     if like
       like.destroy  # Remove the like record
-      @post.decrement!(:likes)  # Decrement likes count
+      @post.inc(likes: -1)  # Decrement likes count by 1 using Mongoid
     end
 
     respond_to do |format|
       format.html { redirect_to @post, notice: "You unliked this post." }
       format.json { render json: { likes: @post.likes.count }, status: :ok }  # Return like count
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("like-frame", partial: "posts/like_section", locals: { post: @post }) }  # Turbo Stream response
     end
   end
 
