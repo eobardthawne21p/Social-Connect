@@ -42,10 +42,9 @@ class User
   end
 
   def password_special_char
-    special = "?<>',?[]}{=-)(*&^%$#`~{}!"
-    regex = /[#{special.gsub(/./) { |char| "\\#{char}" }}]/
-    return if password =~ regex
-    errors.add :password, " must contain special character"
+    special_characters = /[!@#$%^&*()_+{}\[\]:;"'`~<>,.?\/\\|-]/
+    return if password =~ special_characters
+    errors.add(:password, "must contain at least one special character")
   end
 
   def password_contains_number
@@ -55,7 +54,7 @@ class User
 
   def password_length
     return if password.length >= 9
-    errors.add :password, " must be at least 9 characters long "
+    errors.add :password, " must be at least 9 characters long"
   end
 
   # Method to set the password_digest (hash it before storing)
