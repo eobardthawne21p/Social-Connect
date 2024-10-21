@@ -2,10 +2,15 @@ Rails.application.routes.draw do
   resources :saved_posts
   resources :likes
   resources :chat_boards
-  resources :posts
+  resources :posts do
+    member do
+      post "like"
+      post "unlike"
+    end
+  end
   resources :users, except: [ :new ] # This removes the new action
 
-    root "pages#home"
+  root "pages#home"
 
   get "sign_up", to: "users#new", as: "sign_up"
   post "sign_up", to: "users#create"

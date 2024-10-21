@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :require_login
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[ show edit update destroy like unlike ]
 
   # GET /posts or /posts.json
   def index
@@ -14,10 +14,6 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
-  end
-
-  # GET /posts/1/edit
-  def edit
   end
 
   # POST /posts or /posts.json
@@ -55,6 +51,35 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to root_path, status: :see_other, notice: "Post was successfully destroyed." }
       format.json { head :no_content }
+    end
+  end
+
+  # POST /posts/1/like
+  def like
+    if current_user.likes.where(post: @post).first.nil?  # Use Mongoid syntax
+      current_user.likes.create(post: @post)
+      @post.inc(likes: 1)  # Increment likes count by 1 using Mongoid
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @post, notice: "You liked this post." }
+      format.json { render json: { likes: @post.likes.count }, status: :ok }  # Return like count
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("like-frame", partial: "posts/like_section", locals: { post: @post }) }  # Turbo Stream response
+    end
+  end
+
+  # POST /posts/1/unlike
+  def unlike
+    like = current_user.likes.where(post: @post).first  # Use Mongoid syntax
+    if like
+      like.destroy  # Remove the like record
+      @post.inc(likes: -1)  # Decrement likes count by 1 using Mongoid
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @post, notice: "You unliked this post." }
+      format.json { render json: { likes: @post.likes.count }, status: :ok }  # Return like count
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("like-frame", partial: "posts/like_section", locals: { post: @post }) }  # Turbo Stream response
     end
   end
 

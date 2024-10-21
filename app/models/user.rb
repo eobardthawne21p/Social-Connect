@@ -71,11 +71,20 @@ class User
   def authenticate(password)
     BCrypt::Password.new(self.password_digest) == password
   end
+
   # Method for roles
   def moderator?
     role == "moderator"
   end
+
   def admin?
     role == "admin"
+  end
+  # Associations
+  has_many :likes, dependent: :destroy  # A user can have many likes
+
+  # Custom method to get posts the user has liked
+  def liked_posts
+    Post.where(:id.in => self.likes.pluck(:post_id))
   end
 end
