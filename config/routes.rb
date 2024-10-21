@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   resources :chat_boards
   resources :posts do
     member do
-      post 'like'
-      post 'unlike'
+      post "like"
+      post "unlike"
     end
   end
   resources :users, except: [ :new ] # This removes the new action
