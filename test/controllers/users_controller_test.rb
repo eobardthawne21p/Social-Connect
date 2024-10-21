@@ -20,7 +20,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       post users_url, params: { user: { birthday: @user.birthday, name: @user.name, password: "your_password", password_confirmation: "your_password", username: @user.username } }
     end
 
-    assert_redirected_to user_url(User.last)
+    assert_redirected_to root_path(User.last)
   end
 
   test "should show user" do

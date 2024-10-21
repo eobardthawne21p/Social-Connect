@@ -10,6 +10,9 @@ class Post
   field :timeDate, type: Time
   field :likes, type: Integer, default: 0  # Track the number of likes
 
+  # Add a reference to the User model
+  belongs_to :user
+
   # Validations
   validates :title, presence: true
   validates :description, presence: true
