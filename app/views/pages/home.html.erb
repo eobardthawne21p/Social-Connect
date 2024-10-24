@@ -1,5 +1,18 @@
 <h1 class="text-center my-4">Welcome to Social Connect</h1>
 
+<% if flash[:notice] %>
+  <div class="alert alert-success">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<% if flash[:alert] %>
+  <div class="alert alert-danger">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+
 <% if !logged_in? %>
   <div class="alert alert-info text-center">
     <p>Welcome! To post and comment, please <a href="<%= login_path %>">log in</a> or <a href="<%= sign_up_path %>">sign up</a>.</p>

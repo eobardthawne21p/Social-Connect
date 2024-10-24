@@ -3,7 +3,7 @@ require "test_helper"
 class PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = FactoryBot.create(:user)
-    @post = FactoryBot.create(:post)
+    @post = FactoryBot.create(:post, user: @user)
     log_in(@user)
   end
 

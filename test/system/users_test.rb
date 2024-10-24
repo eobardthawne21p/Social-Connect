@@ -5,23 +5,18 @@ class UsersTest < ApplicationSystemTestCase
     @user = FactoryBot.create(:user)
   end
 
-  test "visiting the index" do
-    visit users_url
-    assert_selector "h1", text: "Users"
-  end
-
   test "should create user" do
-    visit users_url
-    click_on "New user"
+    visit root_path
+    click_on "sign up"
 
-    fill_in "Birthday", with: @user.birthday
     fill_in "Name", with: @user.name
-    fill_in "Password", with: "your_password"
     fill_in "Username", with: @user.username
-    click_on "Sign Up"
+    fill_in "Password", with: "Password@1"
+    fill_in "Password confirmation", with: "Password@1"
+    fill_in "Birthday", with: @user.birthday
+    click_on "Sign Up", match: :first
 
-    assert_text "User was successfully created"
-    click_on "Back"
+    assert_text "Account was successfully created!"
   end
 
   test "should update User" do
@@ -30,18 +25,18 @@ class UsersTest < ApplicationSystemTestCase
 
     fill_in "Birthday", with: @user.birthday
     fill_in "Name", with: @user.name
-    fill_in "Password", with: "new_password"
+    fill_in "Password", with: "NewPass1@"
+    fill_in "Password confirmation", with: "NewPass1@"
     fill_in "Username", with: @user.username
-    click_on "Sign Up"
+    click_on "Sign Up", match: :first
 
-    assert_text "User was successfully updated"
-    click_on "Back"
+    assert_text "Account was successfully updated"
   end
 
   test "should destroy User" do
     visit user_url(@user)
     click_on "Destroy this user", match: :first
 
-    assert_text "User was successfully destroyed"
+    assert_text "Account was successfully destroyed"
   end
 end
