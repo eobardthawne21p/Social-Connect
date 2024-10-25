@@ -4,8 +4,15 @@ require "rails/test_help"
 require "database_cleaner/mongoid"
 
 module LoginHelper
-  def log_in (user)
-    post login_url, params: { username: user.username, password: "password123" }
+  def log_in(user)
+    post login_url, params: { username: user.username, password: "Password@1" }
+  end
+
+  def log_in_as(user)
+    visit login_url
+    fill_in "Username", with: user.username
+    fill_in "Password", with: "Password@1"
+    click_on "Log In"
   end
 end
 
