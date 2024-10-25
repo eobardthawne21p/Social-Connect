@@ -6,7 +6,7 @@ end
 Given('I sign in as Jack') do
   visit login_path
   fill_in "Username", with: @jack.username
-  fill_in "Password", with: 'password123'
+  fill_in "Password", with: 'Password123@'
   click_on "Log In"
 end
 
