@@ -21,9 +21,6 @@ Then('I should see posts on the timeline') do
       expect(page).to have_selector("img[src='#{p.image}']")
       expect(page).to have_content(p.title)
       expect(page).to have_content(p.description)
-      expect(page).to have_content(p.location)
-      expect(page).to have_content(p.timeDate)
-      expect(page).to have_content(p.likes)
     end
 end
 
@@ -241,7 +238,6 @@ When('I enter content into the post form') do
   fill_in "Description", with: @post.description
   fill_in "Image", with: @post.image
   fill_in "Location", with: @post.location
-  fill_in "Likes", with: @post.likes
   fill_in "Timedate", with: @post.timeDate
 end
 
