@@ -58,7 +58,7 @@ class PostsController < ApplicationController
   def like
     if current_user.likes.where(post: @post).first.nil?  # Use Mongoid syntax
       current_user.likes.create(post: @post)
-      @post.inc(likes: 1)  # Increment likes count by 1 using Mongoid
+      @post.increment_likes!  # Increment likes count by 1 using Mongoid
     end
 
     respond_to do |format|
@@ -73,7 +73,7 @@ class PostsController < ApplicationController
     like = current_user.likes.where(post: @post).first  # Use Mongoid syntax
     if like
       like.destroy  # Remove the like record
-      @post.inc(likes: -1)  # Decrement likes count by 1 using Mongoid
+      @post.decrement_likes!  # Decrement likes count by 1 using Mongoid
     end
 
     respond_to do |format|

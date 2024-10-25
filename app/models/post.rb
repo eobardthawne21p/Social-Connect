@@ -30,10 +30,12 @@ class Post
 
   # Methods to increment and decrement likes
   def increment_likes!
-    inc(likes: 1)
+    self.inc(likes: 1)
   end
 
   def decrement_likes!
-    inc(likes: -1) if likes > 0  # Prevents decrementing below 0
+    self.inc(likes: -1) 
   end
 end
+
+
