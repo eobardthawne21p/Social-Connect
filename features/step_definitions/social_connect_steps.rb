@@ -1,12 +1,12 @@
 Given('There is a user, Jack') do
-  @jack = create(:user, name: 'Jack', username: 'jack', password: 'password123', password_confirmation: 'password123', birthday: '1990-01-01')
-  @post = create(:post, title: "UEFA Champions League Final", description: "Manchester United face off against Real Madrid", image: "https://editorial.uefa.com/resources/028d-1ad79495f1c0-f00d4da4f16e-1000/badges.jpeg", location: "Dallas, TX", timeDate: "Wed Dec 19 2012 01:03:25 GMT-0500 (EST)", likes: "10")
+  @jack = create(:user, name: 'Jack', username: 'jack', password: 'Password123@', password_confirmation: 'Password123@', birthday: '1990-01-01')
+  @post = create(:post, title: "UEFA Champions League Final", description: "Manchester United face off against Real Madrid", image: "https://editorial.uefa.com/resources/028d-1ad79495f1c0-f00d4da4f16e-1000/badges.jpeg", location: "Dallas, TX", timeDate: "Wed Dec 19 2012 01:03:25 GMT-0500 (EST)", likes: 10)
 end
 
 Given('I sign in as Jack') do
   visit login_path
   fill_in "Username", with: @jack.username
-  fill_in "Password", with: 'password123'
+  fill_in "Password", with: 'Password123@'
   click_on "Log In"
 end
 
@@ -238,7 +238,6 @@ When('I enter content into the post form') do
   fill_in "Description", with: @post.description
   fill_in "Image", with: @post.image
   fill_in "Location", with: @post.location
-  fill_in "Likes", with: @post.likes
   fill_in "Timedate", with: @post.timeDate
 end
 

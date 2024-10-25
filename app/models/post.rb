@@ -21,19 +21,19 @@ class Post
   validates :timeDate, presence: true
 
   # Associations
-  has_many :likes, dependent: :destroy  # Direct association with likes
+  has_many :like, dependent: :destroy  # Direct association with likes
 
   # Custom method to get the users who liked the post
   def liked_users
-    User.where(:id.in => self.likes.pluck(:user_id))  # Query users based on the likes' user IDs
+    User.where(:id.in => self.like.pluck(:user_id))  # Query users based on the likes' user IDs
   end
 
   # Methods to increment and decrement likes
   def increment_likes!
-    inc(likes: 1)
+    self.inc(likes: 1)
   end
 
   def decrement_likes!
-    inc(likes: -1) if likes > 0  # Prevents decrementing below 0
+    self.inc(likes: -1)
   end
 end
