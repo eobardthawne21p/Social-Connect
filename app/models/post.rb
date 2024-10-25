@@ -34,8 +34,6 @@ class Post
   end
 
   def decrement_likes!
-    self.inc(likes: -1) 
+    self.inc(likes: -1)
   end
 end
-
-
