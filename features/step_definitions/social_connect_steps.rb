@@ -21,6 +21,9 @@ Then('I should see posts on the timeline') do
       expect(page).to have_selector("img[src='#{p.image}']")
       expect(page).to have_content(p.title)
       expect(page).to have_content(p.description)
+      expect(page).to have_content(p.location)
+      expect(page).to have_content(p.timeDate)
+      expect(page).to have_content(p.likes)
     end
 end
 
