@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :require_login
   before_action :set_post, only: %i[ show edit update destroy like unlike ]
+  before_action :authorized_user!, only: %i[edit update destroy]
 
   # GET /posts or /posts.json
   def index
@@ -87,6 +88,20 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
+    end
+
+    def authorized_user!
+      unless @post.user == current_user
+        flash[:alert] = case action_name
+        when "edit"
+          "You are not authorized to edit this post"
+        when "destroy"
+          "You are not authorized to delete this post"
+        else
+          "You are not authorized to access this post"
+        end
+        redirect_to root_path
+      end
     end
 
     # Only allow a list of trusted parameters through.
