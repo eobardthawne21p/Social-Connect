@@ -18,7 +18,7 @@ RSpec.describe "Posts", type: :request do
     end
 
     it "is redirected to the login page when attempting to create a post" do
-      post posts_path, params: { post: { title: "MyPost", description: "MyDescription", image: "https://i.redd.it/i-got-bored-so-i-decided-to-draw-a-random-image-on-the-v0-4ig97vv85vjb1.png?width=1280&format=png&auto=webp&s=7177756d1f393b6e093596d06e1ba539f723264b", location: "Edinburg, TX", timeDate: "Time.new(2012, 12, 19, 1, 3, 25)" }}
+      post posts_path, params: { post: { title: "MyPost", description: "MyDescription", image: "https://i.redd.it/i-got-bored-so-i-decided-to-draw-a-random-image-on-the-v0-4ig97vv85vjb1.png?width=1280&format=png&auto=webp&s=7177756d1f393b6e093596d06e1ba539f723264b", location: "Edinburg, TX", timeDate: "Time.new(2012, 12, 19, 1, 3, 25)" } }
 
       expect(response).to redirect_to(login_path)
       expect(flash[:alert]).to match(/You must be logged in or sign up to access this page/)
@@ -32,7 +32,7 @@ RSpec.describe "Posts", type: :request do
       expect(flash[:alert]).to match(/You must be logged in or sign up to access this page/)
     end
   end
-  
+
   context "signed-in user" do
     user = FactoryBot.create(:user)
     user2 = FactoryBot.create(:user)

@@ -11,7 +11,7 @@ RSpec.describe "Users", type: :request do
         password: "Password@1",
         password_confirmation: "Password@1",
         birthday: "2024-10-28"
-        }}
+        } }
 
       expect(response).to redirect_to(root_path)
       expect(flash[:notice]).to match(/Account was successfully created!/)
@@ -24,7 +24,7 @@ RSpec.describe "Users", type: :request do
         password: "Password@1",
         password_confirmation: "Password@1",
         birthday: "2024-10-28"
-      }}
+      } }
 
       expect(response).to have_http_status(422)
       expect(flash[:alert]).to match(/Name can't be blank/)
@@ -37,7 +37,7 @@ RSpec.describe "Users", type: :request do
         password: "Password@1",
         password_confirmation: "Password@1",
         birthday: "2024-10-28"
-      }}
+      } }
 
       expect(response).to have_http_status(422)
       expect(flash[:alert]).to match(/Username can't be blank/)
@@ -50,7 +50,7 @@ RSpec.describe "Users", type: :request do
         password: "Password@1",
         password_confirmation: "Password@11",
         birthday: "2024-10-28"
-      }}
+      } }
 
       expect(response).to have_http_status(422)
       expect(flash[:alert]).to match(/Password confirmation doesn't match Password/)
@@ -63,7 +63,7 @@ RSpec.describe "Users", type: :request do
         password: "Password@1",
         password_confirmation: "Password@1",
         birthday: ""
-      }}
+      } }
 
       expect(response).to have_http_status(422)
       expect(flash[:alert]).to match(/Birthday can't be blank/)
@@ -73,7 +73,7 @@ RSpec.describe "Users", type: :request do
   context "logging in" do
     it "logging in successfully" do
       user = FactoryBot.create(:user)
-      
+
       post login_path, params: {
         username: user.username,
         password: "Password@1"
