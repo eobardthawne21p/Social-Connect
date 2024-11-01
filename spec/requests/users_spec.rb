@@ -55,7 +55,7 @@ RSpec.describe "Users", type: :request do
       expect(response).to have_http_status(422)
       expect(flash[:alert]).to match(/Password confirmation doesn't match Password/)
     end
-    
+
     it "does not sign up successfully without a password" do
       post sign_up_path, params: { user: {
         name: "New User",
