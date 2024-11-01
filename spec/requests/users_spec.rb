@@ -64,7 +64,7 @@ RSpec.describe "Users", type: :request do
         password_confirmation: "",
         birthday: "2024-10-28"
       } }
-      
+
       expect(response).to have_http_status(422)
       expect(flash[:alert]).to match(/Password can't be blank/)
     end
