@@ -6,6 +6,4 @@ FactoryBot.define do
     password_confirmation { "Password@1" }
     birthday { "2024-09-17" }
   end
-
-  
 end
