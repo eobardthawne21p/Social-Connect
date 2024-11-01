@@ -34,9 +34,9 @@ RSpec.describe "Posts", type: :request do
   end
 
   context "signed-in user" do
-    user = FactoryBot.create(:user)
-    user2 = FactoryBot.create(:user)
-    post = FactoryBot.create(:post, user: user2)
+    let(:user) { FactoryBot.create(:user, password: "Password@1", password_confirmation: "Password@1") }
+    let(:user2) { FactoryBot.create(:user, password: "Password@1", password_confirmation: "Password@1") }
+    let(:post) { FactoryBot.create(:post, user: user2) }
 
     before do
       post login_path, params: { username: user.username, password: "Password@1" }
