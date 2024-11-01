@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
   context "signing up" do
-    it "siging up successfully" do
+    it "signing up successfully" do
       post sign_up_path, params: { user: {
         name: "New User",
         username: "NewUsername",
@@ -54,6 +54,19 @@ RSpec.describe "Users", type: :request do
 
       expect(response).to have_http_status(422)
       expect(flash[:alert]).to match(/Password confirmation doesn't match Password/)
+    end
+
+    it "does not sign up successfully without a password" do
+      post sign_up_path, params: { user: {
+        name: "New User",
+        username: "NewUsername",
+        password: "",
+        password_confirmation: "",
+        birthday: "2024-10-28"
+      } }
+
+      expect(response).to have_http_status(422)
+      expect(flash[:alert]).to match(/Password can't be blank/)
     end
 
     it "does not sign up successfully without a birthday" do

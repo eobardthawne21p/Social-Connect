@@ -1,6 +1,6 @@
 Given('There is a user, Jack') do
   @jack = create(:user, name: 'Jack', username: 'jack', password: 'Password123@', password_confirmation: 'Password123@', birthday: '1990-01-01')
-  @post = create(:post, title: "UEFA Champions League Final", description: "Manchester United face off against Real Madrid", image: "https://editorial.uefa.com/resources/028d-1ad79495f1c0-f00d4da4f16e-1000/badges.jpeg", location: "Dallas, TX", timeDate: "Wed Dec 19 2012 01:03:25 GMT-0500 (EST)", likes: 10)
+  @post = create(:post, title: "UEFA Champions League Final", description: "Manchester United face off against Real Madrid", image: "https://editorial.uefa.com/resources/028d-1ad79495f1c0-f00d4da4f16e-1000/badges.jpeg", location: "Dallas, TX", timeDate: "Wed Dec 19 2012 01:03:25 GMT-0500 (EST)", likes: 10, user: @jack)
 end
 
 Given('I sign in as Jack') do
