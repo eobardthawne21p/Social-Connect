@@ -22,7 +22,6 @@ class PostsTest < ApplicationSystemTestCase
     fill_in "Location", with: @post.location
     fill_in "Time", with: @post.timeDate
     fill_in "Title", with: @post.title
-    fill_in "Likes", with: @post.likes
     click_on "Create Post"
 
     assert_text "Post was successfully created"
@@ -38,12 +37,11 @@ class PostsTest < ApplicationSystemTestCase
     fill_in "Location", with: @post.location
     fill_in "Time", with: @post.timeDate.strftime("%Y-%m-%d %H:%M:%S")
     fill_in "Title", with: @post.title
-    fill_in "Likes", with: @post.likes
     click_on "Update Post"
 
     assert_text "Post was successfully updated"
   end
-
+  
   test "should destroy Post" do
     log_in_as(@user)
     click_on "Read more"
