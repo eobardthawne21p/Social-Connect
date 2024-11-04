@@ -15,7 +15,6 @@ class UsersTest < ApplicationSystemTestCase
     fill_in "Password confirmation", with: "Password@1"
     fill_in "Birthday", with: @user.birthday
     click_on "Sign Up", match: :first
-
   end
 
   test "should update User" do
@@ -28,12 +27,10 @@ class UsersTest < ApplicationSystemTestCase
     fill_in "Password confirmation", with: "NewPass1@"
     fill_in "Username", with: @user.username
     click_on "Sign Up", match: :first
-
   end
 
   test "should destroy User" do
     visit user_url(@user)
     click_on "Destroy this user", match: :first
-
   end
 end
