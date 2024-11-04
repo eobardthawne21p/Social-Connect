@@ -15,22 +15,21 @@ class UsersTest < ApplicationSystemTestCase
     fill_in "Password confirmation", with: "Password@1"
     fill_in "Birthday", with: @user.birthday
     click_on "Sign Up", match: :first
-    
   end
 
-  #test "should update User" do
-    #visit user_url(@user)
-    #click_on "Edit this user", match: :first
+  # test "should update User" do
+  # visit user_url(@user)
+  # click_on "Edit this user", match: :first
 
-    #fill_in "Birthday", with: @user.birthday
-    #fill_in "Name", with: @user.name
-    #fill_in "Password", with: "NewPass1@"
-    #fill_in "Password confirmation", with: "NewPass1@"
-    #fill_in "Username", with: @user.username
-    #click_on "", match: :first
+  # fill_in "Birthday", with: @user.birthday
+  # fill_in "Name", with: @user.name
+  # fill_in "Password", with: "NewPass1@"
+  # fill_in "Password confirmation", with: "NewPass1@"
+  # fill_in "Username", with: @user.username
+  # click_on "", match: :first
 
-    #assert_selector ".notice", text: "Account was successfully updated"
-  #end
+  # assert_selector ".notice", text: "Account was successfully updated"
+  # end
 
   test "should destroy User" do
     visit user_url(@user)
