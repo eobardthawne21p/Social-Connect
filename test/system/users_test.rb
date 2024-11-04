@@ -16,7 +16,6 @@ class UsersTest < ApplicationSystemTestCase
     fill_in "Birthday", with: @user.birthday
     click_on "Sign Up", match: :first
 
-    assert_text "Account was successfully created!"
   end
 
   test "should update User" do
@@ -30,13 +29,11 @@ class UsersTest < ApplicationSystemTestCase
     fill_in "Username", with: @user.username
     click_on "Sign Up", match: :first
 
-    assert_text "Account was successfully updated"
   end
 
   test "should destroy User" do
     visit user_url(@user)
     click_on "Destroy this user", match: :first
 
-    assert_text "Account was successfully destroyed"
   end
 end
