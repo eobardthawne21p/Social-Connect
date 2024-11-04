@@ -41,7 +41,7 @@ class PostsTest < ApplicationSystemTestCase
 
     assert_text "Post was successfully updated"
   end
-  
+
   test "should destroy Post" do
     log_in_as(@user)
     click_on "Read more"
