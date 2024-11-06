@@ -39,7 +39,7 @@ RSpec.describe "Posts", type: :request do
     post = FactoryBot.create(:post, user: user2)
 
     before do
-      post login_path, params: { username: user.username, password: "Password@1" }
+      post login_path, params: { username: user1.username, password: "Password@1" }
     end
 
     it "is redirected when trying to edit another user's post" do
