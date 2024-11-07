@@ -7,19 +7,11 @@
   <p><%= "Location: #{@post.location}" %></p>
   <p><%= "Date and Time: #{@post.timeDate}" %></p>
 
-  <!-- Turbo Frame for Likes -->
-  <%= turbo_frame_tag "like-frame" do %>
-    <p>Likes: <span id="like-count"><%= @post.like.count %></span></p> <!-- Display the number of likes -->
+<!-- Turbo Frame for Likes -->
+<%= render "posts/like_section", post: @post %>
 
-    <% if current_user.likes.where(post_id: @post.id).first.nil? %>
-      <!-- Like Button with Turbo form -->
-      <%= button_to "Like", like_post_path(@post), method: :post, remote: true, data: { turbo_frame: "like-frame" }, class: "like-button" %>
-    <% else %>
-      <!-- Unlike Button with Turbo form -->
-      <%= button_to "Unlike", unlike_post_path(@post), method: :post, remote: true, data: { turbo_frame: "like-frame" }, class: "unlike-button" %>
-    <% end %>
-  <% end %>
-</div>
+<!-- Turbo Frame for Goings -->
+<%= render "posts/going_section", post: @post %>
 
 <div>
   <% if current_user == @post.user %>
