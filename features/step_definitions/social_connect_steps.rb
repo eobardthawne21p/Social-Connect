@@ -37,7 +37,7 @@ When('I enter a message in the comment section') do
 end
 
 When('I click {string}') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+  click_on(string)
 end
 
 Then('my message should appear under the post') do
@@ -133,10 +133,6 @@ Then('the post should be published to the main feed') do
 end
 
 Then('I should see a confirmation that the post was successfully approved') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given('I can view posts on the timeline') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -237,12 +233,16 @@ Then('my profile should be updated') do
 end
 
 When('I click the {string} button on an individual post') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+  click_on "Read more"
+  click_on(string)
 end
 
 Then('the counter for likes should increase by {int}') do |int|
-  # Then('the counter for likes should increase by {float}') do |float|
-  pending # Write code here that turns the phrase above into concrete actions
+  click_on "Unlike"
+  initial_likes_count = find('#like-count').text.to_i
+  click_on "Like"
+  new_likes_count = find('#like-count').text.to_i
+  expect(new_likes_count).to eq(initial_likes_count + int)
 end
 
 When('I enter content into the post form') do
@@ -418,3 +418,13 @@ end
 Then('I should be able to access the page without redirection') do
   expect(current_path). to eq(posts_path)
 end
+
+When('I view the timeline and can view posts on the timeline') do
+  visit root_path
+  expect(page).to have_css('.card-body.d-flex.flex-column')
+end
+
+Given('I can view posts on the timeline') do
+  expect(page).to have_css('.card-body.d-flex.flex-column')
+end
+

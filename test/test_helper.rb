@@ -11,7 +11,7 @@ module LoginHelper
   def log_in_as(user)
     visit login_url
     fill_in "Username", with: user.username
-    fill_in "Password", with: "Password@1"
+    fill_in "Password", with: user.password
     click_on "Log In"
   end
 end
