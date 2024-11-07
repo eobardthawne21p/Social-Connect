@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
+  include ActionView::RecordIdentifier
+
   before_action :require_login
-  before_action :set_post, only: %i[ show edit update destroy like unlike ]
+  before_action :set_post, only: %i[ show edit update destroy like unlike save unsave ]
   before_action :authorized_user!, only: %i[edit update destroy]
 
   # GET /posts or /posts.json
@@ -81,6 +83,37 @@ class PostsController < ApplicationController
       format.html { redirect_to @post, notice: "You unliked this post." }
       format.json { render json: { likes: @post.likes.count }, status: :ok }  # Return like count
       format.turbo_stream { render turbo_stream: turbo_stream.replace("like-frame", partial: "posts/like_section", locals: { post: @post }) }  # Turbo Stream response
+    end
+  end
+
+  # POST /posts/1/save
+  def save
+    if current_user.saved_posts.where(post: @post).first.nil?  # Use Mongoid syntax
+      current_user.saved_posts.create(post: @post)
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @post, notice: "Post was successfully saved." }
+      format.json { head :ok }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(dom_id(@post, :bookmark), partial: "posts/bookmark_section", locals: { post: @post })
+      end
+    end
+  end
+
+  # POST /posts/1/unsave
+  def unsave
+    save = current_user.saved_posts.where(post: @post).first  # Use Mongoid syntax
+    if save
+      save.destroy  
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @post, notice: "Post was successfully unsaved." }
+      format.json { head :no_content }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(dom_id(@post, :bookmark), partial: "posts/bookmark_section", locals: { post: @post })
+      end
     end
   end
 

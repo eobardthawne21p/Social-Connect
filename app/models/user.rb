@@ -87,4 +87,7 @@ class User
   def liked_posts
     Post.where(:id.in => self.likes.pluck(:post_id))
   end
+
+  # Associations for saved posts
+  has_many :saved_posts, dependent: :destroy
 end

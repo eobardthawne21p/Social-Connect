@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     member do
       post "like"
       post "unlike"
+      post :save
+      post :unsave
     end
   end
   resources :users, except: [ :new ] # This removes the new action

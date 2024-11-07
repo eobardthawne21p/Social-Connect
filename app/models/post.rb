@@ -22,6 +22,7 @@ class Post
 
   # Associations
   has_many :like, dependent: :destroy  # Direct association with likes
+  has_many :saved_posts, dependent: :destroy
 
   # Custom method to get the users who liked the post
   def liked_users
