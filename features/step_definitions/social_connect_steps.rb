@@ -427,4 +427,3 @@ end
 Given('I can view posts on the timeline') do
   expect(page).to have_css('.card-body.d-flex.flex-column')
 end
-
