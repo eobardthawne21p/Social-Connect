@@ -105,7 +105,7 @@ class PostsController < ApplicationController
   def unsave
     save = current_user.saved_posts.where(post: @post).first  # Use Mongoid syntax
     if save
-      save.destroy  
+      save.destroy
     end
 
     respond_to do |format|
