@@ -258,13 +258,16 @@ end
 
 When('I click the person icon to unmark going on the post') do
   click_on "Read more"
-  @initial_going_count = find('#going-count').text.to_i
   find('.going-button').click
-  @new_going_count = find('#going-count').text.to_i
+  find('.not_going-button').click
 end
 
 Then('the counter for going should decrease by {int}') do |int|
-  expect(@new_going_count).to eq(@initial_going_count - int)
+  find('.going-button').click
+  initial_likes_count = find('#going-count').text.to_i
+  find('.not_going-button').click
+  new_likes_count = find('#going-count').text.to_i
+  expect(new_likes_count).to eq(initial_likes_count - int)
 end
 
 When('I click the heart icon to unlike the post') do
