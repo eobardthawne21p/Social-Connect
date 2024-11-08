@@ -1,9 +1,14 @@
 <%= turbo_frame_tag "like-frame" do %>
-  <p>Likes: <span id="like-count"><%= @post.like.count %></span></p>
-
-  <% if current_user.likes.where(post: @post).exists? %>
-    <%= button_to "Unlike", unlike_post_path(@post), method: :post, data: { turbo_frame: "like-frame" }, class: "unlike-button" %>
-  <% else %>
-    <%= button_to "Like", like_post_path(@post), method: :post, data: { turbo_frame: "like-frame" }, class: "like-button" %>
-  <% end %>
+  <p>Likes: <span id="like-count"><%= @post.likes %></span>
+    
+    <% if current_user.likes.where(post: @post).exists? %>     
+      <%= button_to(unlike_post_path(@post), method: :post, data: { turbo_frame: "like-frame" }, class: "btn btn-link p-0 m-0 unlike-button") do %>
+        <i class="fas fa-heart fa-2x text-danger"></i>
+      <% end %>
+    <% else %>    
+      <%= button_to(like_post_path(@post), method: :post, data: { turbo_frame: "like-frame" }, class: "btn btn-link p-0 m-0 like-button") do %>
+        <i class="far fa-heart fa-2x text-primary"></i>
+      <% end %>
+    <% end %>
+  </p>
 <% end %>
