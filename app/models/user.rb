@@ -89,6 +89,9 @@ class User
     Post.where(:id.in => self.likes.pluck(:post_id))
   end
 
+  # Associations for saved posts
+  has_many :saved_posts, dependent: :destroy
+
   # Custom method to get posts the user is going to
   def going_posts
     Post.where(:id.in => self.goings.pluck(:post_id))

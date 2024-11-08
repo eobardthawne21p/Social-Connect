@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
+  include ActionView::RecordIdentifier
+
   before_action :require_login
-  before_action :set_post, only: %i[ show edit update destroy like unlike going not_going ]
+  before_action :set_post, only: %i[ show edit update destroy like unlike going not_going save unsave ]
   before_action :authorized_user!, only: %i[edit update destroy]
 
   # GET /posts or /posts.json
@@ -84,6 +86,37 @@ class PostsController < ApplicationController
     end
   end
 
+  # POST /posts/1/save
+  def save
+    if current_user.saved_posts.where(post: @post).first.nil?  # Use Mongoid syntax
+      current_user.saved_posts.create(post: @post)
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @post, notice: "Post was successfully saved." }
+      format.json { head :ok }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(dom_id(@post, :bookmark), partial: "posts/bookmark_section", locals: { post: @post })
+      end
+    end
+  end
+
+  # POST /posts/1/unsave
+  def unsave
+    save = current_user.saved_posts.where(post: @post).first  # Use Mongoid syntax
+    if save
+      save.destroy
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @post, notice: "Post was successfully unsaved." }
+      format.json { head :no_content }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(dom_id(@post, :bookmark), partial: "posts/bookmark_section", locals: { post: @post })
+      end
+    end
+  end
+
   # POST /posts/:id/going
   def going
     if current_user.goings.where(post: @post).first.nil?  # Check if user hasn't marked as going
@@ -112,7 +145,6 @@ class PostsController < ApplicationController
       format.turbo_stream { render turbo_stream: turbo_stream.replace("going-frame", partial: "posts/going_section", locals: { post: @post }) }
     end
   end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.
