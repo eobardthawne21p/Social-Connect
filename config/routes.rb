@@ -6,8 +6,8 @@ Rails.application.routes.draw do
     member do
       post "like"
       post "unlike"
-      post 'going'
-      post 'not_going'
+      post "going"
+      post "not_going"
     end
   end
 
