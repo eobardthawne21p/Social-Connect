@@ -9,6 +9,7 @@ class Post
   field :location, type: String
   field :timeDate, type: Time
   field :likes, type: Integer, default: 0  # Track the number of likes
+  field :goings, type: Integer, default: 0 # Track the user IDs of users who are going
 
   # Add a reference to the User model
   belongs_to :user
@@ -23,6 +24,7 @@ class Post
   # Associations
   has_many :like, dependent: :destroy  # Direct association with likes
   has_many :saved_posts, dependent: :destroy
+  has_many :goings, dependent: :destroy # Direct association with goings
 
   # Custom method to get the users who liked the post
   def liked_users
@@ -36,5 +38,14 @@ class Post
 
   def decrement_likes!
     self.inc(likes: -1)
+  end
+
+  # Methods to increment and decrement goings
+  def increment_goings!
+    self.inc(goings: 1)
+  end
+
+  def decrement_goings!
+    self.inc(goings: -1)
   end
 end

@@ -8,8 +8,11 @@ Rails.application.routes.draw do
       post "unlike"
       post :save
       post :unsave
+      post "going"
+      post "not_going"
     end
   end
+
   resources :users, except: [ :new ] # This removes the new action
 
   root "pages#home"

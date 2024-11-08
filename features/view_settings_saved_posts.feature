@@ -5,5 +5,5 @@ As a logged-in user, I want to see settings, profile, and saved posts buttons in
 Scenario: I am a logged-in user, and I should see settings, saved posts, and profile options in the lower right-hand corner of the timeline page
     Given There is a user, Jack
     And I sign in as Jack
-    And I can view posts on the timeline
+    When I view the timeline and can view posts on the timeline
     Then I should see buttons for 'saved posts', 'settings' and 'profile'

@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   include ActionView::RecordIdentifier
 
   before_action :require_login
-  before_action :set_post, only: %i[ show edit update destroy like unlike save unsave ]
+  before_action :set_post, only: %i[ show edit update destroy like unlike going not_going save unsave ]
   before_action :authorized_user!, only: %i[edit update destroy]
 
   # GET /posts or /posts.json
@@ -114,6 +114,35 @@ class PostsController < ApplicationController
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace(dom_id(@post, :bookmark), partial: "posts/bookmark_section", locals: { post: @post })
       end
+    end
+  end
+
+  # POST /posts/:id/going
+  def going
+    if current_user.goings.where(post: @post).first.nil?  # Check if user hasn't marked as going
+      current_user.goings.create(post: @post)
+      @post.increment_goings!  # Increment goings count by 1
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @post, notice: "You are going to this event." }
+      format.json { render json: { goings: @post.goings }, status: :ok }
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("going-frame", partial: "posts/going_section", locals: { post: @post }) }
+    end
+  end
+
+  # POST /posts/:id/not_going
+  def not_going
+    going = current_user.goings.where(post: @post).first
+    if going
+      going.destroy  # Remove the going record
+      @post.decrement_goings!  # Decrement goings count by 1
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @post, notice: "You are no longer going to this event." }
+      format.json { render json: { goings: @post.goings }, status: :ok }
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("going-frame", partial: "posts/going_section", locals: { post: @post }) }
     end
   end
 

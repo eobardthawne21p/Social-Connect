@@ -82,6 +82,7 @@ class User
   end
   # Associations
   has_many :likes, dependent: :destroy  # A user can have many likes
+  has_many :goings, dependent: :destroy  # A user can have many goings
 
   # Custom method to get posts the user has liked
   def liked_posts
@@ -90,4 +91,9 @@ class User
 
   # Associations for saved posts
   has_many :saved_posts, dependent: :destroy
+  
+  # Custom method to get posts the user is going to
+  def going_posts
+    Post.where(:id.in => self.goings.pluck(:post_id))
+  end
 end

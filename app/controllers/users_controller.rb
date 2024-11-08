@@ -26,7 +26,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         session[:user_id] = @user.id
-        flash[:notice] = "Account was successfully created!"
         format.html { redirect_to root_path, notice: "Account was successfully created!" }
         format.json { render :show, status: :created, location: @user }
       else
@@ -41,7 +40,6 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        flash[:notice] = "Account was successfully updated"
         format.html { redirect_to @user, notice: "Account was successfully updated" }
         format.json { render :show, status: :ok, location: @user }
       else
