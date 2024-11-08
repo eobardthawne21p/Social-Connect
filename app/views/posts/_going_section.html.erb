@@ -2,14 +2,14 @@
   <p>Going: <span id="going-count"><%= @post.goings.count %></span></p>
 
   <% if current_user.goings.where(post: @post).exists? %>
-    <!-- Not Going Button with Icon -->
-    <%= button_to(not_going_post_path(@post), method: :post, data: { turbo_frame: "going-frame" }, class: "btn btn-outline-secondary going-button") do %>
-      <i class="fas fa-user-slash"></i> <!-- Crossed-out person icon for "Not Going" -->
+    
+    <%= button_to(not_going_post_path(@post), method: :post, data: { turbo_frame: "going-frame" }, class: "btn btn-link p-0 m-0 not_going-button") do %>
+      <i class="fas fa-user-slash fa-2x text-secondary"></i> 
     <% end %>
   <% else %>
-    <!-- Going Button with Icon -->
-    <%= button_to(going_post_path(@post), method: :post, data: { turbo_frame: "going-frame" }, class: "btn btn-primary going-button") do %>
-      <i class="fas fa-user-check"></i> <!-- Person icon for "Going" -->
+    
+    <%= button_to(going_post_path(@post), method: :post, data: { turbo_frame: "going-frame" }, class: "btn btn-link p-0 m-0 going-button") do %>
+      <i class="fas fa-user-check fa-2x text-primary"></i> 
     <% end %>
   <% end %>
 <% end %>
