@@ -57,12 +57,11 @@
             </li>
           </ul>
 
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success me-2" type="submit">Search</button>
-          </form>
+          <%= form_with url: results_path, method: :get, local: true, class: 'd-flex' do %>
+            <input class="form-control me-2" type="text" name="query" placeholder="Search" aria-label="Search">
+            <%= submit_tag "Search", class: "btn btn-outline-success" %>
+          <% end %>
 
-          <!-- Check if the user is logged in -->
           <ul class="navbar-nav ml-auto">
             <% if logged_in? %>
               <li class="nav-item">

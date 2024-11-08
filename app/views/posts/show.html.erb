@@ -7,6 +7,12 @@
   <p><%= "Location: #{@post.location}" %></p>
   <p><%= "Date and Time: #{@post.timeDate}" %></p>
 
+  <p><strong>Tags:</strong>
+    <% @post.tags.each do |tag| %>
+      %= link_to "##{tag}", results_path(hashtag: tag), class: 'hashtag' %>
+    <% end %>
+  </p>
+
 <!-- Turbo Frame for Likes -->
 <%= render "posts/like_section", post: @post %>
 

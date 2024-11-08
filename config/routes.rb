@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   root "pages#home"
 
+  get 'results', to: 'posts#results'
+  
   get "sign_up", to: "users#new", as: "sign_up"
   post "sign_up", to: "users#create"
 
