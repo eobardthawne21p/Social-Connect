@@ -232,17 +232,56 @@ Then('my profile should be updated') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When('I click the {string} button on an individual post') do |string|
+When('I click the heart icon to like the post') do
   click_on "Read more"
-  click_on(string)
+  find('.like-button').click
 end
 
 Then('the counter for likes should increase by {int}') do |int|
-  click_on "Unlike"
+  find('.like-button').click
   initial_likes_count = find('#like-count').text.to_i
-  click_on "Like"
+  find('.like-button').click
   new_likes_count = find('#like-count').text.to_i
   expect(new_likes_count).to eq(initial_likes_count + int)
+end
+
+When('I click the person icon to mark going on the post') do
+  click_on "Read more"
+  find('.not_going-button').click
+end
+
+Then('the counter for going should increase by {int}') do |int|
+  find('.not_going-button').click
+  initial_going_count = find('#going-count').text.to_i
+  find('.not_going-button').click
+  new_going_count = find('#going-count').text.to_i
+  expect(new_going_count).to eq(initial_going_count + int)
+end
+
+When('I click the person icon to unmark going on the post') do
+  click_on "Read more"
+  find('.going-button').click
+end
+
+Then('the counter for going should decrease by {int}') do |int|
+  find('.going-button').click
+  initial_going_count = find('#going-count').text.to_i
+  find('.going-button').click
+  new_going_count = find('#going-count').text.to_i
+  expect(new_going_count).to eq(initial_going_count - int)
+end
+
+When('I click the heart icon to unlike the post') do
+  click_on "Read more"
+  find('.unlike-button').click
+end
+
+Then('the counter for likes should decrease by {int}') do |int|
+  find('.unlike-button').click
+  initial_likes_count = find('#like-count').text.to_i
+  find('.unike-button').click
+  new_likes_count = find('#like-count').text.to_i
+  expect(new_likes_count).to eq(initial_likes_count - int)
 end
 
 When('I enter content into the post form') do
