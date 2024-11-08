@@ -263,7 +263,7 @@ When('I click the person icon to unmark going on the post') do
 end
 
 Then('the counter for going should decrease by {int}') do |int|
-# Then('the counter for going should decrease by {float}') do |float|
+  # Then('the counter for going should decrease by {float}') do |float|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -272,7 +272,7 @@ When('I click the heart icon to unlike the post') do
 end
 
 Then('the counter for likes should decrease by {int}') do |int|
-# Then('the counter for likes should decrease by {float}') do |float|
+  # Then('the counter for likes should decrease by {float}') do |float|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -458,4 +458,3 @@ end
 Given('I can view posts on the timeline') do
   expect(page).to have_css('.card-body.d-flex.flex-column')
 end
-
