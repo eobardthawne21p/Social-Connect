@@ -5,6 +5,6 @@ As a logged-in user, I want to see my saved posts when I click on the saved post
 Scenario: As a logged-in user, I want to see my saved posts when I click on 'saved posts' button
     Given There is a user, Jack
     And I sign in as Jack
-    And I can view posts on the timeline
-    When I click the 'saved posts' button
+    When I can view posts on the timeline
+    And I click the 'saved posts' button
     Then I should see my saved posts in a new window
