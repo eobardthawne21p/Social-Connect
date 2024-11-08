@@ -232,9 +232,9 @@ Then('my profile should be updated') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When('I click the {string} button on an individual post') do |string|
+When('I click the heart icon to like the post') do
   click_on "Read more"
-  click_on(string)
+  find('.like-button').click
 end
 
 Then('the counter for likes should increase by {int}') do |int|
