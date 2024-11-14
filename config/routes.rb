@@ -13,6 +13,13 @@ Rails.application.routes.draw do
     end
   end
 
+  # Admin namespace
+  namespace :admin do
+    get "manage_moderators", to: "users#manage_moderators", as: "manage_moderators"
+    post "add_moderator/:user_id", to: "users#add_moderator", as: "add_moderator"
+    delete "remove_moderator/:id", to: "users#remove_moderator", as: "remove_moderator"
+  end
+
   resources :users, except: [ :new ] # This removes the new action
 
   root "pages#home"
