@@ -28,6 +28,9 @@ class User
   # Association that a user may have many posts
   has_many :posts
 
+  #A user may have many comments
+  has_many :chat_boards, dependent: :destroy
+
   # Validations for secure passwords
   validate :password_lower_case
   validate :password_uppercase
