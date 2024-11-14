@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'dashboard/moderator'
+  get "dashboard/moderator"
   resources :saved_posts
   resources :likes
   resources :chat_boards
