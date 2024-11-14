@@ -1,0 +1,25 @@
+<!-- app/views/dashboard/moderator.html.erb -->
+
+<h1>Moderator Dashboard</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @posts_to_review.each do |post| %>
+      <tr>
+        <td><%= post.title %></td>
+        <td><%= post.description %></td>
+        <td>
+          <%= button_to 'Approve', approve_post_path(post), method: :post, class: "btn btn-success" %>
+          <%= button_to 'Reject', reject_post_path(post), method: :post, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -10,6 +10,7 @@ class Post
   field :timeDate, type: Time
   field :likes, type: Integer, default: 0  # Track the number of likes
   field :goings, type: Integer, default: 0 # Track the user IDs of users who are going
+  field :approved, type: Boolean
 
   # Add a reference to the User model
   belongs_to :user

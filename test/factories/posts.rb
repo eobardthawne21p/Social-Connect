@@ -7,5 +7,6 @@ FactoryBot.define do
     timeDate { Time.new(2012, 12, 19, 1, 3, 25) } # Use a Time object directly
     likes { 10 }  # Using an integer for likes
     association :user
+    approved { true }
   end
 end
