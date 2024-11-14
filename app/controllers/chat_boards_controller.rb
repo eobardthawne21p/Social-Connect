@@ -1,6 +1,6 @@
 class ChatBoardsController < ApplicationController
   before_action :set_chat_board, only: %i[edit update destroy]
-  before_action :authorize_user!, only: [:destroy]
+  before_action :authorize_user!, only: [ :destroy ]
 
   # POST /chat_boards
   def create

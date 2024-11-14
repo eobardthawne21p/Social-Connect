@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   resources :saved_posts
   resources :likes
-  
+
   resources :posts do
-    resources :chat_boards, only: [:create, :edit, :update, :destroy] #nested routes for chatboard comments
+    resources :chat_boards, only: [ :create, :edit, :update, :destroy ] # Nested routes for chatboard comments
     member do
       post "like"
       post "unlike"
