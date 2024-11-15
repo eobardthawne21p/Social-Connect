@@ -27,7 +27,7 @@ class ChatBoardsController < ApplicationController
     @chat_board.user_id = current_user.id
     respond_to do |format|
       if @chat_board.save
-        format.html { redirect_to chat_board_path(@post), notice: "Comment was successfully posted." }
+        format.html { redirect_to post_path(@post), notice: "Comment was successfully posted." }
         format.json { render :show, status: :created, location: @chat_board }
       else
         format.html { redirect_to post_path(@post), alert: "Failed to post comment." }
