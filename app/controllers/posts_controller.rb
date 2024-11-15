@@ -166,7 +166,8 @@ class PostsController < ApplicationController
         @posts = @posts.or({ location: /#{Regexp.escape(query)}/i })
                        .or({ title: /#{Regexp.escape(query)}/i })
                        .or({ description: /#{Regexp.escape(query)}/i })
-                       
+        
+                     
         # Check if query is a date
         begin
           date = Date.parse(query)
@@ -175,6 +176,10 @@ class PostsController < ApplicationController
           # Ignore if query is not a valid date
         end
       end
+    end
+    render :results
+  end
+  
   def approve
     if @post.update(approved: true)
       redirect_to moderator_dashboard_path, notice: "Post was successfully approved."
