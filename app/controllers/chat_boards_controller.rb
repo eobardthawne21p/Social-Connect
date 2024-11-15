@@ -1,16 +1,30 @@
 class ChatBoardsController < ApplicationController
-  before_action :set_chat_board, only: %i[edit update destroy]
-  before_action :authorize_user!, only: [ :destroy ]
+  before_action :set_chat_board, only: %i[show edit update destroy]
+  before_action :authorize_user!, only: [:destroy]
+
+  # GET /chat_boards
+  def index
+    @chat_boards = ChatBoard.all
+  end
+
+  # GET /chat_boards/1
+  def show
+  end
+
+  # GET /chat_boards/new
+  def new
+    @chat_board = ChatBoard.new
+  end
 
   # POST /chat_boards
   def create
-    @post = Post.find_by(id: params[:post_id]) 
+    @post = Post.find_by(id: params[:post_id])
     if @post.nil?
       redirect_to fallback_post_path, alert: "Post not found." and return
     end
-  
-    @chat_board = @post.chat_boards.build(chat_board_params) 
-    @chat_board.user_id = current_user.id  
+
+    @chat_board = @post.chat_boards.build(chat_board_params)
+    @chat_board.user_id = current_user.id
     respond_to do |format|
       if @chat_board.save
         format.html { redirect_to post_path(@post), notice: "Comment was successfully posted." }
@@ -38,7 +52,7 @@ class ChatBoardsController < ApplicationController
   # DELETE /chat_boards/1
   def destroy
     post_id = @chat_board.post_id
-    @chat_board.destroy!
+    @chat_board.destroy
 
     respond_to do |format|
       format.html { redirect_to post_path(post_id), notice: "Comment was successfully deleted.", status: :see_other }
@@ -48,8 +62,9 @@ class ChatBoardsController < ApplicationController
 
   private
 
+  # Set post object for create and index actions
   def set_post
-    @post = Post.find(params[:post_id])  # Find the post by its ID
+    @post = Post.find(params[:post_id])
   end
 
   # Only allow a list of trusted parameters through.
@@ -62,7 +77,7 @@ class ChatBoardsController < ApplicationController
   end
 
   def authorize_user!
-    unless current_user == @chat_board.user || current_user.admin? || current_user.moderator?
+    unless current_user && (current_user == @chat_board.user || current_user.admin? || current_user.moderator?)
       redirect_to post_path(@chat_board.post), alert: "You are not authorized to delete this comment."
     end
   end
