@@ -4,17 +4,19 @@ class ChatBoardsController < ApplicationController
 
   # POST /chat_boards
   def create
-    @post = Post.find(params[:post_id])
-    @chat_board = ChatBoard.new(chat_board_params)
-    @chat_board.user_id = current_user.id  # Set user to the current logged-in user.
-
+    @post = Post.find_by(id: params[:post_id]) 
+    if @post.nil?
+      redirect_to fallback_post_path, alert: "Post not found." and return
+    end
+  
+    @chat_board = @post.chat_boards.build(chat_board_params) 
+    @chat_board.user_id = current_user.id  
     respond_to do |format|
       if @chat_board.save
-        format.html { redirect_to post_path(@chat_board.post_id), notice: "Comment was successfully posted." }
+        format.html { redirect_to post_path(@post), notice: "Comment was successfully posted." }
         format.json { render :show, status: :created, location: @chat_board }
       else
-        # Fallback to a safe location if @chat_board.post_id is nil
-        format.html { redirect_to post_path(@chat_board.post_id || fallback_post_path), alert: "Failed to post comment." }
+        format.html { redirect_to post_path(@post), alert: "Failed to post comment." }
         format.json { render json: @chat_board.errors, status: :unprocessable_entity }
       end
     end
