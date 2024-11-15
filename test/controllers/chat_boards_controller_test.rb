@@ -2,7 +2,7 @@ require "test_helper"
 
 class ChatBoardsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = FactoryBot.create(:user, role: admin)
+    @user = FactoryBot.create(:user, role: moderator)
     @post = FactoryBot.create(:post, user: @user)
     @chat_board = FactoryBot.create(:chat_board, user: @user, post: @post)
   end
