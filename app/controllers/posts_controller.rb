@@ -153,15 +153,8 @@ class PostsController < ApplicationController
     end
 
     def authorized_user!
-      unless @post.user == current_user
-        flash[:alert] = case action_name
-        when "edit"
-          "You are not authorized to edit this post"
-        when "destroy"
-          "You are not authorized to delete this post"
-        else
-          "You are not authorized to access this post"
-        end
+      unless @post.user == current_user || current_user.moderator? || current_user.admin?
+        flash[:alert] = "You are not authorized to perform this action."
         redirect_to root_path
       end
     end
