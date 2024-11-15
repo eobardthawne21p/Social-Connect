@@ -2,7 +2,9 @@ require "test_helper"
 
 class ChatBoardsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @chat_board = FactoryBot.create(:chat_board)
+    @user = FactoryBot.create(:user, role: "moderator")
+    @post = FactoryBot.create(:post, user: @user)
+    @chat_board = FactoryBot.create(:chat_board, user: @user, post: @post)
   end
 
   test "should get index" do
@@ -35,7 +37,7 @@ class ChatBoardsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update chat_board" do
     patch chat_board_url(@chat_board), params: { chat_board: { content: @chat_board.content, post_id: @chat_board.post_id, user_id: @chat_board.user_id } }
-    assert_redirected_to chat_board_url(@chat_board)
+    assert_redirected_to post_path(@chat_board.post_id)
   end
 
   test "should destroy chat_board" do

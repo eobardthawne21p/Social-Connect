@@ -12,6 +12,8 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    @post = Post.find(params[:id])
+    @chat_board = ChatBoard.new
   end
 
   # GET /posts/new

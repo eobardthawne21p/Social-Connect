@@ -24,3 +24,38 @@
     <%= button_to "Destroy this post", @post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
   <% end %>
 </div>
+
+<!-- Comments Section -->
+<h2>Comments</h2>
+<% if @post.chat_boards.any? %>
+  <% @post.chat_boards.each do |comment| %>
+    <div class="comment">
+      <p>
+        <strong><%= comment.user.username %>:</strong>
+        <%= comment.content %>
+      </p>
+      <p class="text-muted">
+        Posted on <%= comment.created_at.strftime("%B %d, %Y at %I:%M %p") %>
+      </p>
+
+      <% if current_user == comment.user || current_user.admin? || current_user.moderator? %>
+        <%= button_to "Delete", post_chat_board_path(@post, comment), method: :delete, 
+                      data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+      <% end %>
+    </div>
+    <hr>
+  <% end %>
+<% else %>
+  <p>No comments yet. Be the first to comment!</p>
+<% end %>
+
+<h3>Add a Comment</h3>
+<%= form_with(model: [@post, @chat_board], local: true) do |form| %>
+  <%= form.hidden_field :post_id, value: @post.id %>
+  <div>
+    <%= form.text_area :content, placeholder: "Write your comment here...", class: "form-control" %>
+  </div>
+  <br>
+  <%= form.submit "Post Comment", class: "btn btn-primary" %>
+<% end %>
+</div>
