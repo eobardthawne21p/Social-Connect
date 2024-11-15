@@ -224,3 +224,5 @@ class PostsController < ApplicationController
       end
     end
 end
+
+# This is a temporary change to trigger CI/CD
