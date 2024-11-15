@@ -38,23 +38,45 @@
             <li class="nav-item active">
               <a class="nav-link" href="<%= root_path %>">Home <span class="sr-only"></span></a>
             </li>
+
+            <% if logged_in? %>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+             <%= link_to 'Profile', profile_path(current_user.id), class: 'nav-link' %>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li>
+            <% end %>
+
+            <% if logged_in? %>
             <li class="nav-item">
-              <a class="nav-link disabled" href="#">Settings</a>
+              <a class="nav-link" href="#">Settings</a>
             </li>
+
+            <li class="nav-item">
+              <%= link_to 'Logout', logout_path, class: 'nav-link', data: { turbo_method: :delete } %>
+            </li>
+            <% end %>
+          </ul>
+
+          <div class="d-flex justify-content-center flex-grow-1">
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success me-2" type="submit">Search</button>
+            </form>
+          </div>
+
+          <!-- Check if the user is logged in -->
+          <ul class="navbar-nav ml-auto">
+            <% if logged_in? %>
+              <li class="nav-item">
+                <%= link_to 'Create post', new_post_path, class: 'btn btn-primary me-4' %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to 'Sign Up', sign_up_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Login', login_path, class: 'nav-link' %>
+              </li>
+            <% end %>
           </ul>
 
           <% if current_user&.admin? %>
@@ -73,29 +95,6 @@
             </ul>
           <% end %>
 
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success me-2" type="submit">Search</button>
-          </form>
-
-          <!-- Check if the user is logged in -->
-          <ul class="navbar-nav ml-auto">
-            <% if logged_in? %>
-              <li class="nav-item">
-                <%= link_to 'Logout', logout_path, class: 'nav-link', data: { turbo_method: :delete } %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'Create post', new_post_path, class: 'btn btn-primary ml-2' %>
-              </li>
-            <% else %>
-              <li class="nav-item">
-                <%= link_to 'Sign Up', sign_up_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'Login', login_path, class: 'nav-link' %>
-              </li>
-            <% end %>
-          </ul>
         </div>
       </div>
     </nav>
