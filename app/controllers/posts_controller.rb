@@ -166,12 +166,12 @@ class PostsController < ApplicationController
         @posts = @posts.or({ location: /#{Regexp.escape(query)}/i })
                        .or({ title: /#{Regexp.escape(query)}/i })
                        .or({ description: /#{Regexp.escape(query)}/i })
-        
-                     
+
+
         # Check if query is a date
         begin
           date = Date.parse(query)
-          @posts = @posts.or({ :created_at => date.beginning_of_day..date.end_of_day })
+          @posts = @posts.or({ created_at: date.beginning_of_day..date.end_of_day })
         rescue ArgumentError
           # Ignore if query is not a valid date
         end
@@ -179,7 +179,7 @@ class PostsController < ApplicationController
     end
     render :results
   end
-  
+
   def approve
     if @post.update(approved: true)
       redirect_to moderator_dashboard_path, notice: "Post was successfully approved."
