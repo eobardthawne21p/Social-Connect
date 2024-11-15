@@ -1,6 +1,6 @@
 Given('There is a user, Jack') do
   @jack = create(:user, name: 'Jack', username: 'jack', password: 'Password123@', password_confirmation: 'Password123@', birthday: '1990-01-01')
-  @post = create(:post, title: "UEFA Champions League Final", description: "Manchester United face off against Real Madrid", image: "https://editorial.uefa.com/resources/028d-1ad79495f1c0-f00d4da4f16e-1000/badges.jpeg", location: "Dallas, TX", timeDate: "Wed Dec 19 2012 01:03:25 GMT-0500 (EST)", likes: 10, user: @jack)
+  @post = create(:post, title: "UEFA Champions League Final", description: "Manchester United face off against Real Madrid", image: "https://editorial.uefa.com/resources/028d-1ad79495f1c0-f00d4da4f16e-1000/badges.jpeg", location: "Dallas, TX", timeDate: "Wed Dec 19 2012 01:03:25 GMT-0500 (EST)", likes: 10, user: @jack, approved: true)
 end
 
 Given('I sign in as Jack') do
@@ -116,27 +116,30 @@ Given('I sign in as Bob') do
 end
 
 Given('there is a post pending approval') do
-  pending # Write code here that turns the phrase above into concrete actions
+  @jack = create(:user, name: 'Jack', username: 'jack', password: 'Password123@', password_confirmation: 'Password123@', birthday: '1990-01-01')
+  @post = create(:post, title: "UEFA Champions League Final", description: "Manchester United face off against Real Madrid", image: "https://editorial.uefa.com/resources/028d-1ad79495f1c0-f00d4da4f16e-1000/badges.jpeg", location: "Dallas, TX", timeDate: "Wed Dec 19 2012 01:03:25 GMT-0500 (EST)", likes: 10, user: @jack, approved: nil)
 end
 
 When('I choose to review the post') do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit moderator_dashboard_path
 end
 
 Then('I should see the content of the post') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_content(@post.title)
+  expect(page).to have_content(@post.description)
 end
 
 When('I approve the post') do
-  pending # Write code here that turns the phrase above into concrete actions
+  click_on "Approve"
 end
 
 Then('the post should be published to the main feed') do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit root_path
+  expect(page).to have_content(@post.title)
 end
 
 Then('I should see a confirmation that the post was successfully approved') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_content("Post was successfully approved.")
 end
 
 Then('I should see a list of posts on the platform') do
@@ -148,15 +151,16 @@ Then('I should be able to scroll through and browse the posts') do
 end
 
 When('I reject the post') do
-  pending # Write code here that turns the phrase above into concrete actions
+  click_on "Reject"
 end
 
 Then('the post should not be published to the main feed') do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit root_path
+  expect(page).to_not have_content(@post.title)
 end
 
 Then('I should see a confirmation that the post was successfully rejected') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_content("Post was successfully rejected.")
 end
 
 Given('there is a chat message I find inappropriate') do
@@ -176,19 +180,22 @@ Then('I should see a confirmation that the chat message was successfully deleted
 end
 
 Then('I should not see the post anymore') do
-  expect(page).to_not have_content(@post)
+  expect(page).to_not have_content(@post.title)
 end
 
 Given('there is a post visible on the platform') do
-  pending # Write code here that turns the phrase above into concrete actions
+  @jack = create(:user, name: 'Jack', username: 'jack', password: 'Password123@', password_confirmation: 'Password123@', birthday: '1990-01-01')
+  @post = create(:post, title: "UEFA Champions League Final", description: "Manchester United face off against Real Madrid", image: "https://editorial.uefa.com/resources/028d-1ad79495f1c0-f00d4da4f16e-1000/badges.jpeg", location: "Dallas, TX", timeDate: "Wed Dec 19 2012 01:03:25 GMT-0500 (EST)", likes: 10, user: @jack, approved: true)
 end
 
 When('I choose to delete the post') do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit root_path
+  click_on "Read more"
+  click_on "Destroy this post"
 end
 
 Then('the post should no longer be visible on the platform') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to_not have_content(@post.title)
 end
 
 When('I navigate to the {string} section') do |string|

@@ -2,16 +2,19 @@ class PostsController < ApplicationController
   include ActionView::RecordIdentifier
 
   before_action :require_login
-  before_action :set_post, only: %i[ show edit update destroy like unlike going not_going save unsave ]
+  before_action :set_post, only: %i[ show edit update destroy like unlike going not_going save unsave approve reject]
   before_action :authorized_user!, only: %i[edit update destroy]
+  before_action :check_moderator, only: %i[approve reject]
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.where(approved: true)
   end
 
   # GET /posts/1 or /posts/1.json
   def show
+    @post = Post.find(params[:id])
+    @chat_board = ChatBoard.new
   end
 
   # GET /posts/new
@@ -146,6 +149,22 @@ class PostsController < ApplicationController
     end
   end
 
+  def approve
+    if @post.update(approved: true)
+      redirect_to moderator_dashboard_path, notice: "Post was successfully approved."
+    else
+      render :review, alert: "Failed to approve the post."
+    end
+  end
+
+  def reject
+    if @post.update(approved: false)
+      redirect_to moderator_dashboard_path, notice: "Post was successfully rejected."
+    else
+      render :review, alert: "Failed to reject the post."
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -162,5 +181,11 @@ class PostsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:title, :description, :image, :location, :timeDate, :likes)
+    end
+
+    def check_moderator
+      unless current_user.moderator? || current_user.admin?
+        redirect_to root_path, alert: "You are not authorized to perform this action."
+      end
     end
 end

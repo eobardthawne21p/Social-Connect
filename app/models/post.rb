@@ -10,6 +10,7 @@ class Post
   field :timeDate, type: Time
   field :likes, type: Integer, default: 0  # Track the number of likes
   field :goings, type: Integer, default: 0 # Track the user IDs of users who are going
+  field :approved, type: Boolean
 
   # Add a reference to the User model
   belongs_to :user
@@ -25,6 +26,7 @@ class Post
   has_many :like, dependent: :destroy  # Direct association with likes
   has_many :saved_posts, dependent: :destroy
   has_many :goings, dependent: :destroy # Direct association with goings
+  has_many :chat_boards, dependent: :destroy # Associate comments with posts
 
   # Custom method to get the users who liked the post
   def liked_users
