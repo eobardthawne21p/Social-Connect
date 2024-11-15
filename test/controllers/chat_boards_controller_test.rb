@@ -36,7 +36,7 @@ class ChatBoardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update chat_board" do
-    patch post_url(@chat_board), params: { chat_board: { content: @chat_board.content, post_id: @chat_board.post_id, user_id: @chat_board.user_id } }
+    patch chat_boards_url(@chat_board), params: { chat_board: { content: @chat_board.content, post_id: @chat_board.post_id, user_id: @chat_board.user_id } }
     assert_redirected_to chat_board_url(@chat_board)
   end
 
