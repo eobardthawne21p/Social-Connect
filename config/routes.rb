@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "dashboard/moderator"
   resources :saved_posts
   resources :likes
   resources :chat_boards
@@ -12,6 +13,8 @@ Rails.application.routes.draw do
       post :unsave
       post "going"
       post "not_going"
+      post "approve"
+      post "reject"
     end
   end
 
@@ -26,6 +29,9 @@ Rails.application.routes.draw do
   post "login", to: "sessions#create"
 
   delete "logout", to: "sessions#destroy"
+
+  get "moderator_dashboard", to: "dashboard#moderator"
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
