@@ -40,7 +40,7 @@ class ChatBoardsController < ApplicationController
   def update
     respond_to do |format|
       if @chat_board.update(chat_board_params)
-        format.html { redirect_to chatboard_path(@chat_board.post_id), notice: "Comment was successfully updated." }
+        format.html { redirect_to post_path(@chat_board.post_id), notice: "Comment was successfully updated." }
         format.json { render :show, status: :ok, location: @chat_board }
       else
         format.html { render :edit, status: :unprocessable_entity }
