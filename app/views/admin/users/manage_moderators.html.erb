@@ -1,0 +1,32 @@
+<% if flash[:notice] %>
+  <div class="alert alert-success"><%= flash[:notice] %></div>
+<% elsif flash[:alert] %>
+  <div class="alert alert-danger"><%= flash[:alert] %></div>
+<% end %>
+
+<h1>Manage Moderators</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Role</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.role %></td>
+        <td>
+          <% if user.role == 'moderator' %>
+            <%= button_to 'Remove Moderator', admin_remove_moderator_path(user), method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% else %>
+            <%= button_to 'Add Moderator', admin_add_moderator_path(user_id: user.id), method: :post, data: { turbo: false } %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

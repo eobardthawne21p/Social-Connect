@@ -48,6 +48,10 @@ Given('There is an admin, Juan') do
   @juan = create(:user, name: 'Juan', username: 'juan', password: 'Password123@', password_confirmation: 'Password123@', birthday: '1990-01-01', role: 'admin')
 end
 
+Given('there is a regular user, Jack') do
+  @jack = create(:user, name: 'Jack', username: 'jack', password: 'Password123@', password_confirmation: 'Password123@', birthday: '1990-01-01', role: 'user')
+end
+
 Given('I sign in as Juan') do
   visit login_path
   fill_in "Username", with: @juan.username
@@ -56,23 +60,22 @@ Given('I sign in as Juan') do
 end
 
 When('I navigate to the moderators management page') do
-  pending # Write code here that turns the phrase above into concrete actions
+  click_on "Manage Moderators"
 end
 
-Then('I should see a control to add a new moderator') do
-  pending # Write code here that turns the phrase above into concrete actions
+Then('I should see a control to add a new moderator next to Jack') do
+  within('tr', text: 'Jack') do
+    expect(page).to have_button("Add Moderator")
+  end
 end
-
-Then('when I click the {string} button') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should be able to add a new user as a moderator') do
-  pending # Write code here that turns the phrase above into concrete actions
+When('I click the {string} button next to Jack') do |string|
+  within('tr', text: 'Jack') do
+    click_on string
+  end
 end
 
 Then('I should see a confirmation that the moderator was successfully added') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_content("Moderator was successfully added.")
 end
 
 Given('there is an existing moderator, Bob') do
@@ -85,20 +88,20 @@ Given('there is an existing moderator, Bob') do
   end
 end
 
-Then('I should see a control to remove a moderator') do
-  pending # Write code here that turns the phrase above into concrete actions
+Then('I should see a control to remove a moderator next to Bob') do
+  within('tr', text: 'Bob') do
+    expect(page).to have_button("Remove Moderator")
+  end
 end
 
 Then('when I click the {string} button to remove Bob') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('Bob should be removed from their role') do
-  pending # Write code here that turns the phrase above into concrete actions
+  within('tr', text: 'Bob') do
+    click_on string
+  end
 end
 
 Then('I should see a confirmation that Bob was successfully removed') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_content("Moderator was successfully removed.")
 end
 
 Given('There is a moderator, Bob') do

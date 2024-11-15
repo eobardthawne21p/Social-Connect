@@ -14,7 +14,7 @@
 <%= render "posts/going_section", post: @post %>
 
 <div>
-  <% if current_user == @post.user || current_user.moderator? %>
+  <% if current_user == @post.user || current_user.moderator? || current_user.admin? %>
     <%= link_to "Edit this post", edit_post_path(@post) %> |
   <% end %>
 
