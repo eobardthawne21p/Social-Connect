@@ -3,6 +3,6 @@ class PagesController < ApplicationController
   before_action :require_user, except: [ :home ]
 
   def home
-    @posts = Post.all.order(created_at: :desc) # Fetch posts for display on the homepage
+    @posts = Post.where(approved: true).order(created_at: :desc) # Fetch posts for display on the homepage
   end
 end

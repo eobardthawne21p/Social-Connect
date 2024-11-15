@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  get "dashboard/moderator"
   resources :saved_posts
   resources :likes
   resources :chat_boards
+
   resources :posts do
+    resources :chat_boards, only: [ :create, :edit, :update, :destroy ] # Nested routes for chatboard comments
     member do
       post "like"
       post "unlike"
@@ -10,7 +13,16 @@ Rails.application.routes.draw do
       post :unsave
       post "going"
       post "not_going"
+      post "approve"
+      post "reject"
     end
+  end
+
+  # Admin namespace
+  namespace :admin do
+    get "manage_moderators", to: "users#manage_moderators", as: "manage_moderators"
+    post "add_moderator/:user_id", to: "users#add_moderator", as: "add_moderator"
+    delete "remove_moderator/:id", to: "users#remove_moderator", as: "remove_moderator"
   end
 
   resources :users, except: [ :new ] # This removes the new action
@@ -26,6 +38,9 @@ Rails.application.routes.draw do
   post "login", to: "sessions#create"
 
   delete "logout", to: "sessions#destroy"
+
+  get "moderator_dashboard", to: "dashboard#moderator"
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
