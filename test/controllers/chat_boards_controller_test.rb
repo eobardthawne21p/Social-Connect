@@ -5,6 +5,7 @@ class ChatBoardsControllerTest < ActionDispatch::IntegrationTest
     @user = FactoryBot.create(:user, role: "moderator")
     @post = FactoryBot.create(:post, user: @user)
     @chat_board = FactoryBot.create(:chat_board, user: @user, post: @post)
+    log_in(@user)
   end
 
   test "should get index" do
@@ -19,11 +20,13 @@ class ChatBoardsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create chat_board" do
     assert_difference("ChatBoard.count") do
-      post chat_boards_url, params: { chat_board: { content: @chat_board.content, post_id: @chat_board.post_id, user_id: @chat_board.user_id } }
+      # Ensure you are posting to the nested route under a post
+      post post_chat_boards_url(@post), params: { chat_board: { content: "New comment" } }
     end
-
-    assert_redirected_to chat_board_url(ChatBoard.last)
+    # Expect redirection to the post view or similar relevant path
+    assert_redirected_to post_url(@post)
   end
+
 
   test "should show chat_board" do
     get chat_board_url(@chat_board)
@@ -45,6 +48,6 @@ class ChatBoardsControllerTest < ActionDispatch::IntegrationTest
       delete chat_board_url(@chat_board)
     end
 
-    assert_redirected_to chat_boards_url
+    assert_redirected_to post_path(@chat_board.post)
   end
 end
