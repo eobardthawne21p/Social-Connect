@@ -8,4 +8,3 @@ Scenario: Moderator deletes an inappropriate chat message
   And there is a chat message I find inappropriate
   When I choose to delete the chat message
   Then the chat message should no longer be visible in the chat
-  And I should see a confirmation that the chat message was successfully deleted

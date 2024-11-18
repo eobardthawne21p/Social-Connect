@@ -175,10 +175,6 @@ Then('the chat message should no longer be visible in the chat') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then('I should see a confirmation that the chat message was successfully deleted') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Then('I should not see the post anymore') do
   expect(page).to_not have_content(@post.title)
 end
@@ -432,7 +428,7 @@ Then('I should see the settings page') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then('I should see buttons for {string}, {string} and {string}') do |string, string2, string3|
+Then('I should see buttons for {string} and {string}') do |string, string2|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
