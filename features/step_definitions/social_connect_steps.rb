@@ -194,25 +194,14 @@ Then('the post should no longer be visible on the platform') do
   expect(page).to_not have_content(@post.title)
 end
 
-When('I navigate to the {string} section') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
 
-Then('I should see a list of users reported by moderators') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
 
-When('I select on Jack and click the {string} button') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
 
-Then('Jack should be deleted from the platform') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
 
-Then('I should see a confirmation that Jack was successfully deleted') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
+
+
+
+
 
 When('I edit the details of the post') do
   fill_in "Title", with: "UEFA Europa League Final"
@@ -304,34 +293,6 @@ Then('I should see the post appear on the timeline') do
   expect(page).to have_selector("img[src='#{@post.image}']")
 end
 
-Given('there is a post that I find inappropriate') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When('I choose to report the post to moderators') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('the post should be flagged for review by moderators') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('the moderators should be able to see the report') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given('there is a user displaying inappropriate behavior') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When('I choose to report the user to admins') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('the user should be flagged for review by admins') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Given('I view a post') do
   pending # Write code here that turns the phrase above into concrete actions
 end
@@ -368,14 +329,6 @@ Given('There are posts with different categories') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When('I click on a filter option') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should only see posts that match the selected filter') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Given('There is a user, Jill') do
   @jill = create(:user, name: 'Jill', username: 'jill', password: 'Password123@', password_confirmation: 'Password123@', birthday: '1990-01-01')
 end
@@ -400,35 +353,11 @@ Then('I should see the chatboard in a new window') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then('I should see maps to the event in a new window') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given('I see a button {string}') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I will see a pop-up with options for both maps and the chatboard for the post') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Then('I should see the posts I have created') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
 Then('I should see my saved posts in a new window') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given('I click {string} link') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see the settings page') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see buttons for {string} and {string}') do |string, string2|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -471,4 +400,16 @@ end
 
 Given('I can view posts on the timeline') do
   expect(page).to have_css('.card-body.d-flex.flex-column')
+end
+
+Then('I will see a pop-up with the option for the chatboard for the post') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given('I see a button {string}') do |string|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then('I should see buttons for {string} and {string}') do |string, string2|
+  pending # Write code here that turns the phrase above into concrete actions
 end

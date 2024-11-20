@@ -1,4 +1,4 @@
-Feature: see settings, profile, and saved posts options in the lower right-hand corner of the timeline
+Feature: see profile and saved posts options in the lower right-hand corner of the timeline
 
 As a logged-in user, I want to see settings, profile, and saved posts buttons in the lower right-hand corner so that I have additional options besides the feed and search bar
 
