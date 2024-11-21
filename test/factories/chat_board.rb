@@ -1,7 +1,7 @@
 FactoryBot.define do
     factory :chat_board do
       content { "MyString" }
-      post_id { "MyString" }
-      user_id { "MyString" }
+      association :user
+      association :post
     end
   end

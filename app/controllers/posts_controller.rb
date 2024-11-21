@@ -25,6 +25,7 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = current_user.posts.build(post_params)
+    @post.tags = extract_hashtags(@post.description) # Extract hashtags from description
 
     respond_to do |format|
       if @post.save
@@ -39,6 +40,7 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
+    @post.tags = extract_hashtags(@post.description) # Update hashtags on description change
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to root_path, notice: "Post was successfully updated." }
@@ -149,6 +151,35 @@ class PostsController < ApplicationController
     end
   end
 
+  # Unified search action for hashtag, location, date, and title
+  def results
+    query = params[:query].to_s.strip.downcase
+    @posts = Post.all
+
+    if query.present?
+      # Check for hashtag search (starts with #)
+      if query.start_with?("#")
+        hashtag = query[1..]  # Remove the '#' symbol
+        @posts = @posts.where(tags: hashtag)
+      else
+        # General search for location, title, or date
+        @posts = @posts.or({ location: /#{Regexp.escape(query)}/i })
+                       .or({ title: /#{Regexp.escape(query)}/i })
+                       .or({ description: /#{Regexp.escape(query)}/i })
+
+
+        # Check if query is a date
+        begin
+          date = Date.parse(query)
+          @posts = @posts.or({ created_at: date.beginning_of_day..date.end_of_day })
+        rescue ArgumentError
+          # Ignore if query is not a valid date
+        end
+      end
+    end
+    render :results
+  end
+
   def approve
     if @post.update(approved: true)
       redirect_to moderator_dashboard_path, notice: "Post was successfully approved."
@@ -178,9 +209,13 @@ class PostsController < ApplicationController
       end
     end
 
+    def extract_hashtags(text)
+      text.scan(/#\w+/).map(&:downcase).uniq # Extracts unique hashtags, stores them in lowercase
+    end
+
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :description, :image, :location, :timeDate, :likes)
+      params.require(:post).permit(:title, :description, :image, :location, :timeDate, :likes, :tags)
     end
 
     def check_moderator
