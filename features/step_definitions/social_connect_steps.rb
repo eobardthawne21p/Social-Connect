@@ -25,11 +25,29 @@ Then('I should see posts on the timeline') do
 end
 
 Then('I should see them in reverse chronological order') do
-  pending # Write code here that turns the phrase above into concrete actions
+  10.times do |i|
+    create(
+      :post,
+      title: "Event #{i + 1}",
+      timeDate: DateTime.now + i.days,
+      description: "Description for Event #{i + 1}",
+      location: "Location #{i + 1}",
+      user: @jack,
+      approved: true
+    )
+  end
+  visit root_path
+  post_titles = page.all('.post-card .card-title').map(&:text)
+  expected_order = (1..10).to_a.reverse.map { |i| "Event #{i}" } + [ 'UEFA Champions League Final' ]
+  expect(post_titles).to eq(expected_order)
 end
 
 Given('I am viewing a post') do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit root_path
+  post_card = find('.post-card', text: @post.title)
+  within(post_card) do
+    click_link 'Read more'
+  end
 end
 
 When('I enter a message in the comment section') do
@@ -175,10 +193,6 @@ Then('the chat message should no longer be visible in the chat') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then('I should see a confirmation that the chat message was successfully deleted') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Then('I should not see the post anymore') do
   expect(page).to_not have_content(@post.title)
 end
@@ -196,26 +210,6 @@ end
 
 Then('the post should no longer be visible on the platform') do
   expect(page).to_not have_content(@post.title)
-end
-
-When('I navigate to the {string} section') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see a list of users reported by moderators') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When('I select on Jack and click the {string} button') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('Jack should be deleted from the platform') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see a confirmation that Jack was successfully deleted') do
-  pending # Write code here that turns the phrase above into concrete actions
 end
 
 When('I edit the details of the post') do
@@ -308,44 +302,16 @@ Then('I should see the post appear on the timeline') do
   expect(page).to have_selector("img[src='#{@post.image}']")
 end
 
-Given('there is a post that I find inappropriate') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When('I choose to report the post to moderators') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('the post should be flagged for review by moderators') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('the moderators should be able to see the report') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given('there is a user displaying inappropriate behavior') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When('I choose to report the user to admins') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('the user should be flagged for review by admins') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given('I view a post') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When('I click the {string} button') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+When('I click the save post button') do
+  visit root_path
+  post_id = @post.id
+  within("#bookmark_post_#{post_id}") do
+    find('.save-button').click
+  end
 end
 
 Then('the post will be added to my saved posts') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(@jack.saved_posts.where(post: @post).exists?).to be true
 end
 
 Given('there are multiple posts with various keywords') do
@@ -365,18 +331,10 @@ Then('I should see a list of posts matching my query') do
 end
 
 Then('I should see the search bar') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_selector('input[name="query"]', visible: true)
 end
 
 Given('There are posts with different categories') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When('I click on a filter option') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should only see posts that match the selected filter') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -404,35 +362,11 @@ Then('I should see the chatboard in a new window') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then('I should see maps to the event in a new window') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given('I see a button {string}') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I will see a pop-up with options for both maps and the chatboard for the post') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Then('I should see the posts I have created') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
 Then('I should see my saved posts in a new window') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given('I click {string} link') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see the settings page') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see buttons for {string}, {string} and {string}') do |string, string2, string3|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -442,10 +376,6 @@ end
 
 Then('I should see the full details of the post') do
   expect(current_path).to eq(post_path(@post))
-end
-
-Given('I log in as Jack') do
-  pending # Write code here that turns the phrase above into concrete actions
 end
 
 Given('I am not logged in') do
@@ -475,4 +405,37 @@ end
 
 Given('I can view posts on the timeline') do
   expect(page).to have_css('.card-body.d-flex.flex-column')
+end
+
+Then('I will see a pop-up with the option for the chatboard for the post') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given('I see a button {string}') do |string|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then('I should see buttons for {string} and {string}') do |string, string2|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given('there is a chat message on a post that I made that I want to delete') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+When('I click the unsave post button') do
+  create(:saved_post, user: @jack, post: @post)
+  visit root_path
+  post_id = @post.id
+  within("#bookmark_post_#{post_id}") do
+    find('.unsave-button').click
+  end
+end
+
+Then('the post will be removed from my saved posts') do
+  expect(@jack.saved_posts.where(post: @post).exists?).to be false
+end
+
+When('I click the {string} button') do |string|
+  pending # Write code here that turns the phrase above into concrete actions
 end
