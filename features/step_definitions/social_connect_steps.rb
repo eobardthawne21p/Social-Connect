@@ -25,11 +25,29 @@ Then('I should see posts on the timeline') do
 end
 
 Then('I should see them in reverse chronological order') do
-  pending # Write code here that turns the phrase above into concrete actions
+  10.times do |i|
+    create(
+      :post,
+      title: "Event #{i + 1}",
+      timeDate: DateTime.now + i.days, 
+      description: "Description for Event #{i + 1}",
+      location: "Location #{i + 1}",
+      user: @jack,
+      approved: true
+    )
+  end
+  visit root_path
+  post_titles = page.all('.post-card .card-title').map(&:text)
+  expected_order = (1..10).to_a.reverse.map { |i| "Event #{i}" } + ['UEFA Champions League Final']
+  expect(post_titles).to eq(expected_order)
 end
 
 Given('I am viewing a post') do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit root_path
+  post_card = find('.post-card', text: @post.title) 
+  within(post_card) do
+    click_link 'Read more' 
+  end
 end
 
 When('I enter a message in the comment section') do
@@ -293,10 +311,6 @@ Then('I should see the post appear on the timeline') do
   expect(page).to have_selector("img[src='#{@post.image}']")
 end
 
-Given('I view a post') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 When('I click the {string} button') do |string|
   pending # Write code here that turns the phrase above into concrete actions
 end
@@ -367,10 +381,6 @@ end
 
 Then('I should see the full details of the post') do
   expect(current_path).to eq(post_path(@post))
-end
-
-Given('I log in as Jack') do
-  pending # Write code here that turns the phrase above into concrete actions
 end
 
 Given('I am not logged in') do
