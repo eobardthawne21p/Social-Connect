@@ -10,7 +10,7 @@ class User
   field :password_digest, type: String
   field :birthday, type: Date
   field :role, type: String, default: "user"
-  field :bio, type: String 
+  field :bio, type: String
   field :profile_picture, type: String
   field :profile_picture_url, type: String
   field :links, type: Array, default: []
@@ -32,7 +32,7 @@ class User
   validates :profile_picture, format: { with: /\A(http|https):\/\/[^\s]+\z/, message: "must be a valid URL" }, allow_blank: true, unless: -> { profile_picture_url.present? }
   validates :profile_picture_url, format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), message: "must be a valid URL" }, allow_blank: true
   validate :valid_links
-  
+
   # Association that a user may have many posts
   has_many :posts
 
@@ -128,12 +128,11 @@ class User
 
   def valid_links
     return if links.blank?
-  
+
     links.each do |link|
       unless link =~ URI::DEFAULT_PARSER.make_regexp(%w[http https])
         errors.add(:links, "#{link} is not a valid URL")
       end
     end
   end
-
 end

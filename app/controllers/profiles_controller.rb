@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :show_saved_posts, :show_original_posts]
-  before_action :authorize_user, only: [:edit, :update]
+  before_action :set_user, only: [ :show, :edit, :update, :show_saved_posts, :show_original_posts ]
+  before_action :authorize_user, only: [ :edit, :update ]
 
 
   def show_original_posts
@@ -46,9 +46,9 @@ class ProfilesController < ApplicationController
   def update
     links = params[:user][:links].split("\n").map(&:strip).reject(&:blank?) if params[:user][:links]
     if @user.update(profile_params.merge(links: links))
-      redirect_to profile_path(@user), notice: 'Profile updated successfully.'
+      redirect_to profile_path(@user), notice: "Profile updated successfully."
     else
-      flash[:alert] = 'Failed to update profile.'
+      flash[:alert] = "Failed to update profile."
       render :edit
     end
   end
@@ -71,6 +71,7 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
+    params.require(:user).permit(:name, :bio, :profile_picture, :profile_picture_url, links: [])
     params.require(:user).permit(:name, :bio, :profile_picture, :profile_picture_url, links: [])
   end
 end
