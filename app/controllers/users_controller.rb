@@ -19,6 +19,10 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def saved_posts
+    @saved_posts = current_user.saved_posts # Assuming a `has_many :saved_posts` association
+  end
+
   # POST /users or /users.json
   def create
     @user = User.new(user_params)

@@ -10,6 +10,10 @@ class User
   field :password_digest, type: String
   field :birthday, type: Date
   field :role, type: String, default: "user"
+  field :bio, type: String
+  field :profile_picture, type: String
+  field :profile_picture_url, type: String
+  field :links, type: Array, default: []
 
   ROLES = %w[user moderator admin]
   validates :role, inclusion: { in: ROLES }
@@ -20,10 +24,14 @@ class User
   # Validations
   validates :name, presence: true
   validates :username, presence: true
-  validates :password, presence: true, confirmation: true
-  validates :password_confirmation, presence: true
+  validates :password, presence: true, confirmation: true, if: :password_required?
+  validates :password_confirmation, presence: true, if: :password_required?
   validates :birthday, presence: true
   validates :role, presence: true
+  validates :bio, length: { maximum: 300 }, allow_blank: true
+  validates :profile_picture, format: { with: /\A(http|https):\/\/[^\s]+\z/, message: "must be a valid URL" }, allow_blank: true, unless: -> { profile_picture_url.present? }
+  validates :profile_picture_url, format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), message: "must be a valid URL" }, allow_blank: true
+  validate :valid_links
 
   # Association that a user may have many posts
   has_many :posts
@@ -32,11 +40,11 @@ class User
   has_many :chat_boards, dependent: :destroy
 
   # Validations for secure passwords
-  validate :password_lower_case
-  validate :password_uppercase
-  validate :password_special_char
-  validate :password_contains_number
-  validate :password_length
+  validate :password_lower_case, if: :password_required?
+  validate :password_uppercase, if: :password_required?
+  validate :password_special_char, if: :password_required?
+  validate :password_contains_number, if: :password_required?
+  validate :password_length, if: :password_required?
 
   def password_uppercase
     return if password =~ /[A-Z]/
@@ -75,6 +83,11 @@ class User
     BCrypt::Password.new(self.password_digest) == password
   end
 
+   # Method to get the profile picture to display
+   def display_profile_picture
+    profile_picture_url.presence || profile_picture
+  end
+
   # Method for roles
   def moderator?
     role == "moderator"
@@ -95,8 +108,31 @@ class User
   # Associations for saved posts
   has_many :saved_posts, dependent: :destroy
 
+  # Helper method to get associated posts from saved_posts
+  def saved_posts_associated
+    Post.where(:id.in => saved_posts.pluck(:post_id))
+  end
+
   # Custom method to get posts the user is going to
   def going_posts
     Post.where(:id.in => self.goings.pluck(:post_id))
+  end
+
+
+  private
+
+  # Only require password on creation or if it's explicitly being changed
+  def password_required?
+    new_record? || password.present?
+  end
+
+  def valid_links
+    return if links.blank?
+
+    links.each do |link|
+      unless link =~ URI::DEFAULT_PARSER.make_regexp(%w[http https])
+        errors.add(:links, "#{link} is not a valid URL")
+      end
+    end
   end
 end

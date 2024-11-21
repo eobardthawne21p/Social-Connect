@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "profiles/show"
   get "dashboard/moderator"
   resources :saved_posts
   resources :likes
@@ -15,6 +16,9 @@ Rails.application.routes.draw do
       post "not_going"
       post "approve"
       post "reject"
+      get "edit_profile", to: "users#edit_profile"
+      patch "update_profile", to: "users#update_profile"
+      get :saved_posts
     end
   end
 
@@ -25,7 +29,14 @@ Rails.application.routes.draw do
     delete "remove_moderator/:id", to: "users#remove_moderator", as: "remove_moderator"
   end
 
-  resources :users, except: [ :new ] # This removes the new action
+  resources :users, except: [ :new ]
+
+  resources :profiles, only: [ :show, :edit, :update ] do
+    member do
+      get :show_original_posts, to: "profiles#show_original_posts"
+      get :show_saved_posts, to: "profiles#show_saved_posts"
+    end
+  end
 
   root "pages#home"
 
