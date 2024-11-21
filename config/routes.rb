@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       post "reject"
       get 'edit_profile', to: 'users#edit_profile'
       patch 'update_profile', to: 'users#update_profile'
+      get :saved_posts
     end
   end
 
@@ -30,7 +31,12 @@ Rails.application.routes.draw do
 
   resources :users, except: [ :new ] 
 
-  resources :profiles, only: [:show, :edit, :update]
+  resources :profiles, only: [:show, :edit, :update] do
+    member do
+      get :show_original_posts, to: "profiles#show_original_posts"
+      get :show_saved_posts, to: "profiles#show_saved_posts"
+    end
+  end
 
   root "pages#home"
 

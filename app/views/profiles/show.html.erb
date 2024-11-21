@@ -49,38 +49,117 @@
 
             <!-- Post count display -->
             <div class="d-flex justify-content-end text-center py-1 text-body">
-              <div>
-              <%#
-                <p class="mb-1 h5"><%= @user.posts.count %></p> 
-                <%#
-                <p class="small text-muted mb-0">Posts</p> %>
-              </div>
+              <div></div>
             </div>
           </div>
 
-          <!-- Body for posts content -->
-          <div class="card-body p-4 text-black">
-            <div class="mb-5 text-body">
-              <p class="lead fw-normal mb-0">Posts</p>
-
-              <div class="p-4 bg-body-tertiary">
-                <% if @user.posts.any? %>
-                  <% @user.posts.each do |post| %>
-                    <div class="mb-3">
-                      <h6><%= post.title %></h6>
-                      <p class="small text-muted"><%= post.created_at.strftime('%B %d, %Y') %></p>
-                      <p><%= truncate(post.description, length: 100) %></p>
-                      <a href="<%= post_path(post) %>" class="btn btn-link">Read More</a>
-                    </div>
-                  <% end %>
-                <% else %>
-                  <p class="text-muted">No posts to display.</p>
-                <% end %>
-              </div>
+          <!-- Dropdown -->
+          <div class="d-flex justify-content-start px-4 pt-3">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="postsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Posts
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="postsDropdown">
+                <li><a class="dropdown-item" href="#" id="show-posts">Original Posts</a></li>
+                <li><a class="dropdown-item" href="#" id="show-saved-posts">Saved Posts</a></li>
+              </ul>
             </div>
           </div>
+
+            <!-- Original Posts Section -->
+  <div id="posts-section" class="card-body p-4 text-black">
+    <div class="mb-5 text-body">
+      <p class="lead fw-normal mb-0">Original Posts</p>
+      <div class="p-4 bg-body-tertiary">
+        <% if @user.posts.any? %>
+          <% @user.posts.each do |post| %>
+            <div class="mb-3 card">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <!-- Post Image -->
+                  <img 
+                    src="<%= post.image.presence || 'https://via.placeholder.com/150' %>" 
+                    class="img-fluid rounded-start" 
+                    alt="Post Image"
+                    style="height: 100%; object-fit: cover;"
+                  >
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h6 class="card-title"><%= post.title %></h6>
+                    <p class="small text-muted"><%= post.created_at.strftime('%B %d, %Y') %></p>
+                    <p class="card-text"><%= truncate(post.description, length: 100) %></p>
+                    <a href="<%= post_path(post) %>" class="btn btn-link">Read More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <p class="text-muted">No posts to display.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Saved Posts Section -->
+  <div id="saved-posts-section" class="card-body p-4 text-black" style="display: none;">
+    <div class="mb-5 text-body">
+      <p class="lead fw-normal mb-0">Saved Posts</p>
+      <div class="p-4 bg-body-tertiary">
+        <% if current_user.saved_posts_associated.any? %>
+          <% current_user.saved_posts_associated.each do |post| %>
+            <div class="mb-3 card">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <!-- Post Image -->
+                  <img 
+                    src="<%= post.image.presence || 'https://via.placeholder.com/150' %>" 
+                    class="img-fluid rounded-start" 
+                    alt="Post Image"
+                    style="height: 100%; object-fit: cover;"
+                  >
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h6 class="card-title"><%= post.title %></h6>
+                    <p class="small text-muted"><%= post.created_at.strftime('%B %d, %Y') %></p>
+                    <p class="card-text"><%= truncate(post.description, length: 100) %></p>
+                    <a href="<%= post_path(post) %>" class="btn btn-link">Read More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <p class="text-muted">No saved posts to display.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const postsSection = document.getElementById('posts-section');
+    const savedPostsSection = document.getElementById('saved-posts-section');
+    const showPosts = document.getElementById('show-posts');
+    const showSavedPosts = document.getElementById('show-saved-posts');
+
+    showPosts.addEventListener('click', (e) => {
+      e.preventDefault();
+      postsSection.style.display = 'block';
+      savedPostsSection.style.display = 'none';
+    });
+
+    showSavedPosts.addEventListener('click', (e) => {
+      e.preventDefault();
+      postsSection.style.display = 'none';
+      savedPostsSection.style.display = 'block';
+    });
+  });
+</script>

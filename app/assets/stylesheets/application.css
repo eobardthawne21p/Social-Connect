@@ -47,3 +47,8 @@
     background-color: #007bff !important; 
     color: #fff !important;
   }
+
+    /* Force scrollbar visibility */
+  html {
+    overflow-y: scroll; /* Ensure vertical scrollbar is always visible */
+  }

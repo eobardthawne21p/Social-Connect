@@ -24,50 +24,45 @@
     <%= javascript_importmap_tags %>
   </head>
 
+
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <a class="navbar-brand" href="#">Social-Connect</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="container-fluid">
+        <!-- Brand -->
+        <a class="navbar-brand" href="<%= root_path %>">Social-Connect</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <!-- Home button redirecting to root_path (homepage) -->
-            <li class="nav-item active">
-              <a class="nav-link" href="<%= root_path %>">Home <span class="sr-only"></span></a>
+          <!-- Left-aligned links (Home, Profile, Create Post) -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="<%= root_path %>">Home</a>
             </li>
-
             <% if logged_in? %>
-            <li class="nav-item">
-             <%= link_to 'Profile', profile_path(current_user.id), class: 'nav-link' %>
-            </li>
-            <% end %>
-
-            <% if logged_in? %>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Settings</a>
-            </li>
-
-            <li class="nav-item">
-              <%= link_to 'Logout', logout_path, class: 'nav-link', data: { turbo_method: :delete } %>
-            </li>
+              <li class="nav-item">
+                <%= link_to 'Profile', profile_path(current_user.id), class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Create Post', new_post_path, class: 'btn btn-primary btn-sm ms-2' %>
+              </li>
             <% end %>
           </ul>
 
-          <div class="d-flex justify-content-center flex-grow-1">
+          <!-- Center-aligned search bar -->
+          <div class="position-absolute top-50 start-50 translate-middle">
             <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success me-2" type="submit">Search</button>
+              <button class="btn btn-success" type="submit">Search</button>
             </form>
           </div>
 
-          <!-- Check if the user is logged in -->
-          <ul class="navbar-nav ml-auto">
+          <!-- Right-aligned links/buttons -->
+          <ul class="navbar-nav ms-auto">
             <% if logged_in? %>
               <li class="nav-item">
-                <%= link_to 'Create post', new_post_path, class: 'btn btn-primary me-4' %>
+                <%= link_to 'Logout', logout_path, class: 'nav-link', data: { turbo_method: :delete } %>
               </li>
             <% else %>
               <li class="nav-item">

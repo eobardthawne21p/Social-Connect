@@ -108,6 +108,11 @@ class User
   # Associations for saved posts
   has_many :saved_posts, dependent: :destroy
 
+  # Helper method to get associated posts from saved_posts
+  def saved_posts_associated
+    Post.where(:id.in => saved_posts.pluck(:post_id))
+  end
+
   # Custom method to get posts the user is going to
   def going_posts
     Post.where(:id.in => self.goings.pluck(:post_id))
