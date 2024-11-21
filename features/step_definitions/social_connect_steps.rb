@@ -424,6 +424,7 @@ Given('there is a chat message on a post that I made that I want to delete') do
 end
 
 When('I click the unsave post button') do
+  create(:saved_post, user: @jack, post: @post)
   visit root_path
   post_id = @post.id
   within("#bookmark_post_#{post_id}") do
