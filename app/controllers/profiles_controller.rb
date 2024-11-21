@@ -34,18 +34,16 @@ class ProfilesController < ApplicationController
   private
 
   def set_user
+    if params[:id].blank?
+      Rails.logger.debug("No ID provided in params")
+      redirect_to root_path, alert: "User not found" and return
+    end
+
     @user = User.find(params[:id])
     Rails.logger.debug("User found: #{@user.id}")
   rescue Mongoid::Errors::DocumentNotFound
-    Rails.logger.debug("User not found: #{params[:id]}")
+    Rails.logger.debug("User not found with id=#{params[:id]}")
     redirect_to root_path, alert: "User not found"
-  end
-
-  def authorize_user
-    unless current_user == @user
-      Rails.logger.debug("Authorization failed: current_user=#{current_user&.id}, @user=#{@user&.id}")
-      redirect_to root_path, alert: "Not authorized"
-    end
   end
 
   def profile_params
