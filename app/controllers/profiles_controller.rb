@@ -46,6 +46,13 @@ class ProfilesController < ApplicationController
     redirect_to root_path, alert: "User not found"
   end
 
+  def authorize_user
+    unless current_user == @user
+      Rails.logger.debug("Authorization failed: current_user=#{current_user&.id}, target_user=#{@user&.id}")
+      redirect_to root_path, alert: "Not authorized"
+    end
+  end
+
   def profile_params
     params.require(:user).permit(:name, :bio, :profile_picture, :profile_picture_url, links: [])
     params.require(:user).permit(:name, :bio, :profile_picture, :profile_picture_url, links: [])
