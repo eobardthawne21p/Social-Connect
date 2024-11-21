@@ -103,12 +103,13 @@
   </div>
 
   <!-- Saved Posts Section -->
-  <div id="saved-posts-section" class="card-body p-4 text-black" style="display: none;">
-    <div class="mb-5 text-body">
-      <p class="lead fw-normal mb-0">Saved Posts</p>
-      <div class="p-4 bg-body-tertiary">
-        <% if current_user.saved_posts_associated.any? %>
-          <% current_user.saved_posts_associated.order(created_at: :desc).each do |post| %>
+<div id="saved-posts-section" class="card-body p-4 text-black" style="display: none;">
+  <div class="mb-5 text-body">
+    <p class="lead fw-normal mb-0">Saved Posts</p>
+    <div class="p-4 bg-body-tertiary">
+      <% if @user %>
+        <% if @user.saved_posts_associated.any? %>
+          <% @user.saved_posts_associated.order(created_at: :desc).each do |post| %>
             <div class="mb-3 card">
               <div class="row g-0">
                 <div class="col-md-4">
@@ -134,14 +135,12 @@
         <% else %>
           <p class="text-muted">No saved posts to display.</p>
         <% end %>
-      </div>
+      <% else %>
+        <p class="text-muted">User not found.</p>
+      <% end %>
     </div>
   </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+</div>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
