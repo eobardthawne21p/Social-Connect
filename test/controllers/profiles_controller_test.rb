@@ -6,7 +6,7 @@ class ProfilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get show" do
-    sign_in_as(@user)
+    log_in(@user)
 
 
     get profile_url(@user)
