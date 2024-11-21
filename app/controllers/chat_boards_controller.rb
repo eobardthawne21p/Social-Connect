@@ -27,7 +27,7 @@ class ChatBoardsController < ApplicationController
     @chat_board.user_id = current_user.id
     respond_to do |format|
       if @chat_board.save
-        format.html { redirect_to chat_board_path(@post), notice: "Comment was successfully posted." }
+        format.html { redirect_to chat_board_path(@chat_board.post_id), notice: "Chat was successfully delivered." }
         format.json { render :show, status: :created, location: @chat_board }
       else
         format.html { redirect_to post_path(@post), alert: "Failed to post comment." }
@@ -40,7 +40,7 @@ class ChatBoardsController < ApplicationController
   def update
     respond_to do |format|
       if @chat_board.update(chat_board_params)
-        format.html { redirect_to post_path(@chat_board.post_id), notice: "Comment was successfully updated." }
+        format.html { redirect_to post_path(@chat_board.post_id), notice: "Chat was successfully updated." }
         format.json { render :show, status: :ok, location: @chat_board }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,7 +55,7 @@ class ChatBoardsController < ApplicationController
     @chat_board.destroy
 
     respond_to do |format|
-      format.html { redirect_to post_path(post_id), notice: "Comment was successfully deleted.", status: :see_other }
+      format.html { redirect_to post_path(post_id), notice: "Chat was successfully deleted.", status: :see_other }
       format.json { head :no_content }
     end
   end

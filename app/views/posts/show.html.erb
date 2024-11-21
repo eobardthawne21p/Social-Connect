@@ -25,37 +25,52 @@
   <% end %>
 </div>
 
-<!-- Comments Section -->
-<h2>Comments</h2>
-<% if @post.chat_boards.any? %>
-  <% @post.chat_boards.each do |comment| %>
-    <div class="comment">
-      <p>
-        <strong><%= comment.user.username %>:</strong>
-        <%= comment.content %>
-      </p>
-      <p class="text-muted">
-        Posted on <%= comment.created_at.strftime("%B %d, %Y at %I:%M %p") %>
-      </p>
+<!-- Comments Trigger Button -->
+<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#commentsModal">
+  Open Chat
+</button>
 
-      <% if current_user == comment.user || current_user.admin? || current_user.moderator? %>
-        <%= button_to "Delete", post_chat_board_path(@post, comment), method: :delete, 
-                      data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
-      <% end %>
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="commentsModal" tabindex="-1" aria-labelledby="commentsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="commentsModalLabel">Chat</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% if @post.chat_boards.any? %>
+          <% @post.chat_boards.each do |comment| %>
+            <div class="comment">
+              <p>
+                <strong><%= comment.user.username %>:</strong>
+                <%= comment.content %>
+              </p>
+              <p class="text-muted">
+                Delivered <%= comment.created_at.strftime("%B %d, %Y at %I:%M %p") %>
+              </p>
+
+              <% if current_user == comment.user || current_user.admin? || current_user.moderator? %>
+                <%= button_to "Delete", post_chat_board_path(@post, comment), method: :delete, 
+                              data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+              <% end %>
+            </div>
+            <hr>
+          <% end %>
+        <% else %>
+          <p>Start chatting!</p>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <!-- New Comment Form -->
+        <%= form_with(model: [@post, @chat_board], local: true, class: "w-100") do |form| %>
+          <div class="input-group">
+            <%= form.text_area :content, placeholder: "Send a message...", class: "form-control" %>
+            <button type="submit" class="btn btn-primary">Chat</button>
+          </div>
+        <% end %>
+      </div>
     </div>
-    <hr>
-  <% end %>
-<% else %>
-  <p>No comments yet. Be the first to comment!</p>
-<% end %>
-
-<h3>Add a Comment</h3>
-<%= form_with(model: [@post, @chat_board], local: true) do |form| %>
-  <%= form.hidden_field :post_id, value: @post.id %>
-  <div>
-    <%= form.text_area :content, placeholder: "Write your comment here...", class: "form-control" %>
   </div>
-  <br>
-  <%= form.submit "Post Comment", class: "btn btn-primary" %>
-<% end %>
+</div>
 </div>
