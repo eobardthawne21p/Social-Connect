@@ -212,15 +212,6 @@ Then('the post should no longer be visible on the platform') do
   expect(page).to_not have_content(@post.title)
 end
 
-
-
-
-
-
-
-
-
-
 When('I edit the details of the post') do
   fill_in "Title", with: "UEFA Europa League Final"
 end
@@ -311,12 +302,16 @@ Then('I should see the post appear on the timeline') do
   expect(page).to have_selector("img[src='#{@post.image}']")
 end
 
-When('I click the {string} button') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+When('I click the save post button') do
+  visit root_path
+  post_id = @post.id
+  within("#bookmark_post_#{post_id}") do
+    find('.save-button').click
+  end
 end
 
 Then('the post will be added to my saved posts') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(@jack.saved_posts.where(post: @post).exists?).to be true
 end
 
 Given('there are multiple posts with various keywords') do
@@ -421,5 +416,25 @@ Given('I see a button {string}') do |string|
 end
 
 Then('I should see buttons for {string} and {string}') do |string, string2|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given('there is a chat message on a post that I made that I want to delete') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+When('I click the unsave post button') do
+  visit root_path
+  post_id = @post.id
+  within("#bookmark_post_#{post_id}") do
+    find('.unsave-button').click
+  end
+end
+
+Then('the post will be removed from my saved posts') do
+  expect(@jack.saved_posts.where(post: @post).exists?).to be false
+end
+
+When('I click the {string} button') do |string|
   pending # Write code here that turns the phrase above into concrete actions
 end
