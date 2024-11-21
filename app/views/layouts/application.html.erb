@@ -72,12 +72,6 @@
             <% end %>
           </ul>
 
-          <!-- Search bar -->
-          <%= form_with url: results_path, method: :get, local: true, class: 'd-flex' do %>
-            <input class="form-control me-2" type="text" name="query" placeholder="Search" aria-label="Search">
-            <%= submit_tag "Search", class: "btn btn-outline-success" %>
-          <% end %>
-
           <!-- Admin link -->
           <% if current_user&.admin? %>
             <ul class="navbar-nav">

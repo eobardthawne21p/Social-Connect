@@ -4,7 +4,7 @@ class ProfilesController < ApplicationController
 
 
   def show_original_posts
-    @original_posts = @user.posts
+    @original_posts = @user.posts.order(created_at: :desc)
     respond_to do |format|
       format.json { render json: { posts: render_to_string(partial: 'profiles/posts', locals: { posts: @original_posts, show_saved_posts: false }) } }
     end
@@ -12,36 +12,14 @@ class ProfilesController < ApplicationController
   
   def show_saved_posts
     if current_user == @user
-      @saved_posts = current_user.saved_posts_associated
+      @saved_posts = current_user.saved_posts_associated.order(created_at: :desc)
       respond_to do |format|
         format.json { render json: { posts: render_to_string(partial: 'profiles/posts', locals: { posts: @saved_posts, show_saved_posts: true }) } }
       end
     else
       render json: { error: 'Not authorized' }, status: :unauthorized
     end
-  end
-
-  def show_saved_posts
-    if current_user == @user
-      @saved_posts = current_user.saved_posts_associated
-      respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(
-            'posts-frame',
-            partial: 'profiles/posts',
-            locals: { posts: @saved_posts, show_saved_posts: true }
-          )
-        end
-        format.html do
-          render partial: 'profiles/posts', locals: { posts: @saved_posts, show_saved_posts: true }
-        end
-      end
-    else
-      redirect_to profile_path(@user), alert: 'Not authorized to view saved posts.'
-    end
-  end
-
-  
+  end  
 
   def update
     links = params[:user][:links].split("\n").map(&:strip).reject(&:blank?) if params[:user][:links]
