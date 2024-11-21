@@ -22,13 +22,13 @@ class SavedPostsController < ApplicationController
   # POST /saved_posts or /saved_posts.json
   def create
     @saved_post = SavedPost.new(saved_post_params)
-  
+
     respond_to do |format|
       if @saved_post.save
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(
-            'posts-section',
-            partial: 'profiles/saved_posts',
+            "posts-section",
+            partial: "profiles/saved_posts",
             locals: { saved_posts: current_user.saved_posts_associated }
           )
         end
@@ -37,8 +37,8 @@ class SavedPostsController < ApplicationController
       else
         format.turbo_stream do
           render turbo_stream: turbo_stream.append(
-            'alerts',
-            partial: 'shared/alert',
+            "alerts",
+            partial: "shared/alert",
             locals: { message: "Failed to save the post." }
           )
         end
@@ -64,12 +64,12 @@ class SavedPostsController < ApplicationController
   # DELETE /saved_posts/1 or /saved_posts/1.json
   def destroy
     @saved_post.destroy
-  
+
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace(
-          'posts-section',
-          partial: 'profiles/saved_posts',
+          "posts-section",
+          partial: "profiles/saved_posts",
           locals: { saved_posts: current_user.saved_posts_associated }
         )
       end

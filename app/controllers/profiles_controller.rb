@@ -6,20 +6,20 @@ class ProfilesController < ApplicationController
   def show_original_posts
     @original_posts = @user.posts.order(created_at: :desc)
     respond_to do |format|
-      format.json { render json: { posts: render_to_string(partial: 'profiles/posts', locals: { posts: @original_posts, show_saved_posts: false }) } }
+      format.json { render json: { posts: render_to_string(partial: "profiles/posts", locals: { posts: @original_posts, show_saved_posts: false }) } }
     end
   end
-  
+
   def show_saved_posts
     if current_user == @user
       @saved_posts = current_user.saved_posts_associated.order(created_at: :desc)
       respond_to do |format|
-        format.json { render json: { posts: render_to_string(partial: 'profiles/posts', locals: { posts: @saved_posts, show_saved_posts: true }) } }
+        format.json { render json: { posts: render_to_string(partial: "profiles/posts", locals: { posts: @saved_posts, show_saved_posts: true }) } }
       end
     else
-      render json: { error: 'Not authorized' }, status: :unauthorized
+      render json: { error: "Not authorized" }, status: :unauthorized
     end
-  end  
+  end
 
   def update
     links = params[:user][:links].split("\n").map(&:strip).reject(&:blank?) if params[:user][:links]
@@ -38,7 +38,7 @@ class ProfilesController < ApplicationController
     Rails.logger.debug("User found: #{@user.id}")
   rescue Mongoid::Errors::DocumentNotFound
     Rails.logger.debug("User not found: #{params[:id]}")
-    redirect_to root_path, alert: 'User not found'
+    redirect_to root_path, alert: "User not found"
   end
 
   def authorize_user
