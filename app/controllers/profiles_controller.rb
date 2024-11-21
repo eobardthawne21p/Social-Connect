@@ -10,10 +10,31 @@ class ProfilesController < ApplicationController
 
   def update
     links = params[:user][:links].split("\n").map(&:strip).reject(&:blank?) if params[:user][:links]
-    if @user.update(profile_params.merge(links: links))
+
+    if password_params_present?
+      if @user.authenticate(params[:user][:current_password])
+        if params[:user][:password] == params[:user][:current_password]
+          @user.errors.add(:password, "cannot be the same as your current password.")
+        end
+
+        if params[:user][:password] != params[:user][:password_confirmation]
+          @user.errors.add(:password_confirmation, "does not match the new password.")
+        end
+      else
+        @user.errors.add(:current_password, "is incorrect")
+      end
+
+      if @user.errors.any?
+        flash.now[:alert] = "There were errors with your submission."
+        render :edit and return
+      end
+    end
+
+    update_params = profile_params.merge(links: links)
+    if @user.update(update_params)
       redirect_to profile_path(@user), notice: "Profile updated successfully."
     else
-      flash[:alert] = "Failed to update profile."
+      flash.now[:alert] = "Failed to update profile." + @user.errors.full_messages.to_sentence
       render :edit
     end
   end
@@ -31,6 +52,10 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:user).permit(:name, :bio, :profile_picture, :profile_picture_url, links: [])
+    params.require(:user).permit(:name, :bio, :profile_picture, :profile_picture_url, :password, :password_confirmation, links: [])
+  end
+
+  def password_params_present?
+    params[:user][:password].present? && params[:user][:password_confirmation].present?
   end
 end
