@@ -29,7 +29,7 @@ Then('I should see them in reverse chronological order') do
     create(
       :post,
       title: "Event #{i + 1}",
-      timeDate: DateTime.now + i.days, 
+      timeDate: DateTime.now + i.days,
       description: "Description for Event #{i + 1}",
       location: "Location #{i + 1}",
       user: @jack,
@@ -38,15 +38,15 @@ Then('I should see them in reverse chronological order') do
   end
   visit root_path
   post_titles = page.all('.post-card .card-title').map(&:text)
-  expected_order = (1..10).to_a.reverse.map { |i| "Event #{i}" } + ['UEFA Champions League Final']
+  expected_order = (1..10).to_a.reverse.map { |i| "Event #{i}" } + [ 'UEFA Champions League Final' ]
   expect(post_titles).to eq(expected_order)
 end
 
 Given('I am viewing a post') do
   visit root_path
-  post_card = find('.post-card', text: @post.title) 
+  post_card = find('.post-card', text: @post.title)
   within(post_card) do
-    click_link 'Read more' 
+    click_link 'Read more'
   end
 end
 
