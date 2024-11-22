@@ -1,3 +1,7 @@
+<% flash.each do |type, message| %>
+    <div class="alert alert-<%= type == 'notice' ? 'success' : 'danger' %>"><%= message %></div>
+<% end %>
+
 <section class="h-100 gradient-custom-2">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center">
