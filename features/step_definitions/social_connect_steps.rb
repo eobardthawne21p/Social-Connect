@@ -289,7 +289,6 @@ Then('the counter for likes should decrease by {int}') do |int|
 end
 
 When('I enter content into the post form') do
-
   fill_in "Title", with: @post.title
   fill_in "Description", with: @post.description
   fill_in "Image", with: @post.image
@@ -440,4 +439,3 @@ end
 When('I click the {string} button') do |string|
   pending # Write code here that turns the phrase above into concrete actions
 end
-
