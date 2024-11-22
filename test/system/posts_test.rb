@@ -15,14 +15,14 @@ class PostsTest < ApplicationSystemTestCase
 
   test "should create post" do
     log_in_as(@user)
-    click_on "Create post"
+    click_on "Create Post"
 
     fill_in "Description", with: @post.description
     fill_in "Image", with: @post.image
     fill_in "Location", with: @post.location
     fill_in "Time", with: @post.timeDate
     fill_in "Title", with: @post.title
-    click_on "Create Post"
+    click_on "Post"
 
     assert_text "Post was successfully created"
   end

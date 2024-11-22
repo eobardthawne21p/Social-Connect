@@ -98,7 +98,7 @@ class PostsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to @post, notice: "Post was successfully saved." }
+      format.html { redirect_to root_path, notice: "Post was successfully saved." }
       format.json { head :ok }
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace(dom_id(@post, :bookmark), partial: "posts/bookmark_section", locals: { post: @post })
@@ -114,7 +114,7 @@ class PostsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to @post, notice: "Post was successfully unsaved." }
+      format.html { redirect_to root_path, notice: "Post was successfully unsaved." }
       format.json { head :no_content }
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace(dom_id(@post, :bookmark), partial: "posts/bookmark_section", locals: { post: @post })

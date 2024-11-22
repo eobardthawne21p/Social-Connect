@@ -18,8 +18,7 @@ class SavedPostsTest < ApplicationSystemTestCase
     fill_in "User", with: @saved_post.user_id
     click_on "Create Saved post"
 
-    assert_text "Saved post was successfully created"
-    click_on "Back"
+    assert_text "Post saved successfully."
   end
 
   test "should update Saved post" do
@@ -38,6 +37,6 @@ class SavedPostsTest < ApplicationSystemTestCase
     visit saved_post_url(@saved_post)
     click_on "Destroy this saved post", match: :first
 
-    assert_text "Saved post was successfully destroyed"
+    assert_text "Post unsaved successfully."
   end
 end
