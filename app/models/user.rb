@@ -34,7 +34,7 @@ class User
 
   # Association that a user may have many posts
   has_many :posts
-  has_many :saved_posts, dependent: :destroy  
+  has_many :saved_posts, dependent: :destroy
 
   # A user may have many comments
   has_many :chat_boards, dependent: :destroy
@@ -109,7 +109,7 @@ class User
   end
 
   def profile_picture_url
-    self[:profile_picture_url].presence || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+    self[:profile_picture_url].presence || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
   end
 
   def validate_links

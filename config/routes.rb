@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   end
 
   # Profiles
-  resources :profiles, only: [:show, :edit, :update] do
+  resources :profiles, only: [ :show, :edit, :update ] do
     member do
       get :show_original_posts
       get :show_saved_posts

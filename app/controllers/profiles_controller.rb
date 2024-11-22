@@ -15,13 +15,13 @@ class ProfilesController < ApplicationController
   def show_original_posts
     @posts = @user.posts.order(created_at: :desc)
 
-    render partial: 'profiles/original_posts', locals: { posts: @posts }, layout: false
+    render partial: "profiles/original_posts", locals: { posts: @posts }, layout: false
   end
 
   def show_saved_posts
     @posts = current_user.saved_posts_associated.order(created_at: :desc)
 
-    render partial: 'profiles/saved_posts', locals: { posts: @posts }, layout: false
+    render partial: "profiles/saved_posts", locals: { posts: @posts }, layout: false
   end
 
   private
@@ -31,7 +31,7 @@ class ProfilesController < ApplicationController
     Rails.logger.debug("User found: #{@user.id}")
   rescue Mongoid::Errors::DocumentNotFound
     Rails.logger.debug("User not found: #{params[:id]}")
-    redirect_to root_path, alert: 'User not found'
+    redirect_to root_path, alert: "User not found"
   end
 
   def authorize_user
