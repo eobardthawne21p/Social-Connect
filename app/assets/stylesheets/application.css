@@ -33,22 +33,3 @@
   .container {
     max-width: 1200px; /* Ensure the container doesn't stretch too wide */
   }
-    /* Edit Profile button color by default */
-  .edit-profile-button {
-    color: #fff !important;
-    background-color: #6c757d !important;
-    border-color: #ffffff !important;
-  }
-
-  /* Edit Profile button color when clicked */
-  .edit-profile-button:active,
-  .edit-profile-button:focus,
-  .edit-profile-button:hover {
-    background-color: #007bff !important; 
-    color: #fff !important;
-  }
-
-    /* Force scrollbar visibility */
-  html {
-    overflow-y: scroll; /* Ensure vertical scrollbar is always visible */
-  }
