@@ -446,7 +446,7 @@ When('I click the {string} button') do |string|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When('I click on Create post') do 
+When('I click on Create post') do
     expect(page).to have_link('Create Post', href: '/posts/new')
     expect(page).to have_css('a.btn.btn-primary.btn-sm', text: 'Create Post')
 end
