@@ -6,7 +6,7 @@ Scenario: As an Original Poster, I want to create a post
     Given There is a user, Jack
     And I sign in as Jack
     And I view the timeline
-    When I click on Create post
+    When I click on "Create post"
     And I enter content into the post form
     And I click on "Create Post"
     Then I should see the post appear on the timeline

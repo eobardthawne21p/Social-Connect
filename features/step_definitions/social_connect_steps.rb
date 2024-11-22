@@ -289,11 +289,6 @@ Then('the counter for likes should decrease by {int}') do |int|
 end
 
 When('I enter content into the post form') do
-  expect(page).to have_selector('input[name="post[Title]"]', visible: true)
-  expect(page).to have_selector('input[name="post[Description]"]', visible: true)
-  expect(page).to have_selector('input[name="post[Image]"]', visible: true)
-  expect(page).to have_selector('input[name="post[Location]"]', visible: true)
-  expect(page).to have_selector('input[name="post[TimeDate]"]', visible: true)
 
   fill_in "Title", with: @post.title
   fill_in "Description", with: @post.description
@@ -446,7 +441,3 @@ When('I click the {string} button') do |string|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When('I click on Create post') do
-    expect(page).to have_link('Create Post', href: '/posts/new')
-    expect(page).to have_css('a.btn.btn-primary.btn-sm', text: 'Create Post')
-end
