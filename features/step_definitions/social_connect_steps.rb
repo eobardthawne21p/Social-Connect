@@ -445,3 +445,7 @@ end
 Then('I should see my saved posts displayed') do
   pending # Write code here that turns the phrase above into concrete actions
 end
+
+Then('I should see the chatboard in a pop up') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
