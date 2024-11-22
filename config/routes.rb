@@ -18,6 +18,14 @@ Rails.application.routes.draw do
     end
   end
 
+  # Profiles
+  resources :profiles, only: [:show, :edit, :update] do
+    member do
+      get :show_original_posts
+      get :show_saved_posts
+    end
+  end
+
   # Admin namespace
   namespace :admin do
     get "manage_moderators", to: "users#manage_moderators", as: "manage_moderators"
@@ -36,6 +44,9 @@ Rails.application.routes.draw do
 
   get "login", to: "sessions#new"
   post "login", to: "sessions#create"
+
+  get "edit_profile", to: "users#edit_profile"
+  patch "update_profile", to: "users#update_profile"
 
   delete "logout", to: "sessions#destroy"
 

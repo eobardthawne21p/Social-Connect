@@ -10,6 +10,9 @@ class User
   field :password_digest, type: String
   field :birthday, type: Date
   field :role, type: String, default: "user"
+  field :profile_picture_url, type: String
+  field :bio, type: String
+  field :links, type: Array, default: []
 
   ROLES = %w[user moderator admin]
   validates :role, inclusion: { in: ROLES }
@@ -24,9 +27,14 @@ class User
   validates :password_confirmation, presence: true
   validates :birthday, presence: true
   validates :role, presence: true
+  validates :profile_picture_url, format: { with: URI::DEFAULT_PARSER.make_regexp, message: "must be a valid URL" }, allow_blank: true
+  validates :bio, length: { maximum: 300 }, allow_blank: true
+  validate :validate_links
+
 
   # Association that a user may have many posts
   has_many :posts
+  has_many :saved_posts, dependent: :destroy  
 
   # A user may have many comments
   has_many :chat_boards, dependent: :destroy
@@ -98,5 +106,19 @@ class User
   # Custom method to get posts the user is going to
   def going_posts
     Post.where(:id.in => self.goings.pluck(:post_id))
+  end
+
+  def profile_picture_url
+    self[:profile_picture_url].presence || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+  end
+
+  def validate_links
+    links.each do |link|
+      errors.add(:links, "#{link} is not a valid URL") unless link =~ URI::DEFAULT_PARSER.make_regexp
+    end
+  end
+
+  def saved_posts_associated
+    Post.where(:id.in => saved_posts.pluck(:post_id))
   end
 end
