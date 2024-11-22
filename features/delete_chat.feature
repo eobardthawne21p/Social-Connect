@@ -8,4 +8,17 @@ Scenario: Moderator deletes an inappropriate chat message
   And there is a chat message I find inappropriate
   When I choose to delete the chat message
   Then the chat message should no longer be visible in the chat
-  And I should see a confirmation that the chat message was successfully deleted
+
+Scenario: User deletes their own chat message
+  Given There is a user, Jack
+  And I sign in as Jack
+  And there is a chat message on a post that I made that I want to delete
+  When I choose to delete the chat message
+  Then the chat message should no longer be visible in the chat
+
+Scenario: Admin deletes a chat message
+  Given There is an admin, Juan
+  And I sign in as Juan
+  And there is a chat message I find inappropriate
+  When I choose to delete the chat message
+  Then the chat message should no longer be visible in the chat

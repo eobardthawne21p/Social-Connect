@@ -25,23 +25,9 @@ class SavedPostsController < ApplicationController
 
     respond_to do |format|
       if @saved_post.save
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(
-            "posts-section",
-            partial: "profiles/saved_posts",
-            locals: { saved_posts: current_user.saved_posts_associated }
-          )
-        end
-        format.html { redirect_to saved_posts_path, notice: "Post saved successfully." }
+        format.html { redirect_to @saved_post, notice: "Saved post was successfully created." }
         format.json { render :show, status: :created, location: @saved_post }
       else
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.append(
-            "alerts",
-            partial: "shared/alert",
-            locals: { message: "Failed to save the post." }
-          )
-        end
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @saved_post.errors, status: :unprocessable_entity }
       end
@@ -63,17 +49,10 @@ class SavedPostsController < ApplicationController
 
   # DELETE /saved_posts/1 or /saved_posts/1.json
   def destroy
-    @saved_post.destroy
+    @saved_post.destroy!
 
     respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
-          "posts-section",
-          partial: "profiles/saved_posts",
-          locals: { saved_posts: current_user.saved_posts_associated }
-        )
-      end
-      format.html { redirect_to saved_posts_path, status: :see_other, notice: "Post unsaved successfully." }
+      format.html { redirect_to saved_posts_path, status: :see_other, notice: "Saved post was successfully destroyed." }
       format.json { head :no_content }
     end
   end

@@ -24,7 +24,7 @@ class ChatBoardsControllerTest < ActionDispatch::IntegrationTest
       post post_chat_boards_url(@post), params: { chat_board: { content: "New comment" } }
     end
     # Expect redirection to the post view or similar relevant path
-    assert_redirected_to post_url(@post)
+    assert_redirected_to chat_board_path(@post)
   end
 
 

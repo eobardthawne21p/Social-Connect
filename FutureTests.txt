@@ -1,0 +1,97 @@
+Feature: Report post to moderators
+
+As a user, I want to report posts to moderators so that inappropriate content can be reviewed
+
+Scenario: As a user, I want to report posts to moderators
+  Given There is a user, Jack
+  And I sign in as Jack
+  And there is a post that I find inappropriate
+  When I choose to report the post to moderators
+  Then the post should be flagged for review by moderators
+  And the moderators should be able to see the report
+
+////////////////////////////////////////////////////////////////////////
+
+Feature: Report user to admin
+
+As a user I want to report another user to the admins so that inappropriate behavior can be restricted
+
+Scenario: As a user, I want to report a user to admins
+  Given There is a user, Jack
+  And I sign in as Jack
+  And there is a user displaying inappropriate behavior
+  When I choose to report the user to admins
+  Then the user should be flagged for review by admins
+
+Scenario: As a moderator, I want to report a user to admins
+  Given There is a moderator, Bob
+  And I sign in as Bob
+  And there is a user displaying inappropriate behavior
+  When I choose to report the user to admins
+  Then the user should be flagged for review by admins
+
+////////////////////////////////////////////////////////////////////////
+
+Scenario: As an Original Poster, I want to filter posts
+    Given There is a user, Jack
+    And I sign in as Jack
+    And There are posts with different categories
+    When I click on a filter option
+    Then I should only see posts that match the selected filter
+
+////////////////////////////////////////////////////////////////////////
+
+Feature: Tagging Others
+
+As a logged-in User, I should be able to tag others in comments
+
+Scenario: As a logged-in user, I should be able to tag others
+    Given There is a user, Jack
+    And I sign in as Jack
+    And There is a user, Jill
+    And I open the chatboard
+    When I tag Jill in a commnet
+    Then I should see that Jack is tagged in the comment
+
+////////////////////////////////////////////////////////////////////////
+
+Feature: viewing maps on each post
+
+As a logged-in user, I want to be able to see the option for maps in a new window so I can have safe directions
+
+Scenario: As a logged-in user, I want to view maps in posts
+    Given There is a user, Jack
+    And I sign in as Jack
+    And I view the timeline
+    And I select a post
+    When I click the 'maps' button
+    Then I should see maps to the event in a new window
+
+////////////////////////////////////////////////////////////////////////
+
+Feature: View Settings
+
+    As a logged-in user, I want to see settings to customize my experience
+
+    Scenario: As a logged-in user, I want to see settings
+        Given There is a user, Jack
+        And I sign in as Jack
+        And I can view posts on the timeline
+        And I click "Settings" link
+        Then I should see the settings page
+
+////////////////////////////////////////////////////////////////////////        
+
+Feature: Delete reported users
+
+As an admin I want to delete users that are reported by moderators so that I can maintain a safe and respectful platform
+
+Scenario: Admin deletes a user reported by a moderator
+  Given There is an admin, Juan
+  And I sign in as Juan
+  And There is a user, Jack
+  When I navigate to the "Reported Users" section
+  Then I should see a list of users reported by moderators
+  When I select on Jack and click the "Delete User" button
+  Then Jack should be deleted from the platform
+  And I should see a confirmation that Jack was successfully deleted
