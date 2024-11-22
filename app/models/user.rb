@@ -23,8 +23,8 @@ class User
   # Validations
   validates :name, presence: true
   validates :username, presence: true
-  validates :password, presence: true, confirmation: true
-  validates :password_confirmation, presence: true
+  validates :password, presence: true, confirmation: true, if: :password_required?
+  validates :password_confirmation, presence: true, if: :password_required?
   validates :birthday, presence: true
   validates :role, presence: true
   validates :profile_picture_url, format: { with: URI::DEFAULT_PARSER.make_regexp, message: "must be a valid URL" }, allow_blank: true
@@ -40,11 +40,11 @@ class User
   has_many :chat_boards, dependent: :destroy
 
   # Validations for secure passwords
-  validate :password_lower_case
-  validate :password_uppercase
-  validate :password_special_char
-  validate :password_contains_number
-  validate :password_length
+  validate :password_lower_case, if: :password_required?
+  validate :password_uppercase, if: :password_required?
+  validate :password_special_char, if: :password_required?
+  validate :password_contains_number, if: :password_required?
+  validate :password_length, if: :password_required?
 
   def password_uppercase
     return if password =~ /[A-Z]/
@@ -91,6 +91,7 @@ class User
   def admin?
     role == "admin"
   end
+
   # Associations
   has_many :likes, dependent: :destroy  # A user can have many likes
   has_many :goings, dependent: :destroy  # A user can have many goings
@@ -110,6 +111,11 @@ class User
 
   def profile_picture_url
     self[:profile_picture_url].presence || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+  end
+
+  # Only require password on creation or if it's explicitly being changed
+  def password_required?
+    new_record? || password.present?
   end
 
   def validate_links

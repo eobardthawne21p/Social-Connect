@@ -60,7 +60,11 @@ class SavedPostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_saved_post
-      @saved_post = SavedPost.find(params[:id])
+      @saved_post = SavedPost.where(id: params[:id]).first
+      unless @saved_post
+        flash[:alert] = "Saved post not found."
+        redirect_to saved_posts_path
+      end
     end
 
     # Only allow a list of trusted parameters through.
