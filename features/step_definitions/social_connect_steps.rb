@@ -168,14 +168,6 @@ Then('I should see a confirmation that the post was successfully approved') do
   expect(page).to have_content("Post was successfully approved.")
 end
 
-Then('I should see a list of posts on the platform') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should be able to scroll through and browse the posts') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 When('I reject the post') do
   click_on "Reject"
 end
@@ -329,43 +321,20 @@ Then('the post will be added to my saved posts') do
 end
 
 Given('there are multiple posts with various keywords') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When('I use the search bar') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When('I enter a search query') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see a list of posts matching my query') do
-  pending # Write code here that turns the phrase above into concrete actions
+  @post = create(:post, title: "Test1", description: "This is a test for searching. Searching is so fun", image: "https://editorial.uefa.com/resources/028d-1ad79495f1c0-f00d4da4f16e-1000/badges.jpeg", location: "Pittsburgh, PA", timeDate: "Wed Feb 21 2023 01:03:25 GMT-0500 (EST)", likes: 10, user: @jack, approved: true)
+  @post = create(:post, title: "Test2", description: "This is yet another test for seaching. Please have fun while searching. It is such an adventure", image: "https://editorial.uefa.com/resources/028d-1ad79495f1c0-f00d4da4f16e-1000/badges.jpeg", location: "Miami, FL", timeDate: "Wed Jan 10 2005 01:03:25 GMT-0500 (EST)", likes: 10, user: @jack, approved: true)
 end
 
 Then('I should see the search bar') do
   expect(page).to have_selector('input[name="query"]', visible: true)
 end
 
-Given('There are posts with different categories') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Given('There is a user, Jill') do
   @jill = create(:user, name: 'Jill', username: 'jill', password: 'Password123@', password_confirmation: 'Password123@', birthday: '1990-01-01')
 end
 
-Given('I open the chatboard') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given('I select a post') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Then('I should see the posts I have created') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_content('UEFA Champions League Final')
 end
 
 When('I click on {string}') do |string|
@@ -403,18 +372,7 @@ end
 
 Given('I can view posts on the timeline') do
   expect(page).to have_css('.card-body.d-flex.flex-column')
-end
-
-Then('I will see a pop-up with the option for the chatboard for the post') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given('I see a button {string}') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see buttons for {string} and {string}') do |string, string2|
-  pending # Write code here that turns the phrase above into concrete actions
+  create(:saved_post, user: @jack, post: @post)
 end
 
 Given('there is a chat message on a post that I made that I want to delete') do
@@ -442,20 +400,53 @@ Then('the post will be removed from my saved posts') do
   expect(@jack.saved_posts.where(post: @post).exists?).to be false
 end
 
-When('I click the {string} button') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 When('I click on the dropdown menu') do
-  pending # Write code here that turns the phrase above into concrete actions
+  find('button#postsDropdown').click
 end
 
 Then('I should see my saved posts displayed') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_content('UEFA Champions League Final')
 end
 
 Then('I should see the chatboard in a pop up') do
   within('.modal.fade') do
     expect(page).to have_css('.modal-title', text: 'Chat')
+  end
+end
+
+Given('The following posts exist:') do |table|
+  table.hashes.each do |post|
+    create(:post,
+      title: post['title'],
+      description: post['description'],
+      location: post['location'],
+      timeDate: post['timeDate'],
+      likes: 10,
+      user: @jack,
+      approved: true
+    )
+  end
+end
+
+When('I enter a search query for {string}') do |query|
+  fill_in 'query', with: query
+  click_button 'Search'
+end
+
+Then('I should see the following posts:') do |table|
+  expected_titles = table.raw.flatten
+  expected_titles.each do |title|
+    expect(page).to have_content(title)
+  end
+  unexpected_titles = Post.pluck(:title) - expected_titles
+  unexpected_titles.each do |title|
+    expect(page).not_to have_content(title)
+  end
+end
+
+Then('I should not see the following posts:') do |table|
+  unexpected_titles = table.raw.flatten
+  unexpected_titles.each do |title|
+    expect(page).not_to have_content(title)
   end
 end
