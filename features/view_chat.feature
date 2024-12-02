@@ -6,7 +6,7 @@ Scenario: As a logged-in user, I want to view the chatboard in posts
     Given There is a user, Jack
     And I sign in as Jack
     And I view the timeline
-    And I select a post
-    When I click the 'chatbaord' button
-    Then I should see the chatboard in a new window
+    And I am viewing a post
+    And I click on 'Open Chat'
+    Then I should see the chatboard in a pop up
 

@@ -73,7 +73,11 @@ class ChatBoardsController < ApplicationController
   end
 
   def set_chat_board
-    @chat_board = ChatBoard.find(params[:id])
+    @chat_board = ChatBoard.find_by(id: params[:id]) || ChatBoard.find_by(post_id: params[:post_id], user_id: current_user.id)
+    if @chat_board.nil?
+      flash[:alert] = "Chat board not found."
+      redirect_to posts_path
+    end
   end
 
   def authorize_user!

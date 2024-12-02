@@ -6,6 +6,6 @@ Scenario: As an Original Poster, I want to send a message on a post
     Given There is a user, Jack
     And I sign in as Jack
     And I am viewing a post
-    When I enter a message in the comment section
-    And I click "Send"
+    And I click 'Open Chat'
+    When I enter a message in the comment section and click "Chat"
     Then my message should appear under the post
