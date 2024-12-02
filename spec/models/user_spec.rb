@@ -42,4 +42,25 @@ RSpec.describe User, type: :model do
     user = FactoryBot.build(:user, name: "Tester", username: "tester123", password: "Tester123#", password_confirmation: "Tester123@", birthday: "2000-02-22")
     expect(user).not_to be_valid
   end
+
+   # Profile picture URL format validation
+   it "is not valid with an invalid profile picture URL" do
+    user = FactoryBot.build(:user, profile_picture_url: 'invalid_url')
+    expect(user).not_to be_valid
+    expect(user.errors[:profile_picture_url]).to include("must be a valid URL")
+  end
+
+  # Bio length validation
+  it "is not valid with a bio longer than 300 characters" do
+    user = FactoryBot.build(:user, bio: 'a' * 301)
+    expect(user).not_to be_valid
+    expect(user.errors[:bio]).to include("is too long (maximum is 300 characters)")
+  end
+
+  # Link validation
+  it "is not valid with an invalid link" do
+    user = FactoryBot.build(:user, links: [ 'invalid_link' ])
+    expect(user).not_to be_valid
+    expect(user.errors[:links]).to include("invalid_link is not a valid URL")
+  end
 end

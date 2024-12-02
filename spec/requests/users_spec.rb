@@ -1,7 +1,5 @@
 require 'rails_helper'
 
-# frozen_string_literal: true
-
 RSpec.describe "Users", type: :request do
   context "signing up" do
     it "signing up successfully" do
@@ -120,6 +118,54 @@ RSpec.describe "Users", type: :request do
 
       expect(response).to redirect_to(login_path)
       expect(flash[:notice]).to match(/Logged out successfully/)
+    end
+  end
+
+  context "as admin" do
+    before do
+      admin = FactoryBot.create(:user, role: 'admin')
+      sign_in admin
+    end
+
+    it "accesses moderator dashboard" do
+      get moderator_dashboard_path
+      expect(response).to have_http_status(302)
+    end
+
+    it "accesses manage moderators" do
+      get admin_manage_moderators_path
+      expect(response).to have_http_status(302)
+    end
+  end
+
+  context "as moderator" do
+    before do
+      moderator = FactoryBot.create(:user, role: 'moderator')
+      sign_in moderator
+    end
+
+    it "accesses moderator dashboard" do
+      get moderator_dashboard_path
+      expect(response).to have_http_status(302)
+    end
+  end
+
+  context "as regular user" do
+    before do
+      user = FactoryBot.create(:user, role: 'user')
+      sign_in user
+    end
+
+    it "does not permit access to moderator dashboard" do
+      get moderator_dashboard_path
+      expect(response).to redirect_to(root_path)
+      expect(flash[:alert]).to match(/You are not authorized to perform this action./)
+    end
+
+    it "does not permit access to manage moderators" do
+      get admin_manage_moderators_path
+      expect(response).to redirect_to(root_path)
+      expect(flash[:alert]).to match(/You are not authorized to perform this action./)
     end
   end
 end

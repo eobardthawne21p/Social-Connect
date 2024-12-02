@@ -1,4 +1,5 @@
 class ChatBoardsController < ApplicationController
+  before_action :require_login
   before_action :set_chat_board, only: %i[show edit update destroy]
   before_action :authorize_user!, only: [ :destroy ]
 
