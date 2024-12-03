@@ -31,6 +31,21 @@ RSpec.describe "Posts", type: :request do
       expect(response).to redirect_to(login_path)
       expect(flash[:alert]).to match(/You must be logged in or sign up to access this page/)
     end
+
+    it "is redirectred to the login page when attempting to access saved post list" do
+      get saved_posts_path
+
+      expect(response).to redirect_to(login_path)
+      expect(flash[:alert]).to match(/You must be logged in or sign up to access this page/)
+    end
+
+    it "is redirected to the login page when attempting to save a post" do
+      post = FactoryBot.create(:post)
+      post saved_posts_path, params: { saved_post: { post_id: post.id } }
+
+      expect(response).to redirect_to(login_path)
+      expect(flash[:alert]).to match(/You must be logged in or sign up to access this page/)
+    end
   end
 
   context "signed-in user" do
@@ -46,14 +61,14 @@ RSpec.describe "Posts", type: :request do
       get edit_post_path(post)
 
       expect(response).to redirect_to(root_path)
-      expect(flash[:alert]).to match(/You are not authorized to edit this post/)
+      expect(flash[:alert]).to match(/You are not authorized to perform this action./)
     end
 
     it "is redirected when trying to delete another user's post" do
       delete post_path(post)
 
       expect(response).to redirect_to(root_path)
-      expect(flash[:alert]).to match(/You are not authorized to delete this post/)
+      expect(flash[:alert]).to match(/You are not authorized to perform this action./)
     end
   end
 end

@@ -1,5 +1,6 @@
 class SavedPostsController < ApplicationController
   before_action :set_saved_post, only: %i[ show edit update destroy ]
+  before_action :require_login
 
   # GET /saved_posts or /saved_posts.json
   def index
