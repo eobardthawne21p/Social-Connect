@@ -1,0 +1,13 @@
+<%= turbo_frame_tag dom_id(post, :bookmark) do %>
+  <p>
+    <% if current_user && current_user.saved_posts.where(post: post).exists? %>
+      <%= button_to unsave_post_path(post), method: :post, data: { turbo_frame: dom_id(post, :bookmark) }, class: "btn btn-link p-0 m-0 unsave-button" do %>
+        <i class="bi bi-bookmark-fill fa-2x text-danger"></i>
+      <% end %>
+    <% elsif current_user %>
+      <%= button_to save_post_path(post), method: :post, data: { turbo_frame: dom_id(post, :bookmark) }, class: "btn btn-link p-0 m-0 save-button" do %>
+        <i class="bi bi-bookmark fa-2x text-dark"></i>
+      <% end %>
+    <% end %>
+  </p>
+<% end %>

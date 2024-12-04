@@ -1,0 +1,15 @@
+<%= turbo_frame_tag "going-frame" do %>
+  <p>Going: <span id="going-count"><%= @post.goings.count %></span></p>
+
+  <% if current_user.goings.where(post: @post).exists? %>
+    
+    <%= button_to(not_going_post_path(@post), method: :post, data: { turbo_frame: "going-frame" }, class: "btn btn-link p-0 m-0 not_going-button") do %>
+      <i class="fas fa-user-slash fa-2x text-secondary"></i> 
+    <% end %>
+  <% else %>
+    
+    <%= button_to(going_post_path(@post), method: :post, data: { turbo_frame: "going-frame" }, class: "btn btn-link p-0 m-0 going-button") do %>
+      <i class="fas fa-user-check fa-2x text-primary"></i> 
+    <% end %>
+  <% end %>
+<% end %>

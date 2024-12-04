@@ -1,0 +1,32 @@
+<div class="mb-5 text-body">
+  <p class="lead fw-normal mb-0">Original Posts</p>
+  <div class="p-4 bg-body-tertiary">
+    <% if posts.any? %>
+      <% posts.each do |post| %>
+        <div class="mb-3 card">
+          <div class="row g-0">
+            <div class="col-md-4">
+
+              <img 
+                src="<%= post.image.presence || 'https://via.placeholder.com/150' %>" 
+                class="img-fluid rounded-start" 
+                alt="Post Image"
+                style="height: 100%; object-fit: cover;"
+              >
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h6 class="card-title"><%= post.title %></h6>
+                <p class="small text-muted"><%= post.created_at.strftime('%B %d, %Y') %></p>
+                <p class="card-text"><%= truncate(post.description, length: 100) %></p>
+                <a href="<%= post_path(post) %>" data-turbo-frame="_top" class="btn btn-link">Read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-muted">No posts to display.</p>
+    <% end %>
+  </div>
+</div>
