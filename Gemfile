@@ -27,7 +27,7 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
-gem "actionmailer", "~> 7.1.4.1"
+gem "actionmailer", "~> 7.1.4.2"
 gem "actionpack", "~> 7.1.4.1"
 gem "actiontext", "~> 7.1.4.1"
 
