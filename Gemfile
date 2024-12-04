@@ -9,7 +9,7 @@ ruby file: ".ruby-version"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.4.1"
 # Mongoid Gem to use MongoDb with Rails
-gem "mongoid", "~> 8.0"
+gem "mongoid", "~> 9.0"
 # Mongo Driver gem
 gem "mongo", "~> 2"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
