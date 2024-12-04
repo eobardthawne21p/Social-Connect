@@ -28,7 +28,7 @@ gem "jbuilder"
 # gem "redis", ">= 4.0.1"
 
 gem "actionmailer", "~> 7.1.4.1"
-gem "actionpack", "~> 7.1.4.1"
+gem "actionpack", "~> 7.1.4.2"
 gem "actiontext", "~> 7.1.4.1"
 
 # rubocop gem for lint CI
