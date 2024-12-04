@@ -7,7 +7,7 @@ source "https://rubygems.org"
 ruby file: ".ruby-version"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.4.1"
+gem 'rails', '8.0.0'
 # Mongoid Gem to use MongoDb with Rails
 gem "mongoid", "~> 8.0"
 # Mongo Driver gem
@@ -27,9 +27,9 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
-gem "actionmailer", "~> 7.1.4.1"
-gem "actionpack", "~> 7.1.4.1"
-gem "actiontext", "~> 7.1.4.1"
+gem "actionmailer", "~> 8.0.0"
+gem "actionpack", "~> 8.0.0"
+gem "actiontext", "~> 8.0.0"
 
 # rubocop gem for lint CI
 gem "rubocop", require: false
