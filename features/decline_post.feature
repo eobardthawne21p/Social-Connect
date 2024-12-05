@@ -9,5 +9,5 @@ Scenario: Moderator rejects a post
   When I choose to review the post
   Then I should see the content of the post
   When I reject the post
-  Then the post should not be published to the main feed
   And I should see a confirmation that the post was successfully rejected
+  Then the post should not be published to the main feed

@@ -159,26 +159,26 @@ When('I approve the post') do
   click_on "Approve"
 end
 
+Then('I should see a confirmation that the post was successfully approved') do
+  expect(page).to have_content("Post was successfully approved.")
+end
+
 Then('the post should be published to the main feed') do
   visit root_path
   expect(page).to have_content(@post.title)
-end
-
-Then('I should see a confirmation that the post was successfully approved') do
-  expect(page).to have_content("Post was successfully approved.")
 end
 
 When('I reject the post') do
   click_on "Reject"
 end
 
+Then('I should see a confirmation that the post was successfully rejected') do
+  expect(page).to have_content("Post was successfully rejected.")
+end
+
 Then('the post should not be published to the main feed') do
   visit root_path
   expect(page).to_not have_content(@post.title)
-end
-
-Then('I should see a confirmation that the post was successfully rejected') do
-  expect(page).to have_content("Post was successfully rejected.")
 end
 
 Given('there is a chat message I find inappropriate') do
