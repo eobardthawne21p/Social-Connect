@@ -29,7 +29,7 @@ class UsersController < ApplicationController
         format.html { redirect_to root_path, notice: "Account was successfully created!" }
         format.json { render :show, status: :created, location: @user }
       else
-        flash[:alert] = @user.errors.full_messages.to_sentence
+        flash.now[:alert] = @user.errors.full_messages.to_sentence
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end

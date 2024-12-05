@@ -1,16 +1,14 @@
 <h1 class="text-center my-4">Welcome to Social Connect</h1>
 
-<% if flash[:notice] %>
-  <div class="alert alert-success">
-    <%= flash[:notice] %>
-  </div>
-<% end %>
+<div class="position-fixed" style="top: 60px; right: 15px; z-index: 1050; min-width: 250px;">
+  <% if flash[:notice] || flash[:alert] %>
+    <div class="alert <%= flash[:notice] ? 'alert-success' : 'alert-danger' %> alert-dismissible fade show shadow-sm" role="alert">
+      <%= flash[:notice] || flash[:alert] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+</div>
 
-<% if flash[:alert] %>
-  <div class="alert alert-danger">
-    <%= flash[:alert] %>
-  </div>
-<% end %>
 
 <% if !logged_in? %>
   <div class="alert alert-info text-center">
