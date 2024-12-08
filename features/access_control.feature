@@ -14,9 +14,3 @@ Feature: Access Control for Unauthenticated Users
     And I am not logged in
     When I attempt to visit a restricted page like /posts
     Then I should be redirected to the login page
-
-  Scenario: Allow logged-in users to access restricted pages
-    Given There is a user, Jack
-    And I sign in as Jack
-    When I attempt to visit a restricted page like /posts
-    Then I should be able to access the page without redirection

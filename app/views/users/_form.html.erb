@@ -1,6 +1,6 @@
 <!-- Error Messages -->
 <% if user.errors.any? %>
-  <div class="position-fixed" style="top: 70px; right: 15px; z-index: 1050; min-width: 300px;">
+  <div class="position-fixed" style="top: 100px; right: 15px; z-index: 1050; min-width: 300px;">
     <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
       <h4 class="alert-heading">Oops! <%= pluralize(user.errors.count, "error") %> occurred:</h4>
       <ul class="mb-0">

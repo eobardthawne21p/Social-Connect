@@ -4,17 +4,19 @@ class ProfilesController < ApplicationController
 
   def update
     links = params[:user][:links].split("\n").map(&:strip).reject(&:blank?) if params[:user][:links]
-    if password_params_present?
-      if @user.authenticate(params[:user][:current_password])
-        if params[:user][:password] == params[:user][:current_password]
+    if params[:user][:current_password].present?
+      unless @user.authenticate(params[:user][:current_password])
+        @user.errors.add(:current_password, "is incorrect")
+      else
+        if params[:user][:password].blank? || params[:user][:password_confirmation].blank?
+          @user.errors.add(:password, "and confirmation must be provided when updating your password.")
+        elsif params[:user][:password] == params[:user][:current_password]
           @user.errors.add(:password, "cannot be the same as your current password.")
-        end
-        if params[:user][:password] != params[:user][:password_confirmation]
+        elsif params[:user][:password] != params[:user][:password_confirmation]
           @user.errors.add(:password_confirmation, "does not match the new password.")
         end
-      else
-        @user.errors.add(:current_password, "is incorrect")
       end
+
       if @user.errors.any?
         flash.now[:alert] = "There were errors with your submission."
         render :edit and return

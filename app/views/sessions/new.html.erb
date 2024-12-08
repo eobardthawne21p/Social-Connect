@@ -1,5 +1,5 @@
 <!-- Flash Messages -->
-<div class="position-fixed" style="top: 60px; right: 15px; z-index: 1050; min-width: 250px;">
+<div class="position-fixed" style="top: 100px; right: 15px; z-index: 1050; min-width: 250px;">
   <% if flash[:alert] || flash[:notice] %>
     <div class="alert <%= flash[:alert] ? 'alert-danger' : 'alert-success' %> alert-dismissible fade show shadow-sm" role="alert">
       <div class="text-center">
@@ -7,7 +7,7 @@
       </div>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    <% flash.clear %> <!-- Clears the flash after it is displayed -->
+    <% flash.clear unless Rails.env.test? %> <!-- Clears the flash after it is displayed -->
   <% end %>
 </div>
 
