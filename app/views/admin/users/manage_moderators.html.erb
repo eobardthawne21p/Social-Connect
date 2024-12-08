@@ -1,32 +1,46 @@
-<% if flash[:notice] %>
-  <div class="alert alert-success"><%= flash[:notice] %></div>
-<% elsif flash[:alert] %>
-  <div class="alert alert-danger"><%= flash[:alert] %></div>
-<% end %>
+<div class="position-fixed" style="top: 100px; right: 15px; z-index: 1050; min-width: 250px;">
+  <% if flash[:alert] || flash[:notice] %>
+    <div class="alert <%= flash[:alert] ? 'alert-danger' : 'alert-success' %> alert-dismissible fade show shadow-sm" role="alert">
+      <div class="text-center">
+        <%= flash[:alert] || flash[:notice] %>
+      </div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% flash.clear unless Rails.env.test? %> <!-- Clears the flash after it is displayed -->
+  <% end %>
+</div>
 
-<h1>Manage Moderators</h1>
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Manage Moderators</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Role</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.role %></td>
-        <td>
-          <% if user.role == 'moderator' %>
-            <%= button_to 'Remove Moderator', admin_remove_moderator_path(user), method: :delete, data: { confirm: 'Are you sure?' } %>
-          <% else %>
-            <%= button_to 'Add Moderator', admin_add_moderator_path(user_id: user.id), method: :post, data: { turbo: false } %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+          <th class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.name %></td>
+            <td>
+              <span class="badge <%= user.role == 'moderator' ? 'bg-primary' : user.role == 'admin' ? 'bg-danger' : 'bg-secondary' %>">
+                <%= user.role.capitalize %>
+              </span>
+            </td>
+            <td class="text-center">
+              <% if user.role == 'moderator' %>
+                <%= button_to 'Remove Moderator', admin_remove_moderator_path(user), method: :delete, class: 'btn btn-outline-danger btn-sm', data: { confirm: 'Are you sure?' } %>
+              <% else %>
+                <%= button_to 'Add Moderator', admin_add_moderator_path(user_id: user.id), method: :post, class: 'btn btn-outline-success btn-sm', data: { turbo: false } %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
