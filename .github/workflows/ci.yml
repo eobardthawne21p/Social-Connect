@@ -75,9 +75,6 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Debug environment variables
-        run: env | grep MONGO
-
       - name: Run tests
         env:
           RAILS_ENV: test
