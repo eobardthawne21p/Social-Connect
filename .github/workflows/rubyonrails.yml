@@ -22,8 +22,9 @@ jobs:
           - "27017:27017"
         options: >-
           --quiet
-          --bind_ip 0.0.0.0
-          --nojournal
+        command: >
+          mongod --bind_ip 0.0.0.0 --nojournal
+
     env:
       RAILS_ENV: test
       MONGO_USERNAME: socialconnectTest
