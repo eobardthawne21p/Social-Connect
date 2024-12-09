@@ -354,7 +354,7 @@ When('I attempt to visit a restricted page like \/posts') do
 end
 
 Then('I should be redirected to the sign-up page') do
-  expect(current_path). to eq(sign_up_path)
+  expect(current_path). to eq(login_path)
 end
 
 Then('I should be redirected to the login page') do

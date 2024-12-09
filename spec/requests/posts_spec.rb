@@ -49,24 +49,22 @@ RSpec.describe "Posts", type: :request do
   end
 
   context "signed-in user" do
-    user1 = FactoryBot.create(:user)
-    user2 = FactoryBot.create(:user)
-    post = FactoryBot.create(:post, user: user2)
+    let!(:user1) { FactoryBot.create(:user) }
+    let!(:user2) { FactoryBot.create(:user) }
+    let!(:user_post) { FactoryBot.create(:post, user: user2) }
 
     before do
       post login_path, params: { username: user1.username, password: "Password@1" }
     end
 
     it "is redirected when trying to edit another user's post" do
-      get edit_post_path(post)
-
+      get edit_post_path(user_post)
       expect(response).to redirect_to(root_path)
       expect(flash[:alert]).to match(/You are not authorized to perform this action./)
     end
 
     it "is redirected when trying to delete another user's post" do
-      delete post_path(post)
-
+      delete post_path(user_post)
       expect(response).to redirect_to(root_path)
       expect(flash[:alert]).to match(/You are not authorized to perform this action./)
     end

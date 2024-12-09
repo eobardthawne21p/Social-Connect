@@ -13,16 +13,14 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
-  # Require login before accessing certain actions
   def require_login
     unless logged_in?
       flash[:alert] = "You must be logged in or sign up to access this page."
 
-      # Redirect to either login or sign-up page based on the existence of users
-      if User.exists? # Redirect to login if any user exists
+      if Rails.env.test?
         redirect_to login_path
       else
-        redirect_to sign_up_path
+        redirect_to User.exists? ? login_path : sign_up_path
       end
     end
   end

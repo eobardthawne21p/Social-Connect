@@ -1,6 +1,6 @@
 module AuthHelpers
   def sign_in(user)
-    post login_path, params: { username: user.username, password: user.password }
+    post login_path, params: { username: user.username, password: "Password@1" }
   end
 end
 
