@@ -8,7 +8,7 @@ development:
 production:
   clients:
     default:
-      uri: mongodb+srv://socialConnectProd:<%= ENV['MONGO_PASSWORD_PROD'] %>@prodsc.falgt.mongodb.net/SocialConnectProd.ProdSC?retryWrites=true&w=majority&appName=ProdSC
+      uri: mongodb+srv://socialConnectProd:<%= ENV['MONGO_PASSWORD_PROD'] %>@prodsc.falgt.mongodb.net/SocialConnectProd?retryWrites=true&w=majority&authSource=admin
       options:
         server_selection_timeout: 5
 
