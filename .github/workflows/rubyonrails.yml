@@ -38,8 +38,6 @@ jobs:
         run: |
           echo "MONGO_USERNAME=socialconnectTest" >> .env
           echo "MONGO_PASSWORD_TEST=${{ secrets.MONGO_PASSWORD_TEST }}" >> .env
-      - name: Precompile assets
-        run: bin/rails assets:precompile
       - name: Run tests
         run: bin/rake
 
