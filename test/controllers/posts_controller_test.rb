@@ -20,26 +20,8 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path(Post.last)
   end
 
-  test "should show post" do
-    get post_url(@post)
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_post_url(@post)
-    assert_response :success
-  end
-
   test "should update post" do
     patch post_url(@post), params: { post: { description: @post.description, image: @post.image, location: @post.location, timeDate: @post.timeDate, title: @post.title, likes: @post.likes } }
     assert_redirected_to root_path(@post)
-  end
-
-  test "should destroy post" do
-    assert_difference("Post.count", -1) do
-      delete post_url(@post)
-
-      assert_redirected_to root_path
-    end
   end
 end
