@@ -62,5 +62,11 @@ RSpec.describe "Posts", type: :request do
       expect(response).to redirect_to(root_path)
       expect(flash[:alert]).to match(/You are not authorized to perform this action./)
     end
+
+    it "is redirected when trying to delete another user's post" do
+      delete post_path(user_post)
+      expect(response).to redirect_to(root_path)
+      expect(flash[:alert]).to match(/You are not authorized to perform this action./)
+    end
   end
 end
