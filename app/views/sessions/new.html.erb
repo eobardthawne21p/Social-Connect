@@ -24,7 +24,14 @@
 
       <div class="mb-3">
         <%= form.label :password, class: "form-label" %>
-        <%= form.password_field :password, class: "form-control", placeholder: "Password" %>
+        <div class="input-group">
+          <%= form.password_field :password, id: "password", class: "form-control", placeholder: "Password" %>
+          <span class="input-group-text">
+            <button type="button" id="togglePassword" class="btn p-0 border-0 bg-transparent">
+              <i id="togglePasswordIcon" class="bi bi-eye"></i>
+            </button>
+          </span>
+        </div>
       </div>
 
       <div class="d-grid">
@@ -37,3 +44,20 @@
     <% end %>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordField = document.getElementById("password");
+    const togglePasswordIcon = document.getElementById("togglePasswordIcon");
+
+    togglePassword.addEventListener("click", () => {
+      const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+      passwordField.setAttribute("type", type);
+
+      // Change the icon class
+      togglePasswordIcon.classList.toggle("bi-eye");
+      togglePasswordIcon.classList.toggle("bi-eye-slash");
+    });
+  });
+</script>
