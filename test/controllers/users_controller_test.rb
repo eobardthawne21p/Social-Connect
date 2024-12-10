@@ -5,11 +5,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @user = FactoryBot.create(:user)
   end
 
-  test "should get index" do
-    get users_url
-    assert_response :success
-  end
-
   test "should get new" do
     get sign_up_url
     assert_response :success

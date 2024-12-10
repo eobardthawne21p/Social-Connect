@@ -123,36 +123,36 @@ RSpec.describe "Users", type: :request do
 
   context "as admin" do
     before do
-      admin = FactoryBot.create(:user, role: 'admin')
+      admin = FactoryBot.create(:user, :admin)
       sign_in admin
     end
 
     it "accesses moderator dashboard" do
       get moderator_dashboard_path
-      expect(response).to have_http_status(302)
+      expect(response).to have_http_status(200)
     end
 
     it "accesses manage moderators" do
       get admin_manage_moderators_path
-      expect(response).to have_http_status(302)
+      expect(response).to have_http_status(200)
     end
   end
 
   context "as moderator" do
     before do
-      moderator = FactoryBot.create(:user, role: 'moderator')
+      moderator = FactoryBot.create(:user, :moderator)
       sign_in moderator
     end
 
     it "accesses moderator dashboard" do
       get moderator_dashboard_path
-      expect(response).to have_http_status(302)
+      expect(response).to have_http_status(200)
     end
   end
 
   context "as regular user" do
     before do
-      user = FactoryBot.create(:user, role: 'user')
+      user = FactoryBot.create(:user)
       sign_in user
     end
 

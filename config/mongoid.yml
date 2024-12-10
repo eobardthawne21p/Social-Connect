@@ -8,13 +8,13 @@ development:
 production:
   clients:
     default:
-      uri: mongodb+srv://socialConnectProd:<%= ENV['MONGO_PASSWORD_PROD'] %>@prodsc.falgt.mongodb.net/?retryWrites=true&w=majority&appName=ProdSC
+      uri: mongodb+srv://socialConnectProd:<%= ENV['MONGO_PASSWORD_PROD'] %>@prodsc.falgt.mongodb.net/SocialConnectProd?retryWrites=true&w=majority&authSource=admin
       options:
         server_selection_timeout: 5
 
 test:
   clients:
     default:
-      uri: mongodb+srv://socialconnectTest:<%= ENV['MONGO_PASSWORD_TEST'] %>@socialconnecttest.p9ssd.mongodb.net/social_connect_test?retryWrites=true&w=majority&appName=SocialConnectTest
+      uri: mongodb+srv://socialconnectTest:<%= ENV['MONGO_PASSWORD_TEST'] %>@socialconnecttest.p9ssd.mongodb.net/social_connect_test?retryWrites=true&w=majority&authSource=admin&appName=SocialConnectTest
       options:
         server_selection_timeout: 5 
