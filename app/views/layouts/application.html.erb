@@ -80,10 +80,10 @@
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to 'Sign Up', sign_up_path, class: 'btn btn-outline-primary me-2' %>
+            <%= link_to 'Sign Up', sign_up_path, data: { turbo: false },class: 'btn btn-outline-primary me-2' %>
           </li>
           <li class="nav-item">
-            <%= link_to 'Login', login_path, class: 'btn btn-outline-light' %>
+            <%= link_to 'Login', login_path, data: { turbo: false }, class: 'btn btn-outline-light' %>
           </li>
         <% end %>
       </ul>
