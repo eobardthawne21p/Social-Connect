@@ -17,7 +17,7 @@
   <div class="card shadow-sm p-4" style="max-width: 500px; width: 100%;">
     <h1 class="text-center mb-4">Sign Up</h1>
 
-    <%= form_with(model: user) do |form| %>
+    <%= form_with(model: user, url: sign_up_path, data: { turbo: false }) do |form| %>
       <div class="mb-3">
         <%= form.label :name, class: "form-label" %>
         <%= form.text_field :name, class: "form-control", placeholder: "Name" %>
