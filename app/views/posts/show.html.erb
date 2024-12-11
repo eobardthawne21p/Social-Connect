@@ -54,7 +54,7 @@
           </div>
         <% end %>
         <p><strong>Location:</strong> <%= @post.location %></p>
-        <p><strong>Date and Time:</strong> <%= @post.timeDate %></p>
+        <p><strong>Date and Time:</strong> <%= @post.timeDate.strftime("%B %d, %Y at %I:%M %p") if @post.timeDate.present? %></p>
 
         <!-- Tags -->
         <p><strong>Tags:</strong></p>
