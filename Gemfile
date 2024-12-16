@@ -84,4 +84,4 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "turbo_power", "~> 0.6.2"
+gem "turbo_power", "~> 0.7.0"
