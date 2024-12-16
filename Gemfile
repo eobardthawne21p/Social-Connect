@@ -7,7 +7,7 @@ source "https://rubygems.org"
 ruby file: ".ruby-version"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "8.0.0"
+gem "rails", "8.0.1"
 # Mongoid Gem to use MongoDb with Rails
 gem "mongoid", "~> 8.0"
 # Mongo Driver gem
